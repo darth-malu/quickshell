@@ -1,4 +1,5 @@
 import Quickshell // for PanelWindow
+import Quickshell.Io            // for process
 import QtQuick // for Text
 
 PanelWindow {
@@ -8,12 +9,21 @@ PanelWindow {
     right: true
   }
 
-  implicitHeight: 30
+  implicitHeight: 20
 
   Text {
+    id: clock
     // center the bar in its parent component (the window)
     anchors.centerIn: parent
 
     text: "hello world"
+
+      Process {
+          command: ["uptime"]
+          running: true
+          stdout: StdioCollector {
+              onStreamFinished: clock.text  = this.text
+          }
+      }
   }
 }
