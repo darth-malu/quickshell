@@ -12,18 +12,32 @@ PanelWindow {
   implicitHeight: 20
 
   Text {
-    id: clock
-    // center the bar in its parent component (the window)
+    id: dateProc
+
     anchors.centerIn: parent
 
-    text: "hello world"
 
       Process {
-          command: ["uptime"]
+          command: ["date"]
           running: true
           stdout: StdioCollector {
-              onStreamFinished: clock.text  = this.text
+              onStreamFinished: dateProc.text  = this.text
           }
+      }
+
+      Timer {
+         //1000 ms is 1 s
+          interval: 1000
+
+          // start timer immediately
+          running: true
+
+          //run the timer again when it ends
+          repeat: true
+
+          // when the timer is triggered, set the running property of the
+          // process to true, which reruns it if stopped.
+          onTriggered: dateProc.running = true
       }
   }
 }
