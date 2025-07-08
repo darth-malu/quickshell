@@ -14,14 +14,16 @@ PanelWindow {
   Text {
     id: dateProc
 
+    /* font.pointSize:  40; font.bold: true */
+
     anchors.centerIn: parent
 
 
-      Process {
-          command: ["date"]
-          running: true
-          stdout: StdioCollector {
-              onStreamFinished: dateProc.text  = this.text
+      Process {                 //Process management object
+          command: ["date"]     // every arg in its own string
+          running: true         // run the command immediately
+          stdout: StdioCollector { // process the stdout stream using a StdioCollector Use StdioCollector to retrieve the text the process sends to stdout.
+              onStreamFinished: dateProc.text  = text  // Listen for the streamFinished signal, which is sent when the process closes stdout or exits.
           }
       }
 
@@ -35,9 +37,7 @@ PanelWindow {
           //run the timer again when it ends
           repeat: true
 
-          // when the timer is triggered, set the running property of the
-          // process to true, which reruns it if stopped.
-          onTriggered: dateProc.running = true
+          onTriggered: dateProc.running = true // when the timer is triggered, set the running property of the process to true, which reruns it if stopped.
       }
   }
 }
