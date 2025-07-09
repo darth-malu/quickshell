@@ -1,14 +1,18 @@
+//convert Type to singleton(Only one instance and accessible from any scope)
+//singletons always have Singleton as the type
+pragma Singleton
 
 import Quickshell
 import Quickshell.Io
 import QtQuick
 
-Scope {
+Singleton {
   id: root
   property string time
 
   Process {
     id: dateProc
+    //command: ["date" "+%H:%M:%S"]
     command: ["date"]
     running: true
 
