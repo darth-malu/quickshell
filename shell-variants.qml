@@ -20,7 +20,6 @@ Variants {
 
         anchors.centerIn: parent
 
-
           Process {                 //Process management object
               command: ["date"]     // every arg in its own string
               running: true         // run the command immediately

@@ -15,7 +15,7 @@ Singleton {
     }
 
     SystemClock {
-        id: clock
+        id: clock                      // use in id:root to format date
         precision: SystemClock.Minutes //Seconds::, Minutes
     }
 }
