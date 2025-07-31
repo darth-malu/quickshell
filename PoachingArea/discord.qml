@@ -1,4 +1,4 @@
-import Quickshell
+mport Quickshell
 import QtQuick
 import QtQuick.Layouts
 import "../../theme"

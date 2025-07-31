@@ -1,9 +1,11 @@
 import Quickshell // for PanelWindow
 //import Quickshell.Io            // for process
-/* import QtQuick // for Text */
-/* import QtQuick.Layouts */
-/* import QtQuick.Controls */
-import Quickshell.Hyprland
+import QtQuick // for Text
+import QtQuick.Layouts
+import QtQuick.Controls
+import Quickshell.Widgets
+/* import Quickshell.Hyprland */
+/* import Quickshell.Services.SystemTray */
 
 Scope {
   Variants {
@@ -13,8 +15,8 @@ Scope {
       /* color: '#20362D' */
       color: '#35a29fff';
       margins {
-        left: 11
-        right: 11
+        left: 12
+        right: 12
       }
       property var modelData
       screen: modelData
@@ -31,17 +33,11 @@ Scope {
         anchors.centerIn: parent
       }
 
-      SystemTray {
-          id: trayYangu
 
-          anchors.horizontalCenter: parent.horizontalCenter
-          anchors.bottom: clock.top
-          /* anchors.bottomMargin: Appearance.spacing.larger */
+      Mpris {
+        /* anchors.centerIn: parent.horizontalCenter */
+        anchors.fill: parent.right
       }
-    /* HyprlandWorkspace { */
-    /*     HyprlandWindow.opacity: 0.6 */
-    /* } */
-
     }
   }
 }

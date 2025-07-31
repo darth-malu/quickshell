@@ -1,42 +1,34 @@
-import QtQuick
-import QtQuick.Layouts
-import QtQuick.Controls
-import "../theme"
-// import "../config"
-import Quickshell
-import Quickshell.Widgets
-import Quickshell.Services.SystemTray
 
-Rectangle {
-    id: systemTray
-    radius: Theme.rounding.small
-    implicitWidth: sysTrayRow.width + (Theme.padding)
-    implicitHeight: Theme.barHeight - (Theme.margin)
-    color: Theme.colors.crust
-    RowLayout {
-        id: sysTrayRow
+      Rectangle {
+        id: systemTray
+        radius: 5
+        implicitWidth: 8
+        implicitHeight: 8
+        color: red
+      RowLayout {
+        id: trayYangu
+        spacing: 4
         anchors.centerIn: parent
-        spacing: Theme.margin / 2
         Repeater {
-            model: SystemTray.items.values //.filter(item => !Settings.ignoredTrayItems.includes(item.id))
+          model: SystemTray.items.values
             Button {
                 id: sysTrayButton
                 required property SystemTrayItem modelData
-                implicitHeight: Theme.trayIconSize + Theme.margin
-                implicitWidth: Theme.trayIconSize + Theme.margin
+                implicitHeight: 5
+                implicitWidth: 5
                 background: Rectangle {
-                    radius: Theme.rounding.full
-                    color: sysTrayButton.hovered ? Theme.colors.surface0 : Theme.colors.mantle
+                    radius: 3
+                    color: sysTrayButton.hovered ? red : green
                 }
 
-                IconImage {
-                    anchors.centerIn: parent
-                    source: Quickshell.iconPath(sysTrayButton.modelData.icon)
-                    implicitSize: Theme.trayIconSize
-                }
+                /* IconImage { */
+                /*     anchors.centerIn: parent */
+                /*     source: Quickshell.iconPath(sysTrayButton.modelData.icon) */
+                /*     implicitSize: 5 */
+                /* } */
                 // DEBUG
                 // Component.onCompleted: print(JSON.stringify(modelData))
             }
         }
+      }
     }
-}
