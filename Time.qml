@@ -7,7 +7,6 @@ import Quickshell
 /* import QtQuick */
 
 Singleton {
-
     id: root
 
     readonly property string time: {

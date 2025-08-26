@@ -6,19 +6,21 @@ import QtQuick.Controls
 import Quickshell.Widgets
 /* import Quickshell.Hyprland */
 /* import Quickshell.Services.SystemTray */
+import "./bar-components"
 
 Scope {
+  Volume {}
+  //Activate {}
   Variants {
-    model: Quickshell.screens;
+    model: Quickshell.screens;  //Returns all connected screens
 
     PanelWindow {
-      /* color: '#20362D' */
       color: '#35a29fff';
       margins {
         left: 12
         right: 12
       }
-      property var modelData
+      property var modelData    //For multriscreen
       screen: modelData
 
       anchors {
@@ -33,10 +35,12 @@ Scope {
         anchors.centerIn: parent
       }
 
+      /* Mpris {} */
 
-      Mpris {
-        /* anchors.centerIn: parent.horizontalCenter */
-        anchors.fill: parent.right
+      Text {
+        text: "This works?"
+        color: "magenta"
+        // anchors.right: parent
       }
     }
   }

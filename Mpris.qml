@@ -1,14 +1,14 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls 2.15
 import Quickshell
-import Quickshell.Services.Mpris as Mpris
+import Quickshell.Services.Mpris
 
 
-MouseArea {
-    id:root
-    hoverEnabled: true
-    fullWindowWidth: true
+RowLayout {
+    id: mprisBlock
+    anchors.fill: parent
+}
+Mpris {
 }
 
 
