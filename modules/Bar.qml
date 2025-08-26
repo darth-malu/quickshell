@@ -1,71 +1,32 @@
 import Quickshell // PanelWindow
-//import Quickshell.Io            // process
 import QtQuick // Text
-import QtQuick.Layouts
-import QtQuick.Controls
-import Quickshell.Widgets
-/* import Quickshell.Hyprland */
-/* import Quickshell.Services.SystemTray */
+import Quickshell.Hyprland
+import Quickshell.Services.SystemTray
 import "./time"
 
 Scope {
   Volume {}
   Variants {
     model: Quickshell.screens;  //Returns all connected screens
+
     PanelWindow {
-      id: mainPanel
-      implicitHeight: 20
-      /* color: '#35a29fff'; //move this to rectangle */
-      margins {
-        //top: 6
-        left: 12
-        right: 13
-      }
-
-      //main bar
-      Rectangle {
-        id: mainContainer
-        anchors.fill: parent
-        //color: #1a1a1a
-        color: '#35a29fff'; //move this to rectangle
-        radius: 15
-        border.width: 1
-        Row {
-          id: hyprlandWorkspaces
-          anchors {
-            left : parent.left
-            verticalCenter: parent.verticalCenter
-            leftMargin: 16
-          }
-          spacing: 8
-
-          Repeater {
-            model: Hyprland.workspaces
-
-            Rectangle {
-              width: 32
-              height: 24
-              radius: 4
-              color: modelData.active ? "red" : "magenta"
-              border.color: "cyan"
-
-              MouseArea {
-                anchors.fill: parent
-                onClicked: Hyprland.dispatch("workspace " + modelData.id)
-              }
-
-              Text {
-                text: modelData.id
-                anchors.centerIn: parent
-                color: modelData.active ? "#ffffff" : "#cccccc"
-                font.pixelSize: 12
-                font.family: "nunito, quicksand, Inter"
-              }
-          }
-        }
-
-      property var modelData    //For multriscreen
+      property var modelData
       screen: modelData
+
+      color: "transparent"
+
+      id: invincibleMainPanel
+
+      implicitHeight: 20
+
+      //color: '#35a29fff'; //move this to rectangle
+
+      margins {//TODO make this adapt to my Gap size
+        //top: 6
+        /* left: 12 */
+        /* right: 12 */
+        //TODO make gaps zero im gaps zero
+      }
 
       anchors {
         top: true
@@ -73,13 +34,64 @@ Scope {
         right: true
       }
 
+      //main bar
+      Rectangle {
+        id: mainRectangleContainer
+        anchors.fill: parent
+        //color: '#1a1a1a'
+        color: '#35a29fff'; //move this to rectangle
+        //radius: 6
+        border.width: 1
+        border.color: "#333333"
 
-      ClockWidget {
-        anchors.centerIn: parent
+        ClockWidget {//TODO make this pop up calendar, alarm, weather, netSpeed, pomodoro
+          anchors.centerIn: parent
+          //font.family: "VictorMono Nerd Font"
+          font.family: "Mononoki Nerd Font"
+          font.pixelSize: 13
+        }
+
+        Row {
+          id: hyprlandWorkspacesRow
+          anchors {
+            left : parent.left
+            verticalCenter: parent.verticalCenter
+            leftMargin: 1
+          }
+
+          spacing: 2
+
+          Repeater {
+            model: Hyprland.workspaces
+            Rectangle {
+              implicitWidth: 19
+              implicitHeight: 19
+              radius: 6
+              color: modelData.active ? "#4a9eff" : "transparent"
+              border.color: "#da195b57"
+              MouseArea {
+                anchors.fill: parent
+                onClicked: Hyprland.dispatch("workspace " + modelData.id)
+              }
+              Text {
+                text: modelData.id
+                anchors.centerIn: parent
+                color: modelData.active ? "#ffffff" : "#cccccc"
+                font.pixelSize: 13
+                font.family: "Mononoki Nerd Font"
+              }
+            }
+          }
+
+          //fallback if no workspace
+          Text {
+            visible: Hyprland.workspaces.length === 0
+            text: "No workspaces"
+            color: "#ffffff"
+            font.pixelSize: 12
+          }
+        }
       }
-
-      /* Mpris {} */
-
     }
   }
 }
