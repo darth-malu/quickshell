@@ -1,6 +1,7 @@
 import Quickshell // core shell types like PanelWindow, Scope
 import Quickshell.Io // process execution
 import QtQuick //for Text
+import "./modules"
 /* import "PoachingArea/activate_linux" */
 
 Scope {
