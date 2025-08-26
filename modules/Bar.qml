@@ -23,8 +23,8 @@ Scope {
 
       margins {//TODO make this adapt to my Gap size
         //top: 6
-        /* left: 12 */
-        /* right: 12 */
+        left: 12
+        right: 12
         //TODO make gaps zero im gaps zero
       }
 
@@ -40,7 +40,7 @@ Scope {
         anchors.fill: parent
         //color: '#1a1a1a'
         color: '#35a29fff'; //move this to rectangle
-        //radius: 6
+        radius: 6
         border.width: 1
         border.color: "#333333"
 
