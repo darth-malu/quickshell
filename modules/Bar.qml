@@ -1,8 +1,12 @@
 import Quickshell // PanelWindow
 import QtQuick // Text
 import Quickshell.Hyprland
+import Quickshell.Io
 import Quickshell.Services.SystemTray
+import QtQuick.Layouts
+
 import "./time"
+import "./blocks" as Blocks
 
 Scope {
   Volume {}
@@ -27,7 +31,6 @@ Scope {
         right: 12
         //TODO make gaps zero im gaps zero
       }
-
       anchors {
         top: true
         left: true
@@ -43,26 +46,17 @@ Scope {
         radius: 6
         border.width: 1
         border.color: "#333333"
-
-        ClockWidget {//TODO make this pop up calendar, alarm, weather, netSpeed, pomodoro
-          anchors.centerIn: parent
-          //font.family: "VictorMono Nerd Font"
-          font.family: "Mononoki Nerd Font"
-          font.pixelSize: 13
-        }
-
         Row {
           id: hyprlandWorkspacesRow
+          spacing: 2.5
           anchors {
             left : parent.left
             verticalCenter: parent.verticalCenter
             leftMargin: 1
           }
-
-          spacing: 2
-
           Repeater {
-            model: Hyprland.workspaces
+            //model: Hyprland.workspaces
+            model: Hyprland.workspaces.values.filter(w => !w.name.startsWith("special"))
             Rectangle {
               implicitWidth: 19
               implicitHeight: 19
@@ -90,6 +84,30 @@ Scope {
             color: "#ffffff"
             font.pixelSize: 12
           }
+        }
+        ClockWidget {//TODO make this pop up calendar, alarm, weather, netSpeed, pomodoro
+          anchors.centerIn: parent
+          //font.family: "VictorMono Nerd Font"
+          font.family: "Mononoki Nerd Font"
+          font.pixelSize: 13
+        }
+
+        //RHS
+        RowLayout {
+          id: rhsBlocks
+          spacing: 2
+          anchors {
+            right : parent.right
+            verticalCenter: parent.verticalCenter
+            leftMargin: 1
+          }
+
+            Text{
+              text: UPower.displayDevice.isLaptopBattery ? qsTr("Remaining: %1%").arg(Math.round(UPower.displayDevice.percentage * 100)) : qsTr("No battery detected")
+              anchors.right: parent.right
+              anchors.verticalCenter: parent.VerticalCenter
+            }
+          //Blocks.Battery {}
         }
       }
     }
