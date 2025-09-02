@@ -1,25 +1,12 @@
+pragma Singleton
 import QtQuick
 import Quickshell.Hyprland
 import Quickshell
 import "../time"
 
-Scope {
-    id: root
+Singleton {
+    //id: root
     //main bar
-    Rectangle {
-    id: mainRectangleContainer
-    anchors.fill: parent
-    //color: '#1a1a1a'
-    color: '#35a29fff'; //move this to rectangle
-    radius: 6
-    border.width: 1
-    border.color: "#333333"
-    ClockWidget {//TODO make this pop up calendar, alarm, weather, netSpeed, pomodoro
-        anchors.centerIn: parent
-        //font.family: "VictorMono Nerd Font"
-        font.family: "Mononoki Nerd Font"
-        font.pixelSize: 13
-    }
     Row {
         id: hyprlandWorkspacesRow
         spacing: 2.3
@@ -58,6 +45,5 @@ Scope {
         color: "#ffffff"
         font.pixelSize: 12
         }
-    }
     }
 }

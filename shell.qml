@@ -7,6 +7,7 @@ import "./modules" //for bar etc in modules dir
 ShellRoot { //TODO scope vs shellroot
   Bar {}   //Any qml file that starts with an uppercase can be referenced this way
   //Activate {}
+  //Pipewire {}
   //Mpris {}
   //Hyprland {}
   // Mpris {}

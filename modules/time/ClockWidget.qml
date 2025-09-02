@@ -3,5 +3,6 @@ import QtQuick
 Text {
   text: Time.time
   /* color: '#0A8681' */
-  color: 'white'
+  //color: '#ccccccff'
+  color: Qt.rgba( 7/255 , 177/255 , 169/255, 0.71)
 }
