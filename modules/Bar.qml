@@ -8,7 +8,7 @@ import QtQuick.Controls
 import Quickshell.Widgets
 
 import "./time"
-import "./blocks" as Blocks
+//import "./blocks" as Blocks
 
 Scope {
   Variants {
@@ -58,11 +58,13 @@ Scope {
             anchors.verticalCenter: parent.verticalCenter
             model: Hyprland.workspaces.values.filter(w => !w.name.startsWith("special"))
             Rectangle {
-              implicitWidth: 22
-              implicitHeight: 22
-              radius: 18
+              implicitWidth: 20
+              implicitHeight: 20
+              radius: 16
               //color: modelData.active ? "#4a9eff" : "transparent"
-              color: modelData.active ? Qt.rgba(218/255,25/255,91/255,0.34) : "transparent"
+              //color: modelData.active ? Qt.rgba(218/255,25/255,91/255,0.34) : "transparent"
+              //color: modelData.active ? "#6247AA" : "transparent"
+              color: modelData.active ? "#6247AA" : "transparent" // Green -062726, 062726, 6247AA
               //border.width: 0.4
               //border.color: Qt.rgba(255/255 ,117/255 , 143/255, 0.86)
               //border.color: "#da195b57"
@@ -86,12 +88,32 @@ Scope {
                 }
                 //color: modelData.active ? "#ffffff" : "#ccccccff"
                 //color: modelData.active ? Qt.rgba(255/255 ,158/255 , 170/255, 0.96) : Qt.rgba( 7/255 , 177/255 , 169/255, 0.88)
-                color: modelData.active ? Qt.rgba(255/255 ,158/255 , 170/255, 0.96) : Qt.rgba( 7/255 , 177/255 , 169/255, 0.88)
+                //color: modelData.active ? Qt.rgba(255/255 ,158/255 , 170/255, 0.96) : Qt.rgba( 7/255 , 177/255 , 169/255, 0.88)
+                color: modelData.active ? Qt.rgba(242/255, 226/255, 255/255,  0.96) : Qt.rgba( 7/255 , 177/255 , 169/255, 0.83)//'#d896ff/255' //D5E68D, #C8EAD3, 42BFDD, #B6DC76, 98B06F, 442B48(orange), 7C90A0(grey/silver), 7C90A0, 5D5179
                 font.pixelSize: 14
                 font.bold: true
+                //font.family: "quicksand"
                 font.family: "Mononoki Nerd Font"
               }
             }
+          }
+
+
+        readonly property var toplevels: Hyprland.toplevels
+            Rectangle {
+              implicitWidth: 20
+              implicitHeight: 20
+              //radius: 15
+              color: 'transparent'
+
+              Text {
+                text: toplevels
+                color: 'white'
+
+                anchors {
+                  centerIn: parent
+                }
+              }
           }
 
           //fallback if no workspace
@@ -110,6 +132,7 @@ Scope {
           }
           //font.family: "VictorMono Nerd Font"
           font.family: "Mononoki Nerd Font"
+          //font.family: "quicksand"
           font.pixelSize: 13
           font.bold: true
         }
@@ -123,20 +146,26 @@ Scope {
             verticalCenter: parent.verticalCenter
             leftMargin: 1
           }
-
-            /* Text{ */
-            /*   text: UPower.displayDevice.isLaptopBattery ? qsTr("Remaining: %1%").arg(Math.round(UPower.displayDevice.percentage * 100)) : qsTr("No battery detected") */
-            /*   anchors.right: parent.right */
-            /*   anchors.verticalCenter: parent.VerticalCenter */
-            /* } */
+          /* Text{ */
+          /*   text: UPower.displayDevice.isLaptopBattery ? qsTr("Remaining: %1%").arg(Math.round(UPower.displayDevice.percentage * 100)) : qsTr("No battery detected") */
+          /*   anchors.right: parent.right */
+          /*   anchors.verticalCenter: parent.VerticalCenter */
+          /* } */
           //Blocks.Battery {}
           Pipewire {}
           //Mpris {}
           Memory {}
           Volume {}
+
+          SystemTrayy {
+            anchors {
+              //centerIn: parent
+              //bottom: parent.bottom
+              //horizontalCenter: parent.horizontalCenter
+            }
+          }
           //Notifications {}
         }
-
         //SystemTray {}
       }
     }

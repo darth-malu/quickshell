@@ -6,12 +6,13 @@ import Quickshell.Io
 BarBlock {
   id: text
   content: BarText {
-   font.pixelSize: 13
-   font.family: "Mononoki Nerd Font"
-   //font.family: "VictorMono Nerd Font"
-   symbolText: `🧠 ${Math.floor(percentFree)}%` //
-    font.bold: false
-  color: '#ccccccff'
+    //font.family: "VictorMono Nerd Font"
+    //font.family: "quicksand"
+    font.family: "Mononoki Nerd Font"
+    font.pixelSize: 13
+    font.bold: true
+    symbolText: `🧠 ${Math.floor(percentFree)}%` //
+    color: '#ccccccff'
   }
 
   property real percentFree

@@ -7,12 +7,13 @@ import QtQuick.Effects
 import Qt5Compat.GraphicalEffects
 
 Text {
-  property string mainFont: "FiraCode"
+  property string mainFont: "quicksand"
   property string symbolFont: "Symbols Nerd Font Mono"
   property int pointSize: 12
   property int symbolSize: pointSize * 1.37
   property string symbolText
   property bool dim
+
   text: wrapSymbols(symbolText)
   anchors.centerIn: parent
   color: dim ? "#CCCCCC" : "white"

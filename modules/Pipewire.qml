@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Services.Pipewire
+import Quickshell.Hyprland
 //import "../"
 
 BarBlock {
@@ -11,10 +12,26 @@ BarBlock {
 
   content: BarText {
     symbolText: `🔈 ${volume}`
-    font.pixelSize: 13
+    //font.family: "quicksand"
     font.family: "Mononoki Nerd Font"
+    font.pixelSize: 13
+    font.bold: true
     color: '#ccccccff'
    //font.family: "VictorMono Nerd Font"
+
+    MouseArea {
+      anchors.fill: parent
+      //onClicked: Hyprland.dispatch("workspace 1")
+      onWheel: (event) => {
+        if (!Pipewire.defaultAudioSink?.audio) return;
+        const step = 2;
+        let volume = Pipewire.defaultAudioSource.audio.volume * 100;
+        volume += event.angleDelta.y > 0 ? step : -step;
+        volume = Math.max(0, Math.min(volume, 125)); // Clamp 0% - 125%
+        Pipewire.defaultAudioSink.audio.volume = volume / 100;
+      }
+      //acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+    }
   }
 
   property PwNode sink: Pipewire.defaultAudioSink
@@ -22,15 +39,4 @@ BarBlock {
 
   PwObjectTracker { objects: [ sink ] }
 
-    /* MouseArea { */
-    /*   anchors.fill: parent */
-    /*   onClicked: Hyprland.dispatch("workspace " + modelData.id) */
-    /*   onWheel: (wheel) => { */
-    /*       if (wheel.angleDelta.y > 0) { */
-    /*         Hyprland.dispatch("workspace m-1") */
-    /*       } else if (wheel.angleDelta.y < 0) { */
-    /*         Hyprland.dispatch("workspace m+1") */
-    /*       } */
-    /*   } */
-    /* } */
 }
