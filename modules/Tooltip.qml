@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
-import "root:/" // for Globals
+//import "root:/" // for Globals
+import '../..'
 
 LazyLoader {
   id: root

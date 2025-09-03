@@ -45,13 +45,25 @@ Scope {
         radius: 16
         border.width: 0
         border.color: "#333333"
+        MouseArea {
+          anchors.fill: parent
+          onWheel: (wheel) => {
+              if (wheel.angleDelta.y > 0) {
+                Hyprland.dispatch("workspace m-1")
+              } else if (wheel.angleDelta.y < 0) {
+                Hyprland.dispatch("workspace m+1")
+              }
+          }
+        }
+
         Row {
           id: hyprlandWorkspacesRow
-          spacing: 2.5
+          spacing: 0.1
           anchors {
             left : parent.left
             leftMargin: 1
           }
+
           Repeater {
             //model: Hyprland.workspaces
             //model: Hyprland.focusedWorkspace
@@ -71,13 +83,6 @@ Scope {
               MouseArea {
                 anchors.fill: parent
                 onClicked: Hyprland.dispatch("workspace " + modelData.id)
-                onWheel: (wheel) => {
-                    if (wheel.angleDelta.y > 0) {
-                      Hyprland.dispatch("workspace m-1")
-                    } else if (wheel.angleDelta.y < 0) {
-                      Hyprland.dispatch("workspace m+1")
-                    }
-                }
               }
               Text {
                 text: modelData.id
@@ -92,29 +97,14 @@ Scope {
                 color: modelData.active ? Qt.rgba(242/255, 226/255, 255/255,  0.96) : Qt.rgba( 7/255 , 177/255 , 169/255, 0.83)//'#d896ff/255' //D5E68D, #C8EAD3, 42BFDD, #B6DC76, 98B06F, 442B48(orange), 7C90A0(grey/silver), 7C90A0, 5D5179
                 font.pixelSize: 14
                 font.bold: true
-                //font.family: "quicksand"
-                font.family: "Mononoki Nerd Font"
+                font.family: "quicksand"
+                //font.family: "Mononoki Nerd Font"
               }
             }
           }
 
 
-        readonly property var toplevels: Hyprland.toplevels
-            Rectangle {
-              implicitWidth: 20
-              implicitHeight: 20
-              //radius: 15
-              color: 'transparent'
-
-              Text {
-                text: toplevels
-                color: 'white'
-
-                anchors {
-                  centerIn: parent
-                }
-              }
-          }
+        //readonly property var toplevels: Hyprland.toplevels
 
           //fallback if no workspace
           Text {
@@ -153,10 +143,9 @@ Scope {
           /* } */
           //Blocks.Battery {}
           Pipewire {}
-          //Mpris {}
+          //Mpriss {}
           Memory {}
           Volume {}
-
           SystemTrayy {
             anchors {
               //centerIn: parent
