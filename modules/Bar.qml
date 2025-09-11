@@ -21,7 +21,6 @@ Scope {
       color: "transparent"
       implicitHeight: 22
       //color: '#35a29fff'; //move this to rectangle
-
       margins {//TODO make this adapt to my Gap size
         //top: 6
         left: 12
@@ -61,7 +60,7 @@ Scope {
           spacing: 0.1
           anchors {
             left : parent.left
-            leftMargin: 1
+            //leftMargin: 1
           }
 
           Repeater {
@@ -76,7 +75,9 @@ Scope {
               //color: modelData.active ? "#4a9eff" : "transparent"
               //color: modelData.active ? Qt.rgba(218/255,25/255,91/255,0.34) : "transparent"
               //color: modelData.active ? "#6247AA" : "transparent"
-              color: modelData.active ? "#6247AA" : "transparent" // Green -062726, 062726, 6247AA
+              //color: modelData.active ? "#6247AA" : "transparent" // Green -062726, 062726, 6247AA
+              color: modelData.active ? "#b298dc" : "transparent" // Green -062726, 062726, 6247AA
+              //color: modelData.active ? Qt.rgba(16/255,110/255,208/255 ,0.52) : "transparent" // Green -062726, 062726, 6247AA
               //border.width: 0.4
               //border.color: Qt.rgba(255/255 ,117/255 , 143/255, 0.86)
               //border.color: "#da195b57"
@@ -94,7 +95,8 @@ Scope {
                 //color: modelData.active ? "#ffffff" : "#ccccccff"
                 //color: modelData.active ? Qt.rgba(255/255 ,158/255 , 170/255, 0.96) : Qt.rgba( 7/255 , 177/255 , 169/255, 0.88)
                 //color: modelData.active ? Qt.rgba(255/255 ,158/255 , 170/255, 0.96) : Qt.rgba( 7/255 , 177/255 , 169/255, 0.88)
-                color: modelData.active ? Qt.rgba(242/255, 226/255, 255/255,  0.96) : Qt.rgba( 7/255 , 177/255 , 169/255, 0.83)//'#d896ff/255' //D5E68D, #C8EAD3, 42BFDD, #B6DC76, 98B06F, 442B48(orange), 7C90A0(grey/silver), 7C90A0, 5D5179
+                //color: modelData.active ? Qt.rgba(242/255, 226/255, 255/255,  0.96) : Qt.rgba( 7/255 , 177/255 , 169/255, 0.83)//'#d896ff/255' //D5E68D, #C8EAD3, 42BFDD, #B6DC76, 98B06F, 442B48(orange), 7C90A0(grey/silver), 7C90A0, 5D5179
+                color: modelData.active ? '#5c0099' : Qt.rgba(171/255,141/255,237/255,0.82) //#d896ff/255 //D5E68D, #C8EAD3, 42BFDD, #B6DC76, 98B06F, 442B48(orange), 7C90A0(grey/silver), 7C90A0, 5D5179
                 font.pixelSize: 14
                 font.bold: true
                 font.family: "quicksand"
@@ -121,8 +123,8 @@ Scope {
             verticalCenter: parent.verticalCenter
           }
           //font.family: "VictorMono Nerd Font"
-          font.family: "Mononoki Nerd Font"
-          //font.family: "quicksand"
+          //font.family: "Mononoki Nerd Font"
+          font.family: "quicksand"
           font.pixelSize: 13
           font.bold: true
         }
@@ -146,13 +148,8 @@ Scope {
           //Mpriss {}
           Memory {}
           Volume {}
-          SystemTrayy {
-            anchors {
-              //centerIn: parent
-              //bottom: parent.bottom
-              //horizontalCenter: parent.horizontalCenter
-            }
-          }
+          SystemTrayy {}
+          //Works {}
           //Notifications {}
         }
         //SystemTray {}

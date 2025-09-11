@@ -8,7 +8,6 @@ import Quickshell.Widgets
 
 RowLayout {
     id: trayList
-
     Repeater {
         model: SystemTray.items
 
@@ -44,14 +43,34 @@ RowLayout {
             anchors {
                 verticalCenter: parent.verticalCenter
             }
-            source: item.icon
+            source: modelData.icon
+            /* source: { */
+            /*   let appId = modelData.wayland?.appId; */
+            /*   if(appId=="Spotify") appId="spotify-launcher"; */
+            /*   return Quickshell.iconPath(DesktopEntries.byId(appId).icon); */
+            /* } */
+
+    /*       source: { */
+    /*           let appId = item.title; */
+
+    /*           if (appId === "Spotify") */
+    /*               appId = "spotify"; */
+    /* else if (/Discord/i.test(appId)) */
+    /*               appId = "discord"; */
+    /*           else if (appId === "blueman") */
+    /*               appId = "Blueman"; */
+    /*           else if (appId === "Steam") */
+    /*               appId = "steam"; */
+
+    /*           return Quickshell.iconPath(DesktopEntries.byId(appId).icon); */
+    /*       } */
             implicitSize: 12
             asynchronous: true
           }
 
           QsMenuAnchor {
             id: menuAnchor
-            menu: item.menu
+            menu: modelData.menu
 
             anchor.window: delegate.QsWindow.window
             anchor.adjustment: PopupAdjustment.Flip
