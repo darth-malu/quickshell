@@ -1,5 +1,13 @@
 pragma Singleton
-import QtQuick
+import QtQuick.Layouts
+import Quickshell // PanelWindow
+import QtQuick // Text
+import Quickshell.Hyprland
+import Quickshell.Io
+import Quickshell.Services.SystemTray
+import QtQuick.Layouts
+import QtQuick.Controls
+import Quickshell.Widgets
 import Quickshell.Hyprland
 import Quickshell
 import "../time"
