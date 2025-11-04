@@ -41,7 +41,7 @@ MouseArea{
                     Layout.leftMargin: -2
                     Layout.rightMargin: -2
                     fill: 1
-                    text: "bolt"
+                    text: "⚡"
                     iconSize: 13
                     visible: isCharging && percentage < 1 // TODO: animation
                 }
