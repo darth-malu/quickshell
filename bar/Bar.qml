@@ -57,7 +57,7 @@ ShellRoot {
                     spacing: 0.4 //0.4
                     anchors.left:parent.left
                     Workspaces {}
-                    WindowActive {}
+                    ActiveWindow {}
                 }
 
                 Mpris {}

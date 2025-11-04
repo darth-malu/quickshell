@@ -18,6 +18,11 @@ WrapperMouseArea {
 
     property bool showVolume: false
 
+    property int mprisFont: 13
+    property bool mprisBold: true
+    property bool volumeBold: true
+    property int volumeFont: 12
+
     property bool showPlayer: !!(
         MprisState.player?.isPlaying &&
         MprisState.player?.trackTitle !== "default" &&
@@ -98,14 +103,14 @@ WrapperMouseArea {
             text: MprisState.player?.trackTitle || ""
             //baseColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.78) //baseColor: '#ccccccff' , '#D1D2F9' (nice brightness)
             baseColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.88)
-            font {pixelSize: 12;family: 'quicksand';bold: true}
+            font {pixelSize: mprisRoot.mprisFont;family: 'quicksand';bold: mprisRoot.mprisBold}
         }
 
         BarText {
             id: volumePlayer
             visible: mprisRoot.showVolume
             text: Math.round(MprisState.player?.volume * 100) ?? ""
-            font {pixelSize: 13;family: 'lato';bold: false}
+            font {pixelSize: mprisRoot.mprisFont;family: 'mononoki nerd font';bold: mprisRoot.volumeBold}
             //opacity: mprisRoot.showVolume ? 1 : 0
             //opacity: mprisRoot.containsMouse ? 1 : 0
             color: '#ff79c6'
