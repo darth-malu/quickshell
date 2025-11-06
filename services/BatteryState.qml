@@ -38,7 +38,7 @@ Singleton {
     property bool isCriticalAndNotCharging: isCritical && !isCharging
 
 
-    // TODO Functions or signals?? to handle different levels of charge
+    // signall handlers
     onIsLowAndNotChargingChanged: {
         if(available && isLowAndNotCharging) {
             Quickshell.execDetached([
@@ -54,7 +54,7 @@ Singleton {
                 "sh", "-c",
                 "notify-send 'Charger connected' -u low -i /home/malu/.config/quickshell/assets/battery/plug.png -a Shell && paplay /run/current-system/sw/share/sounds/freedesktop/stereo/power-plug.oga"
             ])
-        } else if (available && !isCharging && isDischarging) {
+        } else if (available && !isCharging) {
             Quickshell.execDetached([
                 "sh", "-c",
                 "notify-send 'Charger disconnected' -u low -i /home/malu/.config/quickshell/assets/battery/unplug.png -a Shell && paplay /run/current-system/sw/share/sounds/freedesktop/stereo/power-unplug.oga"
@@ -63,14 +63,10 @@ Singleton {
     }
 
     onIsCriticalAndNotChargingChanged: {
-        if(available && isCriticalAndNotCharging) {
+        if (available && isCriticalAndNotCharging) {
             Quickshell.execDetached([
-                "notify-send",
-                "Critically Low battery ",
-                "-i", "/home/malu/.config/quickshell/assets/battery/warning-battery.png",
-                "-u", "critical",
-                "-a", "Shell",
-                "&&" , "paplay /run/current-system/sw/share/sounds/freedesktop/stereo/bell.oga"
+                "sh", "-c",
+                "notify-send 'Critical battery!' -u critical -i /home/malu/.config/quickshell/assets/battery/warning-battery.png -a Shell && paplay /run/current-system/sw/share/sounds/freedesktop/stereo/bell.oga"
             ])
         }
     }
