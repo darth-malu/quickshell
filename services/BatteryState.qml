@@ -60,9 +60,9 @@ Singleton {
                 "Charger connected ",
                 "-i", "/home/malu/.config/quickshell/assets/battery/plug.png",
                 "-u", "low",
-                "-a", "Shell",
-                "&&", "paplay /run/current-system/sw/share/sounds/freedesktop/stereo/power-plug.oga"
+                "-a", "Shell"
             ])
+                //"&&", "paplay /run/current-system/sw/share/sounds/freedesktop/stereo/power-plug.oga"
         }
         /* else { */
         /*     Quickshell.execDetached([ */
