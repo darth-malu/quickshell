@@ -25,9 +25,10 @@ ProgressBar {
     }
 
     text: Math.round(value * 100)
+
     font {
         pixelSize: 13
-        weight: text.length > 2 ? Font.Medium : Font.DemiBold
+        weight: text.length > 2 ? 'lato' : 'inter'
     }
 
     background: Item {

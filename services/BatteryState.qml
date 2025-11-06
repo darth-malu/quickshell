@@ -16,7 +16,8 @@ Singleton {
 
     property bool isPluggedIn: isCharging || UPowerDeviceState.PendingCharge
 
-    property real batPercentage: Math.floor(UPower.displayDevice.percentage * 100) // charge level as % TODO investigate how this fails
+    /* property real batPercentage: Math.floor(UPower.displayDevice.percentage * 100) // charge level as % TODO investigate how this fails */
+    property real batPercentage: battery.percentage
 
     property bool isPlugged: Upower.displayDevice.state.PendingCharge
 
