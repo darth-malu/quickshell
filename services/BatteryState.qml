@@ -46,7 +46,8 @@ Singleton {
                 "Low battery",
                 "-u", "low",
                 "-i", "/home/malu/.config/quickshell/assets/battery/low-battery.png",
-                "-a", "Shell"
+                "-a", "Shell",
+                "&&", "paplay /run/current-system/sw/share/sounds/freedesktop/stereo/bell.oga"
             ])
         }
     }
@@ -58,7 +59,8 @@ Singleton {
                 "Critically Low battery",
                 "-i", "/home/malu/.config/quickshell/assets/battery/warning-battery.png",
                 "-u", "critical",
-                "-a", "Shell"
+                "-a", "Shell",
+                "&&" , "paplay /run/current-system/sw/share/sounds/freedesktop/stereo/bell.oga"
             ])
         }
     }
