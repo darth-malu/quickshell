@@ -44,8 +44,8 @@ Singleton {
             Quickshell.execDetached([
                 "notify-send",
                 "Low battery",
-                "-u", "critical",
-                "-i", "$XDG_CONFIG_HOME/quickshell/assets/battery/low-battery.png",
+                "-u", "low",
+                "-i", "/home/malu/.config/quickshell/assets/battery/low-battery.png",
                 "-a", "Shell"
             ])
         }
@@ -56,7 +56,7 @@ Singleton {
             Quickshell.execDetached([
                 "notify-send",
                 "Critically Low battery",
-                "-i", "$XDG_CONFIG_HOME/quickshell/assets/battery/warning-battery.png",
+                "-i", "/home/malu/.config/quickshell/assets/battery/warning-battery.png",
                 "-u", "critical",
                 "-a", "Shell"
             ])
