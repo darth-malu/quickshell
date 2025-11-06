@@ -10,7 +10,6 @@ RowLayout {
     id: trayList
     Repeater {
         model: SystemTray.items
-
         MouseArea {
           id: delegate
           required property SystemTrayItem modelData
@@ -32,11 +31,11 @@ RowLayout {
             }
           }
 
-          /* onWheel: event => { */
-          /*   event.accepted = true; */
-          /*   const points = event.angleDelta.y / 120 */
-          /*   item.scroll(points, false); */
-          /* } */
+          onWheel: event => {
+            event.accepted = true;
+            const points = event.angleDelta.y / 120
+            item.scroll(points, false);
+          }
 
           IconImage {
             id: icon
@@ -44,26 +43,6 @@ RowLayout {
                 verticalCenter: parent.verticalCenter
             }
             source: modelData.icon
-            /* source: { */
-            /*   let appId = modelData.wayland?.appId; */
-            /*   if(appId=="Spotify") appId="spotify-launcher"; */
-            /*   return Quickshell.iconPath(DesktopEntries.byId(appId).icon); */
-            /* } */
-
-    /*       source: { */
-    /*           let appId = item.title; */
-
-    /*           if (appId === "Spotify") */
-    /*               appId = "spotify"; */
-    /* else if (/Discord/i.test(appId)) */
-    /*               appId = "discord"; */
-    /*           else if (appId === "blueman") */
-    /*               appId = "Blueman"; */
-    /*           else if (appId === "Steam") */
-    /*               appId = "steam"; */
-
-    /*           return Quickshell.iconPath(DesktopEntries.byId(appId).icon); */
-    /*       } */
             implicitSize: 12
             asynchronous: true
           }
@@ -83,13 +62,13 @@ RowLayout {
             }
           }
 
-          Tooltip {
-            relativeItem: delegate.containsMouse ? delegate : null
+          /* Tooltip { */
+          /*   relativeItem: delegate.containsMouse ? delegate : null */
 
-            Label {
-              text: delegate.item.tooltipTitle || delegate.item.id
-            }
-          }
+          /*   Label { */
+          /*     text: delegate.item.tooltipTitle || delegate.item.id */
+          /*   } */
+          /* } */
         }
     }
 }
