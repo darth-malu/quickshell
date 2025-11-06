@@ -19,18 +19,22 @@ Singleton {
     /* property real batPercentage: Math.floor(battery.percentage * 100) // charge level as % TODO investigate how this fails */
     property real batPercentage: battery.percentage
 
-    property bool isPlugged: battery.state.PendingCharge
+    property bool isPlugged: chargeState == UPowerDeviceState.PendingCharge
 
-    property bool isDischarging: battery.state.Discharging
+    property bool isDischarging: chargeState == UPowerDeviceState.Discharging
 
     property real energyRate: battery.changeRate
+
     property real timeToEmpty: battery.timeToEmpty
+
     property real timeToFull: battery.timeToFull
 
     property bool isLow: available && (batPercentage <=  18 / 100)
+
     property bool isCritical: available && (batPercentage <=  7 / 100)
 
     property bool isLowAndNotCharging: isLow && !isCharging
+
     property bool isCriticalAndNotCharging: isCritical && !isCharging
 
 
