@@ -2,18 +2,19 @@ import QtQuick
 import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
 
-/**
- * A progress bar with both ends rounded and text acts as clipping like OneUI 7's battery indicator.
+/* END4 😀
+   A progress bar with both ends rounded and text acts as clipping like OneUI 7's battery indicator.
  */
 ProgressBar {
     id: root
     property bool vertical: false
     property real valueBarWidth: 30
-    property real valueBarHeight: 18
-    property color highlightColor: "red" ?? "#685496"
-    property color trackColor: "green" ?? "#F1D3F9"
+    property real valueBarHeight: 20
+    property color highlightColor: "#685496"
+    property color trackColor: "#F1D3F9"
     property alias radius: contentItem.radius
     property string text
+
     default property Item textMask: Item {
         width: valueBarWidth
         height: valueBarHeight
@@ -28,7 +29,7 @@ ProgressBar {
 
     font {
         pixelSize: 13
-        weight: text.length > 2 ? 'lato' : 'inter'
+        weight: text.length > 2 ? Font.Medium : Font.DemiBold
     }
 
     background: Item {
@@ -45,36 +46,16 @@ ProgressBar {
 
         Rectangle {
             id: progressFill
+            width: parent.width * root.visualPosition
+            height: parent.height
+            radius: 12
+            color: root.highlightColor
             anchors {
                 top: parent.top
                 bottom: parent.bottom
                 left: parent.left
                 right: undefined
             }
-            width: parent.width * root.visualPosition
-            height: parent.height
-
-            states: State {
-                name: "vertical"
-                when: root.vertical
-                AnchorChanges {
-                    target: progressFill
-                    anchors {
-                        top: undefined
-                        bottom: parent.bottom
-                        left: parent.left
-                        right: parent.right
-                    }
-                }
-                PropertyChanges {
-                    target: progressFill
-                    width: parent.width
-                    height: parent.height * root.visualPosition
-                }
-            }
-
-            radius: 12
-            color: root.highlightColor
         }
     }
 

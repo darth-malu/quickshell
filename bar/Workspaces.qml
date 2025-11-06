@@ -32,8 +32,6 @@ Repeater {
             id: numbers
             text: modelData.id
             anchors.centerIn: parent
-            //anchors.verticalCenter: parent.verticalCenter
-            // if active....black fg, otherwise purple except if on other monitor in which case use grey
             color: isFocusedMonitor ?  (modelData.active ? '#5c0099' : Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)) : '#5E5768'// Green -062726, 062726, 6247AA
             //color: modelData.active ? '#5c0099' : Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1) 
             font.pixelSize: 13

@@ -5,26 +5,22 @@ import qs.services
 
 Rectangle {
     id: root
-
-    Layout.fillHeight: true
-    //Layout.leftMargin: 5
-    //Layout.rightMargin: 5
     color: "transparent"
     implicitWidth: resourcesRow.width
 
-    property int valueSize: 8
+    readonly property int valueSize: 8
 
-    property int textSize: 9
-    property string textFont: 'quicksand'
-    property bool textBold: true
+    readonly property int textSize: 9
+    readonly property string textFont: 'quicksand'
+    readonly property bool textBold: true
 
-    property int symbolSize: 10
+    readonly property int symbolSize: 10
 
-    property color valueColor: 'white'
-    property color cpuColor: cpuText.text > 80 ? "#EEFC57" : cpuText.text > 50 ? "#7CE577" : '#C6CAED'
+    readonly property color valueColor: 'white'
+    readonly property color cpuColor: cpuText.text > 80 ? "#EEFC57" : cpuText.text > 50 ? "#7CE577" : '#C6CAED'
 
-    property color memoryColor: memoryText.text >  90 ?  "#7CE577" : '#ccccccff'
-    property string textColor: "lightgray"
+    readonly property color memoryColor: memoryText.text >  90 ?  "#7CE577" : '#ccccccff'
+    readonly property string textColor: "lightgray"
 
     RowLayout {
         id: resourcesRow

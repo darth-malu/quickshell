@@ -34,14 +34,14 @@ Singleton {
     property bool isCriticalAndNotCharging: isCritical && !isCharging
 
 
-    //Functions to handle different levels of charge
+    // TODO Functions or signals?? to handle different levels of charge
     onIsLowAndNotChargingChanged: {
-        if(available && isCriticalAndNotCharging) {
+        if(available && isLowAndNotCharging) {
             Quickshell.execDetached([
                 "notify-send",
                 "Low battery",
-                "Plugin charger m8",
                 "-u", "critical",
+                "-i", "$XDG_CONFIG_HOME/quickshell/assets/battery/low-battery.png",
                 "-a", "Shell"
             ])
         }
@@ -52,6 +52,7 @@ Singleton {
             Quickshell.execDetached([
                 "notify-send",
                 "Critically Low battery",
+                "-i", "$XDG_CONFIG_HOME/quickshell/assets/battery/warning-battery.png",
                 "-u", "critical",
                 "-a", "Shell"
             ])

@@ -10,6 +10,7 @@ MouseArea{
     // battery properties
     readonly property var chargeState: BatteryState.chargeState
     readonly property bool isCharging: BatteryState.isCharging
+    readonly property bool isLow: BatteryState.isLow
     readonly property bool isPluggedIn: BatteryState.isPluggedIn
     readonly property real percentage: BatteryState.batPercentage
 
@@ -22,28 +23,36 @@ MouseArea{
         id: batteryProgress
         anchors.centerIn: parent
         value: percentage
-        highlightColor: (isLow && !isCharging) ? 'white' : 'red'
+        highlightColor: (isLow && !isCharging) ? 'red' : 'white'
 
-        /* Item { */
-        /*     anchors.centerIn: parent */
-        /*     width: batteryProgress.valueBarWidth */
-        /*     height: batteryProgress.valueBarHeight */
+        Item {
+            anchors.centerIn: parent
+            width: batteryProgress.valueBarWidth
+            height: batteryProgress.valueBarHeight
 
-        /*     RowLayout { */
-        /*         anchors.centerIn: parent */
-        /*         spacing: 0 */
+            RowLayout {
+                anchors.centerIn: parent
+                spacing: 0
 
-        /*         BarText { */
-        /*             id: textt */
-                    
-        /*         } */
-
-                
-        /*     } */
-        /* } */
+                MaterialSymbol {
+                    id: boltIcon
+                    Layout.alignment: Qt.AlignVCenter
+                    Layout.leftMargin: -2
+                    Layout.rightMargin: -2
+                    fill: 1
+                    text: "bolt"
+                    iconSize: Appearance.font.pixelSize.smaller
+                    visible: isCharging && percentage < 1 // TODO: animation
+                }
+                StyledText {
+                    Layout.alignment: Qt.AlignVCenter
+                    font: batteryProgress.font
+                    text: batteryProgress.text
+                }
+            }
+        }
     }
 }
-
         /* content: BarText { */
         /*     id: batText */
         /*     /\* baseColor: isCharging == 'Charging' ? 'red' : batLevel < 10 ? '#FF2DD1' : batLevel < 20 ? '#DCED31' : batLevel < 50 ? '#B0FF92' : '#AA78A6' *\/ */
