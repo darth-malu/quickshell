@@ -55,6 +55,7 @@ Singleton {
     onIsChargingChanged: {
         if(available && isCharging) {
             Quickshell.execDetached([
+                "sh", "-c",
                 "notify-send",
                 "Charger connected ",
                 "-i", "/home/malu/.config/quickshell/assets/battery/plug.png",
@@ -65,6 +66,7 @@ Singleton {
         }
         else if (available && !isCharging) {
             Quickshell.execDetached([
+                "sh", "-c",
                 "notify-send",
                 "Charger disconnected ",
                 "-i", "/home/malu/.config/quickshell/assets/battery/unplug.png",
