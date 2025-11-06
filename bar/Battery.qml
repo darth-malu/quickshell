@@ -1,15 +1,17 @@
+pragma Singleton
+import Quickshell
 //import QtQuick
 // import QtMultimedia
 import Quickshell.Services.UPower
 import qs.customItems
 
+Singleton {
+    
 BarBlock {
     id: batBlock
-    visible: isBatteryPresent
+    visible: battery.isLaptopBattery
 
     readonly property UPowerDevice battery: UPower.displayDevice
-
-    readonly property bool isBatteryPresent: UPower.displayDevice.isLaptopBattery
 
     property var chargeState: UPower.displayDevice.state
 
@@ -23,6 +25,10 @@ BarBlock {
 
     property bool isDischarging: Upower.displayDevice.state.Discharging
 
+    property real energyRate: UPower.displayDevice.changeRate
+    property real timeToEmpty: UPower.displayDevice.timeToEmpty
+    property real timeToFull: UPower.displayDevice.timeToFull
+
     /* SoundEffect { */
     /*     id: beep */
     /*     source: Qt.resolvedUrl("beep.wav") */
@@ -35,4 +41,6 @@ BarBlock {
         font { pointSize: 10; family: 'lato'; bold: true}
         symbolText: batLevel 
     }
+}
+
 }
