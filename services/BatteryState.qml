@@ -43,7 +43,7 @@ Singleton {
         if(available && isLowAndNotCharging) {
             Quickshell.execDetached([
                 "notify-send",
-                "Low battery",
+                "Low battery ",
                 "-u", "low",
                 "-i", "/home/malu/.config/quickshell/assets/battery/low-battery.png",
                 "-a", "Shell",
@@ -52,11 +52,34 @@ Singleton {
         }
     }
 
+    onIsChargingChanged: {
+        if(available && isCharging) {
+            Quickshell.execDetached([
+                "notify-send",
+                "Charger connected ",
+                "-i", "/home/malu/.config/quickshell/assets/battery/plug.png",
+                "-u", "low",
+                "-a", "Shell",
+                "&&", "paplay /run/current-system/sw/share/sounds/freedesktop/stereo/power-plug.oga"
+            ])
+        }
+        else if (available && !isCharging) {
+            Quickshell.execDetached([
+                "notify-send",
+                "Charger disconnected ",
+                "-i", "/home/malu/.config/quickshell/assets/battery/unplug.png",
+                "-u", "low",
+                "-a", "Shell",
+                "&&", "paplay /run/current-system/sw/share/sounds/freedesktop/stereo/power-unplug.oga"
+            ])
+        }
+    }
+
     onIsCriticalAndNotChargingChanged: {
         if(available && isCriticalAndNotCharging) {
             Quickshell.execDetached([
                 "notify-send",
-                "Critically Low battery",
+                "Critically Low battery ",
                 "-i", "/home/malu/.config/quickshell/assets/battery/warning-battery.png",
                 "-u", "critical",
                 "-a", "Shell",
