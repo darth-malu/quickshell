@@ -23,7 +23,7 @@ MouseArea{
         id: batteryProgress
         anchors.centerIn: parent
         value: percentage
-        highlightColor: (isLow && !isCharging) ? "#D295BF" : Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
+        highlightColor: isCharging ? "#7CE577" /*Lime*/ : isLow ? "#D295BF" /*pink*/ : Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
 
         Item {
             anchors.centerIn: parent
