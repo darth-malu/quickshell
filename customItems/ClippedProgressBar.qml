@@ -72,7 +72,7 @@ ProgressBar {
                 }
             }
 
-            radius: Appearance.rounding.unsharpen
+            radius: 12
             color: root.highlightColor
         }
     }
