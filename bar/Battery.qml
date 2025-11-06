@@ -1,46 +1,53 @@
-pragma Singleton
-import Quickshell
-//import QtQuick
-// import QtMultimedia
-import Quickshell.Services.UPower
+import QtQuick
+import QtQuick.Layouts
+import qs.services
 import qs.customItems
 
-Singleton {
-    
-BarBlock {
-    id: batBlock
-    visible: battery.isLaptopBattery
+MouseArea{
+    id: root
+    visible: BatteryState.available
 
-    readonly property UPowerDevice battery: UPower.displayDevice
+    // battery properties
+    readonly property var chargeState: BatteryState.chargeState
+    readonly property bool isCharging: BatteryState.isCharging
+    readonly property bool isPluggedIn: BatteryState.isPluggedIn
+    readonly property real percentage: BatteryState.batPercentage
 
-    property var chargeState: UPower.displayDevice.state
+    implicitWidth: batteryProgress.implicitWidth
+    implicitHeight: batteryProgress.implicitHeight
 
-    property bool isCharging: chargeState == UPowerDeviceState.Charging
+    hoverEnabled: true
 
-    property bool isPluggedIn: isCharging || UPowerDeviceState.PendingCharge
+    ClippedProgressBar {
+        id: batteryProgress
+        anchors.centerIn: parent
+        value: percentage
+        highlightColor: (isLow && !isCharging) ? 'white' : 'red'
 
-    property real batLevel: Math.floor(UPower.displayDevice.percentage * 100) // charge level as %
+        /* Item { */
+        /*     anchors.centerIn: parent */
+        /*     width: batteryProgress.valueBarWidth */
+        /*     height: batteryProgress.valueBarHeight */
 
-    property bool isPlugged: Upower.displayDevice.state.PendingCharge
+        /*     RowLayout { */
+        /*         anchors.centerIn: parent */
+        /*         spacing: 0 */
 
-    property bool isDischarging: Upower.displayDevice.state.Discharging
+        /*         BarText { */
+        /*             id: textt */
+                    
+        /*         } */
 
-    property real energyRate: UPower.displayDevice.changeRate
-    property real timeToEmpty: UPower.displayDevice.timeToEmpty
-    property real timeToFull: UPower.displayDevice.timeToFull
-
-    /* SoundEffect { */
-    /*     id: beep */
-    /*     source: Qt.resolvedUrl("beep.wav") */
-    /* } */
-
-    content: BarText {
-        id: batText
-        /* baseColor: isCharging == 'Charging' ? 'red' : batLevel < 10 ? '#FF2DD1' : batLevel < 20 ? '#DCED31' : batLevel < 50 ? '#B0FF92' : '#AA78A6' */
-        baseColor: batLevel < 10 ? '#FF2DD1' : batLevel < 20 ? '#DCED31' : batLevel < 50 ? '#B0FF92' : '#AA78A6'
-        font { pointSize: 10; family: 'lato'; bold: true}
-        symbolText: batLevel 
+                
+        /*     } */
+        /* } */
     }
 }
 
-}
+        /* content: BarText { */
+        /*     id: batText */
+        /*     /\* baseColor: isCharging == 'Charging' ? 'red' : batLevel < 10 ? '#FF2DD1' : batLevel < 20 ? '#DCED31' : batLevel < 50 ? '#B0FF92' : '#AA78A6' *\/ */
+        /*     baseColor: batLevel < 10 ? '#FF2DD1' : batLevel < 20 ? '#DCED31' : batLevel < 50 ? '#B0FF92' : '#AA78A6' */
+        /*     font { pointSize: 10; family: 'lato'; bold: true} */
+        /*     symbolText: batLevel  */
+        /* } */
