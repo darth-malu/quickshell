@@ -64,17 +64,17 @@ Singleton {
                 "&&", "paplay /run/current-system/sw/share/sounds/freedesktop/stereo/power-plug.oga"
             ])
         }
-        else if (available && !isCharging) {
-            Quickshell.execDetached([
-                "sh", "-c",
-                "notify-send",
-                "Charger disconnected ",
-                "-i", "/home/malu/.config/quickshell/assets/battery/unplug.png",
-                "-u", "low",
-                "-a", "Shell",
-                "&&", "paplay /run/current-system/sw/share/sounds/freedesktop/stereo/power-unplug.oga"
-            ])
-        }
+        /* else { */
+        /*     Quickshell.execDetached([ */
+        /*         "sh", "-c", */
+        /*         "notify-send", */
+        /*         "Charger disconnected ", */
+        /*         "-i", "/home/malu/.config/quickshell/assets/battery/unplug.png", */
+        /*         "-u", "low", */
+        /*         "-a", "Shell", */
+        /*         "&&", "paplay /run/current-system/sw/share/sounds/freedesktop/stereo/power-unplug.oga" */
+        /*     ]) */
+        /* } */
     }
 
     onIsCriticalAndNotChargingChanged: {
