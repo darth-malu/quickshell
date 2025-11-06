@@ -27,8 +27,8 @@ Singleton {
     property real timeToEmpty: UPower.displayDevice.timeToEmpty
     property real timeToFull: UPower.displayDevice.timeToFull
 
-    property bool isLow: available && batPercentage <= 18
-    property bool isCritical: available && batPercentage <= 7
+    property bool isLow: available && (batPercentage <=  18 / 100)
+    property bool isCritical: available && (batPercentage <=  7 / 100)
 
     property bool isLowAndNotCharging: isLow && !isCharging
     property bool isCriticalAndNotCharging: isCritical && !isCharging

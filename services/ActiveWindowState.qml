@@ -7,7 +7,7 @@ import Quickshell.Io
 Singleton {
     id: root
     readonly property HyprlandToplevel activeToplevel: Hyprland.activeToplevel?.wayland?.activated ? Hyprland.activeToplevel : null
-    readonly property string currentWindow: activeToplevel.title
+    readonly property string currentWindow: activeToplevel?.title ?? ""
 
     Connections {
         target: Hyprland
