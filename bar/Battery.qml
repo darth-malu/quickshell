@@ -3,21 +3,25 @@ import QtQuick.Layouts
 import qs.services
 import qs.customItems
 
+/* TODO
+   + Alternative modes on click eg. time to full, empty, charge rate
+   + colors for different charge states
+   + FIXME color change not working for Text{}
+ * */
+
 MouseArea{
     id: root
     visible: BatteryState.available
-
-    // battery properties
     readonly property var chargeState: BatteryState.chargeState
     readonly property bool isCharging: BatteryState.isCharging
     readonly property bool isLow: BatteryState.isLow
     readonly property bool isPluggedIn: BatteryState.isPluggedIn
-    readonly property real percentage: BatteryState.batPercentage
+    readonly property real percentage: BatteryState.batPercentage // 0.0-1.0
 
     implicitWidth: batteryProgress.implicitWidth
     implicitHeight: batteryProgress.implicitHeight
 
-    hoverEnabled: true
+    //hoverEnabled: true
 
     ClippedProgressBar {
         id: batteryProgress

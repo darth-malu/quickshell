@@ -9,7 +9,7 @@ ProgressBar {
     id: root
     property bool vertical: false
     property real valueBarWidth: 30
-    property real valueBarHeight: 20
+    property real valueBarHeight: 15
     property color highlightColor: "#685496" //Filled part
     property color trackColor: "#F1D3F9" //empty part
     property alias radius: contentItem.radius

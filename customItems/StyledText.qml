@@ -4,9 +4,9 @@ import QtQuick.Layouts
 
 Text {
     id: root
-    property bool animateChange: false
-    property real animationDistanceX: 0
-    property real animationDistanceY: 6
+    /* property bool animateChange: false */
+    /* property real animationDistanceX: 0 */
+    /* property real animationDistanceY: 6 */
 
     renderType: Text.NativeRendering
     verticalAlignment: Text.AlignVCenter
@@ -16,7 +16,7 @@ Text {
         pixelSize: 15
     }
     color: "white"
-    linkColor: "red"
+    //linkColor: "red"
 
     /* component Anim: NumberAnimation { */
     /*     target: root */
