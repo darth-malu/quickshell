@@ -9,7 +9,7 @@ Variants {
 	property color backgroundColor: "#e60c0c0c"
 	property color buttonColor: "#1e1e1e"
 	property color buttonHoverColor: "#3700b3"
-	default property list<LogoutButton> buttons
+	default property list<LogoutButton> buttons //list of LogoutButtons
 
 	model: Quickshell.screens
 
@@ -28,7 +28,7 @@ Variants {
 		contentItem {
 			focus: true
 			Keys.onPressed: event => {
-				if (event.key == Qt.Key_Escape) Qt.quit();
+				if (event.key == Qt.Key_Escape) Qt.quit(); // TODO incorporate this into mixer and app launcher
 				else {
 					for (let i = 0; i < buttons.length; i++) {
 						let button = buttons[i];

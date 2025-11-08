@@ -14,7 +14,6 @@ BarBlock {
     readonly property int textSize: 8
     readonly property string textFont: 'inter'
     readonly property bool textBold: true
-    readonly property real volume: PipewireState.volume
     readonly property color volumeColor: "#ccccccff"
     readonly property PwNode defaultOut: PipewireState.outputSink
     /* readonly property PwNode defaultIn: PipewireState.inputSink */
@@ -35,7 +34,7 @@ BarBlock {
 
     content: BarText {
         id: volumeOut
-        symbolText: `🔈 ${text.volume}`
+        symbolText: `🔈 ${PipewireState.volume}`
         color: text.volumeColor
         font {
             pixelSize: 12

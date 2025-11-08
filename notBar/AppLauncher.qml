@@ -6,16 +6,17 @@ import QtQuick
 
 PanelWindow {
         id: launcher
-        width: 350
-        height:350
+        implicitWidth: 350
+        implicitHeight:350
         color: "transparent"
         focusable: true
+
         WrapperRectangle {
             id: wrap
             color: white
 
-            width: 300
-            height:300
+            implicitWidth: 300
+            implicitHeight:300
             
             ColumnLayout {
                 anchors.fill: parent
@@ -48,6 +49,9 @@ PanelWindow {
                             onClicked: {
                                 // launch the app
                                 modelData.execute()
+                                // TODO:
+                                // Make ESC close the launcher
+                                // Replicate my Rofi UI
                             }
                         }
                     }

@@ -3,7 +3,6 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Services.Pipewire
-import qs.customItems
 
 ShellRoot {
 	FloatingWindow {
@@ -19,6 +18,7 @@ ShellRoot {
 				anchors.margins: 10
 
 				// get a list of nodes that output to the default sink
+          // NOTE: defunct output meter stuff...TODO invetigate
 				PwNodeLinkTracker {
 					id: linkTracker
 					node: Pipewire.defaultAudioSink

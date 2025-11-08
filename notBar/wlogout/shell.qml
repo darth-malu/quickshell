@@ -5,7 +5,7 @@ ShellRoot {
 	WLogout {
 		LogoutButton {
 			command: "loginctl lock-session"
-			keybind: Qt.Key_K
+			keybind: Qt.Key_L
 			text: "Lock"
 			icon: "lock"
 		}
@@ -33,7 +33,7 @@ ShellRoot {
 
 		LogoutButton {
 			command: "systemctl poweroff"
-			keybind: Qt.Key_K
+			keybind: Qt.Key_S
 			text: "Shutdown"
 			icon: "shutdown"
 		}
