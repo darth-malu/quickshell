@@ -52,14 +52,14 @@ Rectangle {
       children: content
     }
 
-    MouseArea {
-      id: mouseArea
-      anchors.fill: root
+    /* MouseArea { */
+    /*   id: mouseArea */
+    /*   anchors.fill: root */
       //hoverEnabled: true
       //acceptedButtons: Qt.LeftButton
       //acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
       //onClicked: root.onClicked()
-    }
+    /* } */
 
     //While line underneath workspace
     /* Rectangle { */

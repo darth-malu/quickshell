@@ -50,15 +50,15 @@ Scope {
           verticalCenter: parent.verticalCenter
         }
 
-        IconImage {
-          implicitSize: 16
-          source: "root:assets/speaker/icons8-speaker-30-4.png"
-          asynchronous: true
-        }
+        /* IconImage { */
+        /*   implicitSize: 16 */
+        /*   source: "root:assets/speaker/icons8-speaker-30-4.png" */
+        /*   asynchronous: true */
+        /* } */
 
         Rectangle {//outer
           Layout.fillWidth: true // Stretches to fill all left-over space
-          implicitHeight: 10
+          implicitHeight: 12
           radius: 20
           color: "#80000000"
 

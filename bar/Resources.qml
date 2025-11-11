@@ -1,9 +1,10 @@
 import QtQuick
+import Quickshell.Io
 import QtQuick.Layouts
 import qs.customItems
 import qs.services
 
-Rectangle {
+BarBlock {// TODO add LazyLoader for this
     id: root
     color: "transparent"
     implicitWidth: resourcesRow.width
@@ -22,43 +23,50 @@ Rectangle {
     readonly property color memoryColor: memoryText.text >  90 ?  "#7CE577" : '#ccccccff'
     readonly property string textColor: "lightgray"
 
-    RowLayout {
+    IpcHandler {
+        target: 'resources'
+        function toggleResources(): void {
+            root.visible = !root.visible
+        }
+    }
+
+    content: RowLayout {
         id: resourcesRow
         anchors.centerIn: parent
-        spacing: 10
-        uniformCellSizes: true
+        spacing: 13
+        /* uniformCellSizes: true */
 
         RowLayout {
             id: memoryIcon
-            spacing: 6
+            /* spacing: 3 */
             BarText {
                 font.pointSize: root.symbolSize
                 symbolText: "🧠"
-                Layout.alignment: Qt.AlignCenter
+                /* Layout.alignment: Qt.AlignRight */
             }
             BarText {
                 id: memoryText
                 color: memoryColor
                 font { pointSize: root.textSize; family: root.textFont; bold: root.textBold}
                 text: ResourcesState.mem_percent
-                Layout.alignment: Qt.AlignCenter
+                /* Layout.alignment: Qt.AlignLeft */
             }
         }
 
         RowLayout {
             id: cpuColumn
-            spacing: 6
+            /* spacing: 6 */
             BarText {
                 id: cpuIcon
                 font.pointSize: root.symbolSize
                 symbolText: "🤖"
-                Layout.alignment: Qt.AlignCenter
+                /* Layout.alignment: Qt.AlignCenter */
             }
             BarText {
                 id: cpuText
                 font { pointSize: root.textSize; family: root.textFont; bold: root.textBold}
                 text: ResourcesState.cpu_percent
-                Layout.alignment: Qt.AlignCenter
+                /* Layout.alignment: Qt.AlignCenter */
                 color: root.cpuColor
                 Behavior on color { ColorAnimation { duration: 200 } } 
             }

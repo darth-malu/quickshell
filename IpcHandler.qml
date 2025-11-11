@@ -44,6 +44,13 @@ Item {
         }
     }
 
+    IpcHandler {
+        target: 'notifications'
+        function dismissAll(): void {
+            NotificationState.dismissAll();
+        }
+    }
+
     /* IpcHandler { */
     /*     target: "bar" */
     /*     function toggleBar(): void { */

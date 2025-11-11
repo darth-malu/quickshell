@@ -11,5 +11,6 @@ import qs.notBar
       Bar {}
       Volume {}
       IpcHandler {}
+      NotificationOverlay {}
   }
 //}

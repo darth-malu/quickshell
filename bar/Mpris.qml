@@ -35,6 +35,10 @@ WrapperMouseArea {
             mprisRoot.visible = !mprisRoot.visible;
         }
 
+        function toggleMprisIcon(): void {
+            art.visible = !art.visible;
+        }
+
     }
 
     Timer {
@@ -86,6 +90,8 @@ WrapperMouseArea {
         visible: showPlayer
 
         ClippingWrapperRectangle {
+            id: art
+            //visible: false
             radius: height / 2 // 6
             implicitWidth: 24
             implicitHeight: 24

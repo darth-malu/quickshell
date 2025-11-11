@@ -10,7 +10,7 @@ Repeater {
 
         property bool isFocusedMonitor: modelData.monitor?.name === Hyprland.focusedMonitor?.name
 
-        property bool isWorkspaceMonitorFocused: isFocusedMonitor && modelData.active
+        //property bool isFocused: modelData.focusedWorkspace?.monitor.name === Hyprland.focusedMonitor?.name
 
         property bool focusedActive: isFocusedMonitor && modelData.active
 
