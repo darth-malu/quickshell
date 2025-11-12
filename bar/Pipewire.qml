@@ -34,7 +34,7 @@ BarBlock {
 
     content: BarText {
         id: volumeOut
-        symbolText: `🔈 ${PipewireState.volume}`
+        symbolText: `🔈 ${PipewireState.volume}` /*󰓃*/
         color: text.volumeColor
         font {
             pixelSize: 12

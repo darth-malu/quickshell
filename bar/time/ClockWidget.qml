@@ -6,12 +6,10 @@ import qs.customItems
 BarBlock {
   id: masaa
 
-  underline: false
-
   content: BarText {
       symbolText: Time.time
-      font {pixelSize: 13; family: 'nunito'; bold: true}
+      font {pixelSize: 13; family: 'lato'; bold: true}
       baseColor: '#ff79c6'
-      // rightPadding: 5
+      rightPadding: 13
   }
 }

@@ -60,16 +60,15 @@ ShellRoot {
                     ActiveWindow {}
                 }
 
-                Mpris {}
+                Mpris {
+                    id: centerBlock
+                }
 
                 RowLayout {
                   id: rightBlock
-                  spacing: 4
+                  spacing: 5
                   anchors.right: parent.right
-                  //anchors.verticalCenter: parent.verticalCenter
-
                   //Netspeed {}
-                  Pipewire {}
                   Resources {}
                   ClockWidget {}
                   Battery {}

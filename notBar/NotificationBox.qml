@@ -8,10 +8,7 @@ import Quickshell.Widgets
 import qs
 import qs.customItems
 import qs.services
-
 //import org.kde.kirigami
-//import "../utils/."
-//import "../components"
 
 WrapperMouseArea {
     id: root
@@ -27,11 +24,11 @@ WrapperMouseArea {
     property int indexPopup: -1
     property int indexAll: -1
 
-    property real iconSize: 98
+    property real iconSize: 98 // TODO make smaller for !mpd && !spotify
     property real iconRadius: 12
 
     property bool showTime: false
-    property bool expanded: true
+    property bool expanded: false
 
     onClicked: mouse => {
         if (mouse.button == Qt.LeftButton && root.n.actions != []) {
@@ -59,7 +56,7 @@ WrapperMouseArea {
 
     Rectangle {
         id: outerBox
-        implicitWidth: 270 // TODO Make This shrink based on content , but with min
+        implicitWidth: 250 // TODO Make This shrink based on content , but with min
         implicitHeight: mainLayout.implicitHeight
         radius: 16
         color: Colors.bgBlur
@@ -77,9 +74,7 @@ WrapperMouseArea {
 
             Item {
                 id: coverItem
-
                 visible: root.image != ""
-
                 Layout.alignment: Qt.AlignTop
                 implicitWidth: root.iconSize
                 implicitHeight: root.iconSize
@@ -87,53 +82,51 @@ WrapperMouseArea {
                 //Layout.rightMargin: 4 // NOTE noeffect??
 
                 ClippingWrapperRectangle {
+                    id: songArt
                     anchors.centerIn: parent
-                    radius: 8
+                    radius: 12 
+                    // TODO make only TopLeft/bottom radius
                     //color: "transparent" // NOTE noeffect
-
                     IconImage {
                         implicitSize: coverItem.height
                         source: Utils.getImage(root.image)
+                        asynchronous: true
                     }
                 }
 
                 ClippingWrapperRectangle {
-                    visible: root.hasAppIcon
-
+                    visible: root.hasAppIcon /* TODO: see when this triggers*/
+                    radius: 2
+                    color: "red"
                     anchors {
                         horizontalCenter: coverItem.right
                         verticalCenter: coverItem.bottom
                         horizontalCenterOffset: -4
                         verticalCenterOffset: -4
                     }
-
-                    radius: 2
-                    color: "transparent"
-
                     IconImage {
                         implicitSize: 16
                         source: Utils.getImage(root.n.appIcon)
+                        asynchronous: true
                     }
                 }
             }
 
             ColumnLayout {
                 id: contentLayout
-
                 Layout.fillWidth: true
                 //Layout.margins: 12
                 //Layout.leftMargin: coverItem.visible ? 4 : 12
                 spacing: 4
-
                 RowLayout {
                     Layout.maximumWidth: contentLayout.width - buttonLayout.width
                     //Layout.maximumWidth: contentLayout.width
-
                     Text {
                         id: summary
                         //Layout.alignment: Qt.AlignLeft
                         text: root.n.summary
                         elide: Text.ElideRight
+                        wrapMode: Text.Wrap
                         font {
                             pointSize: 10
                             family: 'Quicksand'
@@ -141,7 +134,6 @@ WrapperMouseArea {
                             bold: true
                         }
                     }
-
                     Text {
                         id: currentTime
                         visible: root.showTime
@@ -238,6 +230,7 @@ WrapperMouseArea {
                         anchors.centerIn: parent
                         implicitHeight: parent.implicitHeight - 4
                         implicitWidth: parent.implicitHeight - 4
+                        asynchronous: true
                         /* isMask: true */
                         //color: 'white'
                     }
@@ -269,6 +262,7 @@ WrapperMouseArea {
                         anchors.centerIn: parent
                         implicitHeight: parent.implicitHeight - 4
                         implicitWidth: parent.implicitHeight - 4
+                        asynchronous: true
                         //isMask: true
                         //color: Colors.foreground
                     }

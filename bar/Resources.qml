@@ -17,11 +17,9 @@ BarBlock {// TODO add LazyLoader for this
 
     readonly property int symbolSize: 10
 
-    readonly property color valueColor: 'white'
     readonly property color cpuColor: cpuText.text > 80 ? "#EEFC57" : cpuText.text > 50 ? "#7CE577" : '#C6CAED'
 
     readonly property color memoryColor: memoryText.text >  90 ?  "#7CE577" : '#ccccccff'
-    readonly property string textColor: "lightgray"
 
     IpcHandler {
         target: 'resources'
@@ -33,15 +31,22 @@ BarBlock {// TODO add LazyLoader for this
     content: RowLayout {
         id: resourcesRow
         anchors.centerIn: parent
-        spacing: 13
-        /* uniformCellSizes: true */
+        spacing: 8
+        uniformCellSizes: true
+
+        Pipewire {}
+
+        /* RowLayout { */
+        /*     id: pipewire */
+        /* } */
 
         RowLayout {
             id: memoryIcon
-            /* spacing: 3 */
+            /* spacing: 13 */
             BarText {
                 font.pointSize: root.symbolSize
-                symbolText: "🧠"
+                font.family: 'Symbols Nerd Font'
+                symbolText: "🧠" //
                 /* Layout.alignment: Qt.AlignRight */
             }
             BarText {
@@ -59,8 +64,8 @@ BarBlock {// TODO add LazyLoader for this
             BarText {
                 id: cpuIcon
                 font.pointSize: root.symbolSize
-                symbolText: "🤖"
-                /* Layout.alignment: Qt.AlignCenter */
+                symbolText: "🤖" //
+                Layout.alignment: Qt.AlignCenter
             }
             BarText {
                 id: cpuText
@@ -71,6 +76,7 @@ BarBlock {// TODO add LazyLoader for this
                 Behavior on color { ColorAnimation { duration: 200 } } 
             }
         }
+
 
     }
 }
