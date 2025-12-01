@@ -3,20 +3,25 @@ import qs.services
 import Quickshell.Hyprland
 
 Repeater {
-    model: Hyprland.workspaces.values.filter(w => !w.name.startsWith("special"))
+    id: repa
+    model: WorkspaceService.workspaces
 
     Rectangle {
         id: circleBackground
 
-        property bool isFocusedMonitor: modelData.monitor?.name === Hyprland.focusedMonitor?.name
+        // visible: modelData.monitor === Hyprland.focusedMonitor || modelData.active // Show all workspaces only on the focused monitor
 
-        //property bool isFocused: modelData.focusedWorkspace?.monitor.name === Hyprland.focusedMonitor?.name
+        property color activeWorkspaceIdColor: "#5c0099"
 
-        property bool focusedActive: isFocusedMonitor && modelData.active
+        property color inactiveTextColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.88)
 
-        property color activeTextColor: "#5c0099"
+        property color activeWorkspaceColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
 
-        property color inactiveTextColor: Qt.rgba(171/255, 141/255, 237/255, 0.88)
+        property color currentMonitorNotActiveColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
+
+        readonly property bool isActiveOnMonitor: modelData.id === modelData.monitor.activeWorkspace.id
+
+        readonly property bool isMonitorFocused: modelData.monitor === Hyprland.focusedMonitor
 
         implicitWidth: 20
 
@@ -24,16 +29,18 @@ Repeater {
 
         radius: height / 2
 
-        color: modelData.focused ? "#b298dc" : "transparent" // Green -062726, 062726, 6247AA
+        color: isMonitorFocused && isActiveOnMonitor ? "#b298dc" : "transparent"
 
-        MouseArea { anchors.fill: parent; onClicked: Hyprland.dispatch("workspace " + modelData.id) }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: Hyprland.dispatch("workspace " + modelData.id)
+        }
 
-        Text {
+        Text { // TODO reveal appss in workspace on hover
             id: numbers
             text: modelData.id
             anchors.centerIn: parent
-            color: isFocusedMonitor ?  (modelData.active ? '#5c0099' : Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)) : '#5E5768'// Green -062726, 062726, 6247AA
-            //color: modelData.active ? '#5c0099' : Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1) 
+            color: isMonitorFocused ? (parent.isActiveOnMonitor ? "black" : parent.activeWorkspaceColor) : "#6D5D6E" //#5c0099 4C585B
             font.pixelSize: 13
             font.bold: true
             font.family: "lato"
@@ -41,7 +48,7 @@ Repeater {
 
         Text {
             id: fallback
-            visible: Hyprland.workspaces.length === 0
+            visible: WorkspaceService.workspacesPresent
             text: "No workspaces"
             color: "#ffffff"
             font.pixelSize: 12

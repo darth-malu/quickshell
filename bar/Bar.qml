@@ -24,8 +24,15 @@ ShellRoot {
             aboveWindows: false // true::
             color: "transparent"
             implicitHeight: 20
-            margins { left: 12; right: 12 }
-            anchors { top: true; left: true; right: true }
+            margins {
+                left: 12
+                right: 12
+            }
+            anchors {
+                top: true
+                left: true
+                right: true
+            }
 
             IpcHandler {
                 target: "bar"
@@ -55,7 +62,7 @@ ShellRoot {
                 RowLayout {
                     id: leftBlock
                     spacing: 0.4 //0.4
-                    anchors.left:parent.left
+                    anchors.left: parent.left
                     Workspaces {}
                     ActiveWindow {}
                 }
@@ -65,16 +72,16 @@ ShellRoot {
                 }
 
                 RowLayout {
-                  id: rightBlock
-                  spacing: 5
-                  anchors.right: parent.right
-                  //Netspeed {}
-                  Resources {}
-                  ClockWidget {}
-                  Battery {}
-                  SystemTrayy {}
-              }
-          }
+                    id: rightBlock
+                    anchors.right: parent.right
+                    spacing: 10 //0.4::
+                    Netspeed_darth {}
+                    Resources {}
+                    ClockWidget {}
+                    Battery {}
+                    SystemTrayy {}
+                }
+            }
         }
     }
 }

@@ -12,20 +12,20 @@ Item {
     IpcHandler {
         target: 'mpris'
 
-        function pauseAll():void {
+        function pauseAll(): void {
             for (const player of Mpris.players.values) {
                 if (player.canPause)
                     player.pause();
             }
         }
 
-        function togglePlaying():void {
+        function togglePlaying(): void {
             const player = MprisState.player;
             if (player && player.canTogglePlaying)
                 player.togglePlaying();
         }
 
-        function previous():void {
+        function previous(): void {
             const player = MprisState.player;
             if (player && player.canGoPrevious)
                 player.previous();

@@ -9,6 +9,7 @@ Singleton {
     property string cpu_freq
     property int mem_percent
     property string mem_used
+    property string disk_used
 
     Process {
         id: process_cpu_percent
@@ -18,10 +19,19 @@ Singleton {
             onRead: data => cpu_percent = Math.round(data)
         }
     }
-    
+
+    Process {
+        id: disk_usage
+        running: false
+        command: ["sh", "-c", "zfs list darth-pool | awk 'NR==2{print $3}'"]
+        stdout: SplitParser {
+            onRead: data => disk_used = data
+        }
+    }
+
     Process {
         id: process_cpu_freq
-        running: true
+        running: false
         command: ["sh", "-c", "lscpu --parse=MHZ"]
         stdout: SplitParser {
             onRead: data => {
@@ -37,7 +47,7 @@ Singleton {
 
     Process {
         id: process_mem_percent
-        running: true
+        running: false
         command: ["sh", "-c", "free | awk 'NR==2{print $3/$2*100}'"]
         stdout: SplitParser {
             onRead: data => mem_percent = Math.round(data)
@@ -46,7 +56,7 @@ Singleton {
 
     Process {
         id: process_mem_used
-        running: true
+        running: false
         command: ["sh", "-c", "free --si -h | awk 'NR==2{print $3}'"]
         stdout: SplitParser {
             onRead: data => mem_used = data
@@ -58,10 +68,19 @@ Singleton {
         running: true
         repeat: true
         onTriggered: () => {
-            process_cpu_percent.running = true
-            process_cpu_freq.running = true
-            process_mem_percent.running = true
-            process_mem_used.running = true
+            process_cpu_percent.running = true;
+            // process_cpu_freq.running = true;
+            process_mem_percent.running = true;
+            process_mem_used.running = true;
+            process_mem_used.running = true;
+        }
+    }
+    Timer {
+        interval: 4000
+        running: true
+        repeat: true
+        onTriggered: () => {
+            disk_usage.running = true;
         }
     }
 }

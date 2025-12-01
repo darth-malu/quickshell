@@ -4,7 +4,7 @@ import Quickshell
 
 Rectangle {
     id: root //
-    Layout.preferredWidth: contentContainer.implicitWidth +8 // :+8
+    Layout.preferredWidth: contentContainer.implicitWidth + 4 // :+8
     Layout.preferredHeight: 20 // 30::
 
     property Item content
@@ -12,12 +12,12 @@ Rectangle {
 
     property string text
     //property bool dim: false
-    property bool underline: false 
+    property bool underline: false
     color: 'transparent'
     //property var onClicked: function() {}
 
-    /* property int leftPadding */
-    /* property int rightPadding */
+    property int leftPadding
+    property int rightPadding
 
     //property string hoveredBgColor: "#666666"
 
@@ -44,21 +44,21 @@ Rectangle {
     /* } */
 
     Item {
-      // Contents of the bar block
-      id: contentContainer
-      implicitWidth:  content.implicitWidth
-      implicitHeight: content.implicitHeight
-      anchors.centerIn: parent
-      children: content
+        // Contents of the bar block
+        id: contentContainer
+        implicitWidth: content.implicitWidth
+        implicitHeight: content.implicitHeight
+        anchors.centerIn: parent
+        children: content
     }
 
     /* MouseArea { */
     /*   id: mouseArea */
     /*   anchors.fill: root */
-      //hoverEnabled: true
-      //acceptedButtons: Qt.LeftButton
-      //acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
-      //onClicked: root.onClicked()
+    //hoverEnabled: true
+    //acceptedButtons: Qt.LeftButton
+    //acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+    //onClicked: root.onClicked()
     /* } */
 
     //While line underneath workspace

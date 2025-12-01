@@ -8,6 +8,7 @@ import Quickshell.Widgets
 import qs
 import qs.customItems
 import qs.services
+
 //import org.kde.kirigami
 
 WrapperMouseArea {
@@ -57,6 +58,7 @@ WrapperMouseArea {
     Rectangle {
         id: outerBox
         implicitWidth: 250 // TODO Make This shrink based on content , but with min
+        // implicitWidth: contentLayout.implicitWidth
         implicitHeight: mainLayout.implicitHeight
         radius: 16
         color: Colors.bgBlur
@@ -72,19 +74,26 @@ WrapperMouseArea {
                 right: parent.right
             }
 
-            Item {
+            Item { // songart parent item
                 id: coverItem
                 visible: root.image != ""
-                Layout.alignment: Qt.AlignTop
+                // Layout.alignment: Qt.AlignTop
                 implicitWidth: root.iconSize
                 implicitHeight: root.iconSize
-                Layout.margins: 2 //12::
+                // Layout.margins: 2 //12::
+                // ADD PADDING/MARGINS TO CREATE SPACE AROUND THE CONTENT
+                Layout.topMargin: 2
+                Layout.bottomMargin: 2
+                Layout.leftMargin: 2
+                Layout.rightMargin: 0
+                // Layout.minimumWidth: 200
+                // Layout.fillWidth: true
                 //Layout.rightMargin: 4 // NOTE noeffect??
 
                 ClippingWrapperRectangle {
                     id: songArt
                     anchors.centerIn: parent
-                    radius: 12 
+                    radius: 12
                     // TODO make only TopLeft/bottom radius
                     //color: "transparent" // NOTE noeffect
                     IconImage {
@@ -119,17 +128,17 @@ WrapperMouseArea {
                 //Layout.leftMargin: coverItem.visible ? 4 : 12
                 spacing: 4
                 RowLayout {
-                    Layout.maximumWidth: contentLayout.width - buttonLayout.width
-                    //Layout.maximumWidth: contentLayout.width
+                    // Layout.maximumWidth: contentLayout.width - buttonLayout.width
+                    Layout.maximumWidth: contentLayout.width
                     Text {
                         id: summary
-                        //Layout.alignment: Qt.AlignLeft
+                        // Layout.alignment: Qt.AlignRight
                         text: root.n.summary
-                        elide: Text.ElideRight
-                        wrapMode: Text.Wrap
+                        // elide: Text.ElideRight
+                        // wrapMode: Text.Wrap
                         font {
                             pointSize: 10
-                            family: 'Quicksand'
+                            family: 'Quicksand medium'
                             weight: Font.Bold
                             bold: true
                         }
@@ -161,6 +170,7 @@ WrapperMouseArea {
                     Repeater {
                         id: actionRepeater
                         model: root.n.actions.slice(1)
+                        // model: root.n.actions
 
                         WrapperMouseArea {
                             id: actionButtonMA

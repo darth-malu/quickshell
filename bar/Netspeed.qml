@@ -1,4 +1,5 @@
 import QtQuick
+import Quickshell
 import QtQuick.Controls
 
 Item {
@@ -19,43 +20,43 @@ Item {
 
     // helper function to get the default interface
     function getDefaultInterface() {
-        const p = ShellCommand.runSync("ip route")
-        const lines = p.stdout.split("\n")
+        const p = ShellCommand.runSync("ip route");
+        const lines = p.stdout.split("\n");
         for (let line of lines) {
             if (line.startsWith("default via")) {
-                return line.split(/\s+/)[4]
+                return line.split(/\s+/)[4];
             }
         }
-        return ""
+        return "";
     }
 
     // get rx and tx bytes for a given interface
     function getRxTxBytes(iface) {
-        const p = ShellCommand.runSync("cat /proc/net/dev")
-        const lines = p.stdout.split("\n")
+        const p = ShellCommand.runSync("cat /proc/net/dev");
+        const lines = p.stdout.split("\n");
         for (let line of lines) {
-            line = line.trim()
+            line = line.trim();
             if (line.startsWith(iface + ":")) {
-                const parts = line.split(/\s+/)
-                const rx = parseInt(parts[1])
-                const tx = parseInt(parts[9])
-                return [rx, tx]
+                const parts = line.split(/\s+/);
+                const rx = parseInt(parts[1]);
+                const tx = parseInt(parts[9]);
+                return [rx, tx];
             }
         }
-        return [0, 0]
+        return [0, 0];
     }
 
     function bar(current, min, max, color) {
         if (current < min)
-            return " "
+            return " ";
 
-        const labels = ["▁", "▂", "▄", "▅", "▆", "▇", "█"]
-        const levels = labels.length
-        const levelSize = max / levels
-        let level = Math.floor(current / levelSize)
+        const labels = ["▁", "▂", "▄", "▅", "▆", "▇", "█"];
+        const levels = labels.length;
+        const levelSize = max / levels;
+        let level = Math.floor(current / levelSize);
         if (level >= levels)
-            level = levels - 1
-        return `<span color='${color}'>${labels[level]}</span>`
+            level = levels - 1;
+        return `<span color='${color}'>${labels[level]}</span>`;
     }
 
     Timer {
@@ -65,23 +66,23 @@ Item {
         running: true
         onTriggered: {
             if (root.iface === "")
-                root.iface = root.getDefaultInterface()
+                root.iface = root.getDefaultInterface();
 
-            const [rx, tx] = root.getRxTxBytes(root.iface)
+            const [rx, tx] = root.getRxTxBytes(root.iface);
             if (root.rxPrev === 0) {
-                root.rxPrev = rx
-                root.txPrev = tx
-                return
+                root.rxPrev = rx;
+                root.txPrev = tx;
+                return;
             }
 
-            const rxRate = (rx - root.rxPrev) * 1000 / root.refreshInterval
-            const txRate = (tx - root.txPrev) * 1000 / root.refreshInterval
+            const rxRate = (rx - root.rxPrev) * 1000 / root.refreshInterval;
+            const txRate = (tx - root.txPrev) * 1000 / root.refreshInterval;
 
-            root.rxBar = root.bar(rxRate, root.rxMin, root.rxMax, root.rxColor)
-            root.txBar = root.bar(txRate, root.txMin, root.txMax, root.txColor)
+            root.rxBar = root.bar(rxRate, root.rxMin, root.rxMax, root.rxColor);
+            root.txBar = root.bar(txRate, root.txMin, root.txMax, root.txColor);
 
-            root.rxPrev = rx
-            root.txPrev = tx
+            root.rxPrev = rx;
+            root.txPrev = tx;
         }
     }
 

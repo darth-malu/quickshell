@@ -7,7 +7,7 @@ import qs.customItems
 
 WrapperMouseArea {
     id: mprisRoot
-		visible: MprisState.player != null
+    visible: MprisState.player != null
 
     //Layout.fillHeight: true
     hoverEnabled: true
@@ -19,15 +19,11 @@ WrapperMouseArea {
     property bool showVolume: false
 
     property int mprisFont: 13
-    property bool mprisBold: true
+    property bool mprisBold: false
     property bool volumeBold: true
     property int volumeFont: 12
 
-    property bool showPlayer: !!(
-        MprisState.player?.isPlaying &&
-        MprisState.player?.trackTitle !== "default" &&
-        !(MprisState.player?.trackTitle || "").includes("default")
-    )
+    property bool showPlayer: !!(MprisState.player?.isPlaying && MprisState.player?.trackTitle !== "default" && !(MprisState.player?.trackTitle || "").includes("default"))
 
     IpcHandler {
         target: 'mprisTog'
@@ -38,7 +34,6 @@ WrapperMouseArea {
         function toggleMprisIcon(): void {
             art.visible = !art.visible;
         }
-
     }
 
     Timer {
@@ -51,46 +46,46 @@ WrapperMouseArea {
 
     onContainsMouseChanged: {
         if (!containsMouse)
-            hideVolumeTimer.restart()
+            hideVolumeTimer.restart();
         else
-            hideVolumeTimer.stop()
+            hideVolumeTimer.stop();
     }
 
     onClicked: mouse => {
-        mouse.accepted = true // Prevent background click
+        mouse.accepted = true; // Prevent background click
         if (mouse.button == Qt.LeftButton) {
-            MprisState.player?.togglePlaying()
+            MprisState.player?.togglePlaying();
         } else if (mouse.button == Qt.RightButton) {
-            MprisState.player?.next()
+            MprisState.player?.next();
         } else if (mouse.button == Qt.MiddleButton) {
-            MprisState.player?.raise()
+            MprisState.player?.raise();
         } else if (mouse.button == Qt.ForwardButton) {
-            MprisState.player?.next() 
+            MprisState.player?.next();
         } else if (mouse.button == Qt.BackButton) {
-            MprisState.player?.previous() 
+            MprisState.player?.previous();
         }
     }
 
-    onWheel: (event) => {
+    onWheel: event => {
         if (!MprisState.player?.isPlaying)
-            return
+            return;
+        let vol = MprisState.player.volume * 100; // Convert current volume (0.0–1.0) to percent
 
-        let vol = MprisState.player.volume * 100 // Convert current volume (0.0–1.0) to percent
+        vol += event.angleDelta.y > 0 ? 4 : -4; // Scroll up increases, down decreases
 
-        vol += event.angleDelta.y > 0 ? 4 : -4 // Scroll up increases, down decreases
+        vol = Math.max(0, Math.min(vol, 100)); // Clamp between 0% and 100%
 
-        vol = Math.max(0, Math.min(vol, 100)) // Clamp between 0% and 100%
+        MprisState.player.volume = vol / 100; // Apply back to player
 
-        MprisState.player.volume = vol / 100 // Apply back to player
-
-        mprisRoot.showVolume = true
+        mprisRoot.showVolume = true;
     }
 
     RowLayout {
-        visible: showPlayer
+        visible: mprisRoot.showPlayer
 
         ClippingWrapperRectangle {
             id: art
+            // TODO Hover To view alburm art in bigger size
             //visible: false
             radius: height / 2 // 6
             implicitWidth: 24
@@ -106,22 +101,34 @@ WrapperMouseArea {
 
         BarText {
             id: title
-            text: MprisState.player?.trackTitle || ""
-            //baseColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.78) //baseColor: '#ccccccff' , '#D1D2F9' (nice brightness)
-            baseColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.88)
-            font {pixelSize: mprisRoot.mprisFont;family: 'quicksand';bold: mprisRoot.mprisBold}
+            renderNative: true
+            // text: MprisState.player?.trackTitle || ""
+            text: {
+                let x = 50;
+                var str = MprisState.player?.trackTitle || "";
+                return str.length > x ? str.slice(0, x) + '..' : str;
+            }
+            color: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.98)
+            font {
+                pixelSize: mprisRoot.mprisFont
+                family: 'Quicksand medium'
+                bold: mprisRoot.mprisBold
+            }
         }
 
         BarText {
             id: volumePlayer
             visible: mprisRoot.showVolume
             text: Math.round(MprisState.player?.volume * 100) ?? ""
-            font {pixelSize: mprisRoot.mprisFont;family: 'mononoki nerd font';bold: mprisRoot.volumeBold}
+            font {
+                pixelSize: mprisRoot.mprisFont
+                family: 'lato'
+                bold: mprisRoot.volumeBold
+            }
             //opacity: mprisRoot.showVolume ? 1 : 0
             //opacity: mprisRoot.containsMouse ? 1 : 0
             color: '#ff79c6'
             //Behavior on opacity { NumberAnimation { duration: 460 } }
         }
-
     }
 }
