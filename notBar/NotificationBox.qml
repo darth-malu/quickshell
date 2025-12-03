@@ -9,8 +9,6 @@ import qs
 import qs.customItems
 import qs.services
 
-//import org.kde.kirigami
-
 WrapperMouseArea {
     id: root
 
@@ -57,22 +55,25 @@ WrapperMouseArea {
 
     Rectangle {
         id: outerBox
-        implicitWidth: 250 // TODO Make This shrink based on content , but with min
+        // implicitWidth: Math.max(250, bodyText.implicitWidth) // TODO Make This shrink based on content , but with min
+        implicitWidth: Math.max(250, mainLayout.implicitWidth) // TODO Make This shrink based on content , but with min
+        // implicitWidth: mainLayout.implicitWidth
         // implicitWidth: contentLayout.implicitWidth
         implicitHeight: mainLayout.implicitHeight
         radius: 16
         color: Colors.bgBlur
+        // Layout.margins: 12
 
         RowLayout {
             id: mainLayout
 
             spacing: 8 // picture and text space
 
-            anchors {
-                top: parent.top
-                left: parent.left
-                right: parent.right
-            }
+            // anchors {
+            //     top: parent.top
+            //     left: parent.left
+            //     right: parent.right
+            // }
 
             Item { // songart parent item
                 id: coverItem
@@ -123,13 +124,13 @@ WrapperMouseArea {
 
             ColumnLayout {
                 id: contentLayout
-                Layout.fillWidth: true
-                //Layout.margins: 12
+                Layout.fillWidth: true // TODO: see if usefull really lol
                 //Layout.leftMargin: coverItem.visible ? 4 : 12
+                Layout.rightMargin: 4
                 spacing: 4
                 RowLayout {
                     // Layout.maximumWidth: contentLayout.width - buttonLayout.width
-                    Layout.maximumWidth: contentLayout.width
+                    // Layout.maximumWidth: contentLayout.width
                     Text {
                         id: summary
                         // Layout.alignment: Qt.AlignRight
@@ -153,11 +154,13 @@ WrapperMouseArea {
 
                 Text {
                     id: bodyText
-                    Layout.fillWidth: true
+                    // Layout.fillWidth: true
+                    Layout.maximumWidth: 500 // For absurdly long stuff
+                    Layout.preferredWidth: implicitWidth
                     elide: Text.ElideRight
                     wrapMode: Text.Wrap
                     font.weight: Font.Medium
-                    maximumLineCount: root.expanded ? 5 : (root.n.actions.length > 1 ? 1 : 2)
+                    maximumLineCount: root.expanded ? 10 : (root.n.actions.length > 1 ? 1 : 2)
                     text: root.n.body
                 }
 
@@ -230,7 +233,8 @@ WrapperMouseArea {
                 onPressed: () => root.expanded = !root.expanded
 
                 Rectangle {
-                    radius: 16
+                    // radius: 16
+                    radius: implicitHeight / 2
                     color: expandButton.containsMouse ? Colors.buttonDisabledHover : Colors.buttonDisabled
                     implicitWidth: 16
                     implicitHeight: 16

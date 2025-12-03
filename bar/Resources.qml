@@ -21,7 +21,7 @@ BarBlock {// TODO add LazyLoader for this
     readonly property string diskUsage: ResourcesState.disk_used
 
     readonly property color diskColor: {
-        const match = diskUsage.match(/(\d+\.?\d*)/); // returns list?
+        const match = diskUsage.match(/(\d+\.?\d*)/); // returns list...get first match...number only eg 37.8
 
         if (match) {
             // const usage = parseFloat(match[0]);

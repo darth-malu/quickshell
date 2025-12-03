@@ -22,6 +22,7 @@ Repeater {
         readonly property bool isActiveOnMonitor: modelData.id === modelData.monitor.activeWorkspace.id
 
         readonly property bool isMonitorFocused: modelData.monitor === Hyprland.focusedMonitor
+        // readonly property bool isMonitorFocused: modelData.monitor === Hyprland.monitorFor(screen)
 
         implicitWidth: 20
 
