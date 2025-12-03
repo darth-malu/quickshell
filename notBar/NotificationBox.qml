@@ -63,32 +63,65 @@ WrapperMouseArea {
 
     Rectangle {
         id: outerBox
+<<<<<<< HEAD
         implicitWidth: Math.max(200, mainLayout.implicitWidth + 10)
+=======
+        // implicitWidth: Math.max(250, bodyText.implicitWidth) // TODO Make This shrink based on content , but with min
+        implicitWidth: Math.max(250, mainLayout.implicitWidth) // TODO Make This shrink based on content , but with min
+        // implicitWidth: mainLayout.implicitWidth
+        // implicitWidth: contentLayout.implicitWidth
+>>>>>>> 7f8ceac (Dynamic Notifications)
         implicitHeight: mainLayout.implicitHeight
         radius: 16
         color: Colors.bgBlur
+        // Layout.margins: 12
 
         RowLayout {
             id: mainLayout
 
             spacing: 8 // picture and text space
+<<<<<<< HEAD
+=======
+
+            // anchors {
+            //     top: parent.top
+            //     left: parent.left
+            //     right: parent.right
+            // }
+
+>>>>>>> 7f8ceac (Dynamic Notifications)
             Item { // songart parent item
                 id: coverItem
                 visible: root.image != ""
                 // Layout.alignment: Qt.AlignTop
                 implicitWidth: root.iconSize
                 implicitHeight: root.iconSize
+<<<<<<< HEAD
+=======
+                // Layout.margins: 2 //12::
+                // ADD PADDING/MARGINS TO CREATE SPACE AROUND THE CONTENT
+>>>>>>> 7f8ceac (Dynamic Notifications)
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.leftMargin: 2
                 Layout.rightMargin: 0
                 // Layout.minimumWidth: 200
                 // Layout.fillWidth: true
+<<<<<<< HEAD
+=======
+                //Layout.rightMargin: 4 // NOTE noeffect??
+>>>>>>> 7f8ceac (Dynamic Notifications)
 
                 ClippingWrapperRectangle {
                     id: songArt
                     anchors.centerIn: parent
+<<<<<<< HEAD
                     radius: 12 // TODO make only TopLeft/bottom radius
+=======
+                    radius: 12
+                    // TODO make only TopLeft/bottom radius
+                    //color: "transparent" // NOTE noeffect
+>>>>>>> 7f8ceac (Dynamic Notifications)
                     IconImage {
                         implicitSize: coverItem.height
                         source: Utils.getImage(root.image)
@@ -118,7 +151,11 @@ WrapperMouseArea {
                 id: contentLayout
                 Layout.fillWidth: true // TODO: see if usefull really lol
                 //Layout.leftMargin: coverItem.visible ? 4 : 12
+<<<<<<< HEAD
                 // Layout.rightMargin: 4
+=======
+                Layout.rightMargin: 4
+>>>>>>> 7f8ceac (Dynamic Notifications)
                 spacing: 4
                 RowLayout {
                     // Layout.maximumWidth: contentLayout.width - buttonLayout.width
@@ -129,8 +166,11 @@ WrapperMouseArea {
                         text: root.n.summary
                         // elide: Text.ElideRight
                         // wrapMode: Text.Wrap
+<<<<<<< HEAD
                         // color: '#ccccccff'
                         color: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.98)
+=======
+>>>>>>> 7f8ceac (Dynamic Notifications)
                         font {
                             pointSize: 10
                             family: 'Quicksand medium'
@@ -167,11 +207,15 @@ WrapperMouseArea {
 
                     Repeater {
                         id: actionRepeater
+<<<<<<< HEAD
                         // model: root.n.actions.slice(1) // This returns array of all elements in root.n.actions after index [0] to end
                         model: {
                             console.log("Printing n.actions[]:", root.n.actions.slice(0));
                             return root.n.actions.slice(1); // This returns array of all elements in root.n.actions after index [0] to end
                         }
+=======
+                        model: root.n.actions.slice(1)
+>>>>>>> 7f8ceac (Dynamic Notifications)
                         // model: root.n.actions
 
                         WrapperMouseArea {
