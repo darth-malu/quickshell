@@ -7,6 +7,7 @@ import qs.customItems
 
 WrapperMouseArea {
     id: mprisRoot
+    // visible: MprisState.player != null && mprisVisible
     visible: MprisState.player != null
 
     //Layout.fillHeight: true

@@ -6,11 +6,13 @@ import qs.services
 
 BarBlock {// TODO add LazyLoader for this
     id: root
+    visible: resourceVisibility
 
     color: "transparent"
     implicitWidth: resourcesRow.width
 
     readonly property int valueSize: 8
+    property bool resourceVisibility: false
 
     readonly property int textSize: 8
     readonly property string textFont: 'quicksand medium'

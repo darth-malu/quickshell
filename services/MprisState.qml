@@ -21,7 +21,7 @@ Singleton {
 
             //if (player.identity === "mpv" || player.desktopEntry === "mpv") continue;
 
-            const ignored = ["mpv"];
+            const ignored = ["mpv", "whatsapp", "chromium", "*Whatsapp*"];
 
             if (ignored.includes(player?.identity) || ignored.includes(player?.desktopEntry))
                 continue;
@@ -37,7 +37,8 @@ Singleton {
     }
 
     function handlePlayerChanged(player: MprisPlayer) {
-        if (!player.isPlaying) return;
+        if (!player.isPlaying)
+            return;
 
         players.delete(player);
         players.add(player);

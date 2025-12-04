@@ -23,7 +23,8 @@ WrapperMouseArea {
     property int indexPopup: -1
     property int indexAll: -1
 
-    property real iconSize: 98 // TODO make smaller for !mpd && !spotify
+    // property real iconSize: n.appName === "songart" || n.desktopEntry === "songart" ? 96 : 10
+    property real iconSize: 98
     property real iconRadius: 12
 
     property bool showTime: false
@@ -55,48 +56,32 @@ WrapperMouseArea {
 
     Rectangle {
         id: outerBox
-        // implicitWidth: Math.max(250, bodyText.implicitWidth) // TODO Make This shrink based on content , but with min
-        implicitWidth: Math.max(250, mainLayout.implicitWidth) // TODO Make This shrink based on content , but with min
-        // implicitWidth: mainLayout.implicitWidth
-        // implicitWidth: contentLayout.implicitWidth
+        implicitWidth: Math.max(200, mainLayout.implicitWidth + 10)
         implicitHeight: mainLayout.implicitHeight
         radius: 16
         color: Colors.bgBlur
-        // Layout.margins: 12
 
         RowLayout {
             id: mainLayout
 
             spacing: 8 // picture and text space
-
-            // anchors {
-            //     top: parent.top
-            //     left: parent.left
-            //     right: parent.right
-            // }
-
             Item { // songart parent item
                 id: coverItem
                 visible: root.image != ""
                 // Layout.alignment: Qt.AlignTop
                 implicitWidth: root.iconSize
                 implicitHeight: root.iconSize
-                // Layout.margins: 2 //12::
-                // ADD PADDING/MARGINS TO CREATE SPACE AROUND THE CONTENT
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.leftMargin: 2
                 Layout.rightMargin: 0
                 // Layout.minimumWidth: 200
                 // Layout.fillWidth: true
-                //Layout.rightMargin: 4 // NOTE noeffect??
 
                 ClippingWrapperRectangle {
                     id: songArt
                     anchors.centerIn: parent
-                    radius: 12
-                    // TODO make only TopLeft/bottom radius
-                    //color: "transparent" // NOTE noeffect
+                    radius: 12 // TODO make only TopLeft/bottom radius
                     IconImage {
                         implicitSize: coverItem.height
                         source: Utils.getImage(root.image)
@@ -105,7 +90,7 @@ WrapperMouseArea {
                 }
 
                 ClippingWrapperRectangle {
-                    visible: root.hasAppIcon /* TODO: see when this triggers*/
+                    visible: root.hasAppIcon
                     radius: 2
                     color: "red"
                     anchors {
@@ -126,7 +111,7 @@ WrapperMouseArea {
                 id: contentLayout
                 Layout.fillWidth: true // TODO: see if usefull really lol
                 //Layout.leftMargin: coverItem.visible ? 4 : 12
-                Layout.rightMargin: 4
+                // Layout.rightMargin: 4
                 spacing: 4
                 RowLayout {
                     // Layout.maximumWidth: contentLayout.width - buttonLayout.width
@@ -137,6 +122,8 @@ WrapperMouseArea {
                         text: root.n.summary
                         // elide: Text.ElideRight
                         // wrapMode: Text.Wrap
+                        // color: '#ccccccff'
+                        color: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.98)
                         font {
                             pointSize: 10
                             family: 'Quicksand medium'
@@ -159,6 +146,7 @@ WrapperMouseArea {
                     Layout.preferredWidth: implicitWidth
                     elide: Text.ElideRight
                     wrapMode: Text.Wrap
+                    // color: 'red'
                     font.weight: Font.Medium
                     maximumLineCount: root.expanded ? 10 : (root.n.actions.length > 1 ? 1 : 2)
                     text: root.n.body
@@ -172,7 +160,11 @@ WrapperMouseArea {
 
                     Repeater {
                         id: actionRepeater
-                        model: root.n.actions.slice(1)
+                        // model: root.n.actions.slice(1) // This returns array of all elements in root.n.actions after index [0] to end
+                        model: {
+                            console.log("Printing n.actions[]:", root.n.actions.slice(0));
+                            return root.n.actions.slice(1); // This returns array of all elements in root.n.actions after index [0] to end
+                        }
                         // model: root.n.actions
 
                         WrapperMouseArea {

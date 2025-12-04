@@ -7,6 +7,7 @@ import Quickshell.Wayland
 import "./systemTray"
 import qs.services
 import qs.customItems
+import qs.themes
 import Quickshell.Io
 
 ShellRoot {
@@ -22,8 +23,10 @@ ShellRoot {
 
             screen: modelData   // ALl currently connected screens, updates as connected screens change. Reusing a window on every screen This creates an instance of your window once on every screen. As screens are added or removed your window will be created or destroyed on those screens.
             aboveWindows: false // true::
-            color: "transparent"
+            // color: "transparent"
+            color: Themes.bar_bg
             implicitHeight: 20
+
             margins {
                 left: 12
                 right: 12
@@ -75,6 +78,7 @@ ShellRoot {
                     id: rightBlock
                     anchors.right: parent.right
                     spacing: 10 //0.4::
+                    // Layout.rightMargin: 50
                     Netspeed_darth {}
                     Resources {}
                     ClockWidget {}
