@@ -1,58 +1,73 @@
 import QtQuick
 import qs.services
+import qs.customItems
 import Quickshell.Hyprland
+import QtQuick.Layouts
+import QtQuick.Controls
+import Quickshell.Widgets
+import Quickshell
 
-Repeater {
-    id: repa
-    model: WorkspaceService.workspaces
+RowLayout {
+    spacing: 0
+    property HyprlandMonitor monitor: Hyprland.monitorFor(screen)
 
-    Rectangle {
-        id: circleBackground
+    Repeater {
+        id: repa
+        model: WorkspaceService.workspaces
 
-        // visible: modelData.monitor === Hyprland.focusedMonitor || modelData.active // Show all workspaces only on the focused monitor
+        Rectangle {
+            id: circleBackground
 
-        property color activeWorkspaceIdColor: "#5c0099"
+            // visible: modelData.monitor === Hyprland.focusedMonitor || modelData.active // Show all workspaces only on the focused monitor
+            // visible: modelData.monitor === Hyprland.focusedMonitor
+            visible: isMonitorFocused
 
-        property color inactiveTextColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.88)
+            property color activeWorkspaceIdColor: "#5c0099"
 
-        property color activeWorkspaceColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
+            property color inactiveTextColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.88)
 
-        property color currentMonitorNotActiveColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
+            property color activeWorkspaceColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
 
-        readonly property bool isActiveOnMonitor: modelData.id === modelData.monitor.activeWorkspace.id
+            property color currentMonitorNotActiveColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
 
-        readonly property bool isMonitorFocused: modelData.monitor === Hyprland.focusedMonitor
-        // readonly property bool isMonitorFocused: modelData.monitor === Hyprland.monitorFor(screen)
+            readonly property bool isActiveOnMonitor: modelData.id === modelData.monitor.activeWorkspace.id
 
-        implicitWidth: 20
+            readonly property bool isMonitorFocused: modelData.monitor === Hyprland.monitorFor(screen)
 
-        implicitHeight: 20
+            implicitWidth: 20
 
-        radius: height / 2
+            implicitHeight: 20
 
-        color: isMonitorFocused && isActiveOnMonitor ? "#b298dc" : "transparent"
+            radius: height / 2
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: Hyprland.dispatch("workspace " + modelData.id)
+            color: isMonitorFocused && isActiveOnMonitor ? "#b298dc" : "transparent"
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: Hyprland.dispatch("workspace " + modelData.id)
+            }
+
+            Text { // TODO reveal appss in workspace on hover
+                id: workspaceId
+                text: modelData.id
+                anchors.centerIn: parent
+                color: isMonitorFocused ? (parent.isActiveOnMonitor ? "black" : parent.activeWorkspaceColor) : "#6D5D6E" //#5c0099 4C585B
+                font.pixelSize: 13
+                font.bold: true
+                font.family: "lato"
+            }
+
+            Text {
+                id: fallback
+                visible: WorkspaceService.workspacesPresent
+                text: "No workspaces"
+                color: "#ffffff"
+                font.pixelSize: 12
+            }
         }
 
-        Text { // TODO reveal appss in workspace on hover
-            id: numbers
-            text: modelData.id
-            anchors.centerIn: parent
-            color: isMonitorFocused ? (parent.isActiveOnMonitor ? "black" : parent.activeWorkspaceColor) : "#6D5D6E" //#5c0099 4C585B
-            font.pixelSize: 13
-            font.bold: true
-            font.family: "lato"
-        }
-
-        Text {
-            id: fallback
-            visible: WorkspaceService.workspacesPresent
-            text: "No workspaces"
-            color: "#ffffff"
-            font.pixelSize: 12
-        }
+        // Text {
+        //     text: "this"
+        // }
     }
 }

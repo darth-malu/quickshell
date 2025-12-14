@@ -12,7 +12,7 @@ PanelWindow {
     visible: NotificationState.notifOverlayOpen
 
     WlrLayershell.namespace: "quickshell:notifications:overlay"
-    WlrLayershell.layer: WlrLayer.Top
+    WlrLayershell.layer: WlrLayer.Overlay // Top - under fs, Bottom, Background - below bottom
 
     implicitHeight: notifs.height
     implicitWidth: notifs.width + 10
@@ -36,7 +36,7 @@ PanelWindow {
 
             NotificationBox {
                 id: notifBox
-                required property int index
+                required property int index // TODO investigate where index is fed from
                 n: NotificationState.popupNotifs[index]
                 timestamp: Date.now()
                 indexPopup: index

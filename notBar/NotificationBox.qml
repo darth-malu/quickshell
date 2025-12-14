@@ -12,18 +12,24 @@ import qs.services
 WrapperMouseArea {
     id: root
 
-    acceptedButtons: Qt.AllButtons
+    acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton //Qt.AllButtons
     hoverEnabled: true
 
     property Notification n
     property real timestamp
     property real elapsed: Date.now()
-    property string image: (n.image == "" && n.appIcon != "") ? n.appIcon : n.image
-    property bool hasAppIcon: !(n.image == "" && n.appIcon != "")
+
+    /*
+    IMAGE: icon associated with the notification eg. a profile picture in a messaging app
+    appIcon: sending app's icon, if none provided .. the icon form an associated desktop entry will be retrieved. if none found = ""
+     */
+    property string image: (n.image == "" && n.appIcon != "") ? n.appIcon : n.image // Return appIcon of application or image if image present.
+    property bool hasAppIcon: !(n.image == "" && n.appIcon != "") // negate ... no image + appIcon present = image + appIcon absent
+
     property int indexPopup: -1
     property int indexAll: -1
 
-    // property real iconSize: n.appName === "songart" || n.desktopEntry === "songart" ? 96 : 10
+    // property real iconSize: (n.desktopEntry === "ncmpcpp" || n.appName === "songart" || n.desktopEntry === "songart") ? 96 : 30
     property real iconSize: 98
     property real iconRadius: 12
 
@@ -31,6 +37,7 @@ WrapperMouseArea {
     property bool expanded: false
 
     onClicked: mouse => {
+        // actions: list <NotificationAction>
         if (mouse.button == Qt.LeftButton && root.n.actions != []) {
             root.n.actions[0].invoke();
         } else if (mouse.button == Qt.RightButton) {

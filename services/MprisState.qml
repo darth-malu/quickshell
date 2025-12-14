@@ -23,6 +23,10 @@ Singleton {
 
             const ignored = ["mpv", "whatsapp", "chromium", "*Whatsapp*"];
 
+            for (let ig of ignored) {
+                console.log`Ingored player: ${ig} ${player?.identity} ${player.desktopEntry}`;
+            }
+
             if (ignored.includes(player?.identity) || ignored.includes(player?.desktopEntry))
                 continue;
 

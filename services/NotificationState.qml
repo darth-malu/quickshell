@@ -21,7 +21,7 @@ Singleton {
     function onNewNotif(notif) {
         allNotifs = [notif, ...allNotifs];
 
-        if (notif.lastGeneration)
+        if (notif.lastGeneration) // if notif was carried over from last reload
             return;
 
         popupNotifs = [notif, ...popupNotifs];
@@ -37,10 +37,10 @@ Singleton {
     }
 
     function notifCloseByNotif(notif) {
-        popupNotifs = popupNotifs.filter(n => n != notif);
+        popupNotifs = popupNotifs.filter(n => n != notif); // filter out notif from popupNotifs
         allNotifs = allNotifs.filter(n => n != notif);
         notif.dismiss();
-        if (popupNotifs.length == 0)
+        if (popupNotifs.length == 0) // close overlay if no more pop ups in list
             notifOverlayOpen = false;
     }
 
@@ -88,7 +88,7 @@ Singleton {
         onNotification: notif => {
             notif.tracked = true;
             root.onNewNotif(notif);
-            console.log("notif: appName", notif.appName || "null", ", appIcon", notif.appIcon || "null", ", image", notif.image || "null", ", expireTimeout", notif.expireTimeout)
+            console.log("notif: appName", notif.appName || "null", ", appIcon", notif.appIcon || "null", ", image", notif.image || "null", ", expireTimeout", notif.expireTimeout);
 
             notif.closed.connect(() => {
                 notifDismissByNotif(notif);

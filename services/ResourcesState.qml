@@ -13,7 +13,7 @@ Singleton {
 
     Process {
         id: process_cpu_percent
-        running: true
+        running: false
         command: ["sh", "-c", "top -bn1 | rg '%Cpu' | awk '{print 100-$8}'"]
         stdout: SplitParser {
             onRead: data => cpu_percent = Math.round(data)
@@ -23,7 +23,8 @@ Singleton {
     Process {
         id: disk_usage
         running: false
-        command: ["sh", "-c", "zfs list darth-pool | awk 'NR==2{print $3}'"]
+        command: ["sh", "-c", "(zfs get -H -o value avail darthPool 2>/dev/null) || (zfs get -H -o value avail darth-pool 2>/dev/null)"]
+        /* command: ["sh", "-c", "zfs get -H -o value avail darthPool darth-pool 2>/dev/null"] */
         stdout: SplitParser {
             onRead: data => disk_used = data
         }

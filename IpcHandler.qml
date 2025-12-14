@@ -1,6 +1,5 @@
 import qs.services
 import QtQuick
-import qs.bar
 import Quickshell.Io
 
 Item {
@@ -9,12 +8,12 @@ Item {
     IpcHandler {
         target: 'mpris'
 
-        // function pauseAll(): void {
-        //     for (const player of Mpris.players.values) {
-        //         if (player.canPause)
-        //             player.pause();
-        //     }
-        // }
+        function pauseAll(): void {
+            for (const player of MprisState.players.values) {
+                if (player.canPause)
+                    player.pause();
+            }
+        }
 
         function togglePlaying(): void {
             const player = MprisState.player;
