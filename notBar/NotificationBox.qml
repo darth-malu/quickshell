@@ -29,11 +29,6 @@ WrapperMouseArea {
     property int indexPopup: -1
     property int indexAll: -1
 
-<<<<<<< HEAD
-    // property real iconSize: (n.desktopEntry === "ncmpcpp" || n.appName === "songart" || n.desktopEntry === "songart") ? 96 : 30
-=======
-    // property real iconSize: n.appName === "songart" || n.desktopEntry === "songart" ? 96 : 10
->>>>>>> c6a1055 (Stable Quickshell...usable 😀)
     property real iconSize: 98
     property real iconRadius: 12
 
@@ -67,18 +62,7 @@ WrapperMouseArea {
 
     Rectangle {
         id: outerBox
-<<<<<<< HEAD
-<<<<<<< HEAD
         implicitWidth: Math.max(200, mainLayout.implicitWidth + 10)
-=======
-        // implicitWidth: Math.max(250, bodyText.implicitWidth) // TODO Make This shrink based on content , but with min
-        implicitWidth: Math.max(250, mainLayout.implicitWidth) // TODO Make This shrink based on content , but with min
-        // implicitWidth: mainLayout.implicitWidth
-        // implicitWidth: contentLayout.implicitWidth
->>>>>>> 7f8ceac (Dynamic Notifications)
-=======
-        implicitWidth: Math.max(200, mainLayout.implicitWidth + 10)
->>>>>>> c6a1055 (Stable Quickshell...usable 😀)
         implicitHeight: mainLayout.implicitHeight
         radius: 16
         color: Colors.bgBlur
@@ -87,61 +71,23 @@ WrapperMouseArea {
             id: mainLayout
 
             spacing: 8 // picture and text space
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-            // anchors {
-            //     top: parent.top
-            //     left: parent.left
-            //     right: parent.right
-            // }
-
->>>>>>> 7f8ceac (Dynamic Notifications)
-=======
->>>>>>> c6a1055 (Stable Quickshell...usable 😀)
             Item { // songart parent item
                 id: coverItem
                 visible: root.image != ""
                 // Layout.alignment: Qt.AlignTop
                 implicitWidth: root.iconSize
                 implicitHeight: root.iconSize
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                // Layout.margins: 2 //12::
-                // ADD PADDING/MARGINS TO CREATE SPACE AROUND THE CONTENT
->>>>>>> 7f8ceac (Dynamic Notifications)
-=======
->>>>>>> c6a1055 (Stable Quickshell...usable 😀)
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.leftMargin: 2
                 Layout.rightMargin: 0
                 // Layout.minimumWidth: 200
                 // Layout.fillWidth: true
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                //Layout.rightMargin: 4 // NOTE noeffect??
->>>>>>> 7f8ceac (Dynamic Notifications)
-=======
->>>>>>> c6a1055 (Stable Quickshell...usable 😀)
 
                 ClippingWrapperRectangle {
                     id: songArt
                     anchors.centerIn: parent
-<<<<<<< HEAD
-<<<<<<< HEAD
                     radius: 12 // TODO make only TopLeft/bottom radius
-=======
-                    radius: 12
-                    // TODO make only TopLeft/bottom radius
-                    //color: "transparent" // NOTE noeffect
->>>>>>> 7f8ceac (Dynamic Notifications)
-=======
-                    radius: 12 // TODO make only TopLeft/bottom radius
->>>>>>> c6a1055 (Stable Quickshell...usable 😀)
                     IconImage {
                         implicitSize: coverItem.height
                         source: Utils.getImage(root.image)
@@ -171,15 +117,7 @@ WrapperMouseArea {
                 id: contentLayout
                 Layout.fillWidth: true // TODO: see if usefull really lol
                 //Layout.leftMargin: coverItem.visible ? 4 : 12
-<<<<<<< HEAD
-<<<<<<< HEAD
-                // Layout.rightMargin: 4
-=======
                 Layout.rightMargin: 4
->>>>>>> 7f8ceac (Dynamic Notifications)
-=======
-                // Layout.rightMargin: 4
->>>>>>> c6a1055 (Stable Quickshell...usable 😀)
                 spacing: 4
                 RowLayout {
                     // Layout.maximumWidth: contentLayout.width - buttonLayout.width
@@ -190,16 +128,7 @@ WrapperMouseArea {
                         text: root.n.summary
                         // elide: Text.ElideRight
                         // wrapMode: Text.Wrap
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        // color: '#ccccccff'
                         color: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.98)
-=======
->>>>>>> 7f8ceac (Dynamic Notifications)
-=======
-                        // color: '#ccccccff'
-                        color: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.98)
->>>>>>> c6a1055 (Stable Quickshell...usable 😀)
                         font {
                             pointSize: 10
                             family: 'Quicksand medium'
@@ -236,21 +165,11 @@ WrapperMouseArea {
 
                     Repeater {
                         id: actionRepeater
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c6a1055 (Stable Quickshell...usable 😀)
                         // model: root.n.actions.slice(1) // This returns array of all elements in root.n.actions after index [0] to end
                         model: {
                             console.log("Printing n.actions[]:", root.n.actions.slice(0));
                             return root.n.actions.slice(1); // This returns array of all elements in root.n.actions after index [0] to end
                         }
-<<<<<<< HEAD
-=======
-                        model: root.n.actions.slice(1)
->>>>>>> 7f8ceac (Dynamic Notifications)
-=======
->>>>>>> c6a1055 (Stable Quickshell...usable 😀)
                         // model: root.n.actions
 
                         WrapperMouseArea {
