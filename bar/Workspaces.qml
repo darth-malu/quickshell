@@ -65,9 +65,5 @@ RowLayout {
                 font.pixelSize: 12
             }
         }
-
-        // Text {
-        //     text: "this"
-        // }
     }
 }

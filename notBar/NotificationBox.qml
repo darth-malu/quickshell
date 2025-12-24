@@ -29,11 +29,10 @@ WrapperMouseArea {
     property int indexPopup: -1
     property int indexAll: -1
 
-    property real iconSize: (n.appName == 'ncmpcpp' || n.appName == 'spotifY') ? 98 : 34
+    property real iconSize: (n.appName == 'ncmpcpp' || n.appName == 'spotifY') ? 98 : 44
+    property real iconRadius: Math.round(iconSize / 8)
 
-    property real iconRadius: 12
-
-    property bool showTime: false
+    property bool showTime: true
     property bool expanded: false
 
     onClicked: mouse => {
@@ -63,9 +62,9 @@ WrapperMouseArea {
 
     Rectangle {
         id: outerBox
-        implicitWidth: Math.max(200, mainLayout.implicitWidth + 10)
+        implicitWidth: Math.max(100, mainLayout.implicitWidth + 10)
         implicitHeight: mainLayout.implicitHeight
-        radius: 16
+        radius: root.iconSize / 6 // 16;;
         color: Colors.bgBlur
 
         RowLayout {
@@ -88,7 +87,7 @@ WrapperMouseArea {
                 ClippingWrapperRectangle {
                     id: songArt
                     anchors.centerIn: parent
-                    radius: 12 // TODO make only TopLeft/bottom radius
+                    radius: outerBox.radius - 2 // TODO make only TopLeft/bottom radius
                     IconImage {
                         implicitSize: coverItem.height
                         source: Utils.getImage(root.image)

@@ -2,9 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
 
-/* END4 😀
-   A progress bar with both ends rounded and text acts as clipping like OneUI 7's battery indicator.
- */
+// TODO why this does not change color
 ProgressBar {
     id: root
     // property bool vertical: false
@@ -47,7 +45,8 @@ ProgressBar {
 
         Rectangle {
             id: progressFill
-            width: parent.width * root.visualPosition
+            // width: parent.width * root.visualPosition
+            width: parent.width * root.visualPosition // TODO see hwo visualPosition works
             height: parent.height
             radius: 12
             color: root.highlightColor

@@ -15,7 +15,7 @@ MouseArea {
     implicitWidth: batteryProgress.implicitWidth
     implicitHeight: batteryProgress.implicitHeight
 
-    readonly property bool isCharging: BatteryState.isCharging
+    readonly property bool isCharging: BatteryState.isCharging // stops at 100 even if still plugged
 
     readonly property bool isLow: BatteryState.isLow
 
@@ -73,7 +73,7 @@ MouseArea {
                 StyledText {
                     Layout.alignment: Qt.AlignVCenter
                     font: batteryProgress.font
-                    text: batteryProgress.text === '100' ? '⚡' : batteryProgress.text
+                    text: root.isFull ? '⚡' : batteryProgress.text
                 }
             }
         }
