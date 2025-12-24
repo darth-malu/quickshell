@@ -3,7 +3,7 @@ import Quickshell
 import Quickshell.Services.UPower
 
 Singleton {
-    readonly property UPowerDevice battery: UPower.displayDevice
+    readonly property UPowerDevice battery: UPower.displayDevice // exposes a UPowerDevice:QtObject
 
     property real batPercentage: battery.percentage // Energy/EnergyCapacity
 
