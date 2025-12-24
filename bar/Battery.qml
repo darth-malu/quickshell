@@ -9,25 +9,33 @@ import qs.customItems
    + FIXME color change not working for Text{}
  * */
 
-MouseArea{
+MouseArea {
     id: root
     visible: BatteryState.available
-    readonly property var chargeState: BatteryState.chargeState
-    readonly property bool isCharging: BatteryState.isCharging
-    readonly property bool isLow: BatteryState.isLow
-    readonly property bool isPluggedIn: BatteryState.isPluggedIn
-    readonly property real percentage: BatteryState.batPercentage // 0.0-1.0
-
     implicitWidth: batteryProgress.implicitWidth
     implicitHeight: batteryProgress.implicitHeight
+
+    readonly property bool isCharging: BatteryState.isCharging
+
+    readonly property bool isLow: BatteryState.isLow
+
+    readonly property bool isPluggedIn: BatteryState.isPluggedIn
+
+    readonly property bool isPendingCharge: BatteryState.isPendingCharge
+
+    readonly property bool isPendingDischarge: BatteryState.isPendingDischarge
+
+    readonly property real percentage: BatteryState.batPercentage // 0.0-1.0 - Energy/Capacity
+
+    readonly property bool isFull: BatteryState.isFullyCharged
 
     //hoverEnabled: true
 
     ClippedProgressBar {
         id: batteryProgress
         anchors.centerIn: parent
-        value: percentage
-        highlightColor: isCharging ? "#7CE577" /*Lime*/ : isLow ? "#D295BF" /*pink*/ : Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
+        value: root.percentage
+        highlightColor: root.isFull ? "#D295BF" : root.isCharging ? "#7CE577" /*Lime*/ : root.isLow ? "#D295BF" /*pink*/ : Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
         trackColor: 'grey'
 
         Item {
@@ -37,7 +45,7 @@ MouseArea{
 
             RowLayout {
                 anchors.centerIn: parent
-                spacing: 0
+                spacing: 2
 
                 MaterialSymbol {
                     id: boltIcon
@@ -46,22 +54,35 @@ MouseArea{
                     Layout.rightMargin: -2
                     fill: 1
                     text: "⚡"
-                    iconSize: 13
-                    visible: isCharging && percentage < 1 // TODO: animation
+                    iconSize: 10
+                    // visible: isCharging && percentage < 1 // TODO: animation
+                    visible: root.isCharging
                 }
+
+                MaterialSymbol {
+                    id: plugIcon
+                    Layout.alignment: Qt.AlignVCenter
+                    Layout.leftMargin: -2
+                    Layout.rightMargin: -2
+                    fill: 1
+                    text: "🔌"
+                    iconSize: 13
+                    visible: root.isPendingCharge
+                }
+
                 StyledText {
                     Layout.alignment: Qt.AlignVCenter
                     font: batteryProgress.font
-                    text: batteryProgress.text
+                    text: batteryProgress.text === '100' ? '⚡' : batteryProgress.text
                 }
             }
         }
     }
 }
-        /* content: BarText { */
-        /*     id: batText */
-        /*     /\* baseColor: isCharging == 'Charging' ? 'red' : batLevel < 10 ? '#FF2DD1' : batLevel < 20 ? '#DCED31' : batLevel < 50 ? '#B0FF92' : '#AA78A6' *\/ */
-        /*     baseColor: batLevel < 10 ? '#FF2DD1' : batLevel < 20 ? '#DCED31' : batLevel < 50 ? '#B0FF92' : '#AA78A6' */
-        /*     font { pointSize: 10; family: 'lato'; bold: true} */
-        /*     symbolText: batLevel  */
-        /* } */
+/* content: BarText { */
+/*     id: batText */
+/*     /\* baseColor: isCharging == 'Charging' ? 'red' : batLevel < 10 ? '#FF2DD1' : batLevel < 20 ? '#DCED31' : batLevel < 50 ? '#B0FF92' : '#AA78A6' *\/ */
+/*     baseColor: batLevel < 10 ? '#FF2DD1' : batLevel < 20 ? '#DCED31' : batLevel < 50 ? '#B0FF92' : '#AA78A6' */
+/*     font { pointSize: 10; family: 'lato'; bold: true} */
+/*     symbolText: batLevel  */
+/* } */

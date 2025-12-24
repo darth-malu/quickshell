@@ -1,12 +1,11 @@
 pragma Singleton
 import Quickshell
-//import QtQuick
-// import QtMultimedia
 import Quickshell.Services.UPower
-import qs.customItems
 
 Singleton {
     readonly property UPowerDevice battery: UPower.displayDevice
+
+    property real batPercentage: battery.percentage // Energy/EnergyCapacity
 
     property var chargeState: battery.state
 
@@ -14,58 +13,47 @@ Singleton {
 
     property bool isCharging: chargeState == UPowerDeviceState.Charging
 
-    //property bool isPluggedIn: isCharging || UPowerDeviceState.PendingCharge
-    property bool isPluggedIn: chargeState === UPowerDeviceState.Charging || chargeState === UPowerDeviceState.PendingCharge // NOTE see syntax
-
-    property real batPercentage: battery.percentage
-
     property bool isDischarging: chargeState == UPowerDeviceState.Discharging
 
-    property real energyRate: battery.changeRate
+    property bool isPluggedIn: chargeState === UPowerDeviceState.Charging || chargeState === UPowerDeviceState.PendingCharge
 
-    property real timeToEmpty: battery.timeToEmpty
+    property bool isPendingCharge: chargeState === UPowerDeviceState.PendingCharge
 
-    property real timeToFull: battery.timeToFull
+    property bool isPendingDischarge: chargeState === UPowerDeviceState.PendingDischarge
 
-    property bool isLow: available && (batPercentage <=  18 / 100)
+    property bool isFullyCharged: chargeState === UPowerDeviceState.FullyCharged
 
-    property bool isCritical: available && (batPercentage <=  7 / 100)
+    // property real energyRate: battery.changeRate
 
-    property bool isLowAndNotCharging: isLow && !isCharging
+    // property real timeToEmpty: battery.timeToEmpty
 
-    property bool isCriticalAndNotCharging: isCritical && !isCharging
+    // property real timeToFull: battery.timeToFull
 
+    property bool isLow: available && (batPercentage <= 18 / 100)
 
-    // signall handlers
+    property bool isCritical: available && (batPercentage <= 7 / 100)
+
+    property bool isLowAndNotCharging: available && isLow && !isCharging && !isPendingCharge
+
+    property bool isCriticalAndNotCharging: available && isCritical && !isCharging && !isPendingCharge
+
     onIsLowAndNotChargingChanged: {
-        if(available && isLowAndNotCharging) {
-            Quickshell.execDetached([
-              "sh", "-c",
-              "notify-send 'Low battery ' -u low -i /home/malu/.config/quickshell/assets/battery/low-battery.png -a Shell && paplay -p /run/current-system/sw/share/sounds/freedesktop/stereo/bell.oga"
-            ])
+        if (available && isLowAndNotCharging) {
+            Quickshell.execDetached(["sh", "-c", "notify-send 'Low battery ' -u low -i /home/malu/.config/quickshell/assets/battery/low-battery.png -a Shell && canberra-gtk-play -i bell"]);
         }
     }
 
     onIsChargingChanged: {
         if (available && isCharging) {
-            Quickshell.execDetached([
-                "sh", "-c",
-                "notify-send 'Charger connected ' -u low -i /home/malu/.config/quickshell/assets/battery/plug.png -a Shell && paplay /run/current-system/sw/share/sounds/freedesktop/stereo/power-plug.oga"
-            ])
-        } else if (available && !isCharging) {
-            Quickshell.execDetached([
-                "sh", "-c",
-                "notify-send 'Charger disconnected ' -u low -i /home/malu/.config/quickshell/assets/battery/unplug.png -a Shell && paplay /run/current-system/sw/share/sounds/freedesktop/stereo/power-unplug.oga"
-            ])
+            Quickshell.execDetached(["sh", "-c", "notify-send 'Charging' -u low -i /home/malu/.config/quickshell/assets/battery/plug.png -a Shell && canberra-gtk-play -i power-plug"]);
+        } else if (available && !isCharging && !isFullyCharged) {
+            Quickshell.execDetached(["sh", "-c", "notify-send 'Dis-Charging' -u low -i /home/malu/.config/quickshell/assets/battery/unplug.png -a Shell && canberra-gtk-play -i power-unplug"]);
         }
     }
 
     onIsCriticalAndNotChargingChanged: {
         if (available && isCriticalAndNotCharging) {
-            Quickshell.execDetached([
-                "sh", "-c",
-                "notify-send 'Critical battery! ' -u critical -i /home/malu/.config/quickshell/assets/battery/warning-battery.png -a Shell && paplay /run/current-system/sw/share/sounds/freedesktop/stereo/bell.oga"
-            ])
+            Quickshell.execDetached(["sh", "-c", "notify-send 'Critical battery!' -u critical -i /home/malu/.config/quickshell/assets/battery/warning-battery.png -a Shell && canberra-gtk-play -i bell"]);
         }
     }
 }

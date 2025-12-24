@@ -7,7 +7,7 @@ import Qt5Compat.GraphicalEffects
  */
 ProgressBar {
     id: root
-    property bool vertical: false
+    // property bool vertical: false
     property real valueBarWidth: 30
     property real valueBarHeight: 15
     property color highlightColor: "#685496" //Filled part
@@ -25,10 +25,11 @@ ProgressBar {
         }
     }
 
-    text: Math.round(value * 100)
+    text: Math.round(value * 100) // value here is the percentage from battery
 
     font {
-        pixelSize: 13
+        pixelSize: 12
+        family: "Quicksand medium"
         weight: text.length > 2 ? Font.Medium : Font.DemiBold
     }
 

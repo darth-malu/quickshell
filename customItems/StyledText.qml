@@ -1,6 +1,7 @@
 //import qs.modules.common
 import QtQuick
-import QtQuick.Layouts
+
+// import QtQuick.Layouts
 
 Text {
     id: root

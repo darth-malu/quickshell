@@ -3,8 +3,6 @@ pragma Singleton
 import QtQuick
 import Quickshell
 
-//import Qt
-
 Singleton {
     property color bgBar: Qt.rgba(0, 0, 0, 0.21)
     // property color bgBlur: Qt.rgba(0, 0, 0, 0.5)
