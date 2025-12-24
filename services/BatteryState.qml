@@ -47,7 +47,7 @@ Singleton {
         if (available && isCharging) {
             Quickshell.execDetached(["sh", "-c", "notify-send 'Charging' -u low -i /home/malu/.config/quickshell/assets/battery/plug.png -a Shell && canberra-gtk-play -i power-plug"]);
         } else if (available && !isCharging && !isFullyCharged) {
-            Quickshell.execDetached(["sh", "-c", "notify-send 'Dis-Charging' -u low -i /home/malu/.config/quickshell/assets/battery/unplug.png -a Shell && canberra-gtk-play -i power-unplug"]);
+            Quickshell.execDetached(["sh", "-c", "notify-send 'DisCharging' -u low -i /home/malu/.config/quickshell/assets/battery/unplug.png -a Shell && canberra-gtk-play -i power-unplug"]);
         }
     }
 

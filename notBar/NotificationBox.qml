@@ -29,7 +29,8 @@ WrapperMouseArea {
     property int indexPopup: -1
     property int indexAll: -1
 
-    property real iconSize: 98
+    property real iconSize: (n.appName == 'ncmpcpp' || n.appName == 'spotifY') ? 98 : 34
+
     property real iconRadius: 12
 
     property bool showTime: false
@@ -165,11 +166,11 @@ WrapperMouseArea {
 
                     Repeater {
                         id: actionRepeater
-                        // model: root.n.actions.slice(1) // This returns array of all elements in root.n.actions after index [0] to end
-                        model: {
-                            console.log("Printing n.actions[]:", root.n.actions.slice(0));
-                            return root.n.actions.slice(1); // This returns array of all elements in root.n.actions after index [0] to end
-                        }
+                        model: root.n.actions.slice(1) // This returns array of all elements in root.n.actions after index [0] to end... TODO see why needed
+                        // model: {
+                        //     // console.log("Printing n.actions[]:", root.n.actions.slice(0)); // NOTE Empty always
+                        //     return root.n.actions.slice(1); // This returns array of all elements in root.n.actions after index [0] to end
+                        // }
                         // model: root.n.actions
 
                         WrapperMouseArea {

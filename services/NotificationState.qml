@@ -88,7 +88,10 @@ Singleton {
         onNotification: notif => {
             notif.tracked = true;
             root.onNewNotif(notif);
+
             console.log("notif: appName", notif.appName || "null", ", appIcon", notif.appIcon || "null", ", image", notif.image || "null", ", expireTimeout", notif.expireTimeout);
+            console.log("Now testing desktop entries", notif.desktopEntry || "null");
+            // NOTE appName = notify-send, appIcon-main img..-i
 
             notif.closed.connect(() => {
                 notifDismissByNotif(notif);

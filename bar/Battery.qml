@@ -35,7 +35,7 @@ MouseArea {
         id: batteryProgress
         anchors.centerIn: parent
         value: root.percentage
-        highlightColor: root.isFull ? "#D295BF" : root.isCharging ? "#7CE577" /*Lime*/ : root.isLow ? "#D295BF" /*pink*/ : Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
+        highlightColor: root.isCharging ? "#7CE577" /*Lime*/ : root.isLow ? "#D295BF" /*pink*/ : Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
         trackColor: 'grey'
 
         Item {
