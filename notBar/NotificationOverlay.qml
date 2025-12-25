@@ -8,7 +8,7 @@ PanelWindow {
     id: root
 
     //screen: Quickshell.screens.find(m => m.name === Config.preferredMonitor)
-    //screen: Quickshell.screens
+    //screen: Quickshell.screens // TODO see if needed
     visible: NotificationState.notifOverlayOpen
 
     WlrLayershell.namespace: "quickshell:notifications:overlay"
@@ -23,6 +23,7 @@ PanelWindow {
 
     anchors {
         top: true
+        // TODO: how to center below MPRIS
         right: true
     }
 

@@ -15,7 +15,7 @@ WrapperMouseArea {
     acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton //Qt.AllButtons
     hoverEnabled: true
 
-    property Notification n
+    property Notification n     // Fed from NotificationOverlay.qml Repeater -- popupNotifs[index]
     property real timestamp
     property real elapsed: Date.now()
 

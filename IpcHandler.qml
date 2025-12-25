@@ -38,6 +38,14 @@ Item {
             if (player && player.canRaise)
                 player.raise();
         }
+
+        function toggleMpris(): void {
+            MprisState.mprisVisible = !MprisState.mprisVisible;
+        }
+
+        function toggleMprisIcon(): void {
+            MprisState.mprisArtVisible = !MprisState.mprisArtVisible;
+        }
     }
 
     IpcHandler {
@@ -47,10 +55,24 @@ Item {
         }
     }
 
-    /* IpcHandler { */
-    /*     target: "bar" */
-    /*     function toggleBar(): void { */
-    /*         barr.visible = !barr.visible; */
-    /*     } */
-    /* } */
+    IpcHandler {
+        target: 'netspeed'
+        function toggleNet(): void {
+            NetworkState.netspeedVisible = !NetworkState.netspeedVisible;
+        }
+    }
+
+    IpcHandler {
+        target: 'resources'
+        function toggleResources(): void {
+            ResourcesState.resourcesVisible = !ResourcesState.resourcesVisible;
+        }
+    }
+
+    IpcHandler {
+        target: 'bar'
+        function toggleBar(): void {
+            BarState.enableBar = !BarState.enableBar;
+        }
+    }
 }

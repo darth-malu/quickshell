@@ -4,7 +4,6 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Services.Pipewire
-import Quickshell.Widgets
 import qs.customItems
 
 Scope {
@@ -39,8 +38,6 @@ Scope {
         active: root.shouldShowOsd
         PanelWindow {
             // Since the panel's screen is unset, it will be picked by the compositor when the window is created. Most compositors pick the current active monitor.
-            // anchors.bottom: true
-            // margins.bottom: screen.height / 5
             anchors.right: true
             margins.right: screen.width / 95
             exclusiveZone: 0

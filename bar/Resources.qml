@@ -4,15 +4,15 @@ import QtQuick.Layouts
 import qs.customItems
 import qs.services
 
-BarBlock {// TODO add LazyLoader for this
+// TODO add LazyLoader for this
+BarBlock {
     id: root
-    visible: resourceVisibility
+    visible: ResourcesState.resourcesVisible
 
     color: "transparent"
     implicitWidth: resourcesRow.width
 
     readonly property int valueSize: 8
-    property bool resourceVisibility: false
 
     readonly property int textSize: 8
     readonly property string textFont: 'quicksand medium'
@@ -44,13 +44,6 @@ BarBlock {// TODO add LazyLoader for this
     readonly property color memoryColor: memoryPercent > 90 ? "#7CE577" : '#ccccccff'
 
     // readonly property color diskColor: ""  // TODO strip digits and make this color changes?
-
-    IpcHandler {
-        target: 'resources'
-        function toggleResources(): void {
-            root.visible = !root.visible;
-        }
-    }
 
     content: RowLayout {
         id: resourcesRow

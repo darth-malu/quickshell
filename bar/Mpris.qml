@@ -1,16 +1,14 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Widgets
-import Quickshell.Io
 import qs.services
 import qs.customItems
 
 WrapperMouseArea {
     id: mprisRoot
-    // visible: MprisState.player != null && mprisVisible
-    visible: MprisState.player != null
 
-    //Layout.fillHeight: true
+    visible: MprisState.player != null && MprisState.mprisVisible
+
     hoverEnabled: true
 
     anchors.centerIn: parent
@@ -25,17 +23,6 @@ WrapperMouseArea {
     property int volumeFont: 12
 
     property bool showPlayer: !!(MprisState.player?.isPlaying && MprisState.player?.trackTitle !== "default" && !(MprisState.player?.trackTitle || "").includes("default"))
-
-    IpcHandler {
-        target: 'mprisTog'
-        function toggleMpris(): void {
-            mprisRoot.visible = !mprisRoot.visible;
-        }
-
-        function toggleMprisIcon(): void {
-            art.visible = !art.visible;
-        }
-    }
 
     Timer {
         id: hideVolumeTimer
@@ -87,7 +74,7 @@ WrapperMouseArea {
         ClippingWrapperRectangle {
             id: art
             // TODO Hover To view alburm art in bigger size
-            //visible: false
+            visible: MprisState.mprisArtVisible
             radius: height / 2 // 6
             implicitWidth: 24
             implicitHeight: 24
@@ -103,7 +90,6 @@ WrapperMouseArea {
         BarText {
             id: title
             renderNative: true
-            // text: MprisState.player?.trackTitle || ""
             text: {
                 let x = 50;
                 var str = MprisState.player?.trackTitle || "";

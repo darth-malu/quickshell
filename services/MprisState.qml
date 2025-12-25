@@ -3,7 +3,6 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import Quickshell
-import Quickshell.Io
 import Quickshell.Services.Mpris
 
 Singleton {
@@ -11,6 +10,11 @@ Singleton {
 
     property MprisPlayer player: null
     property MprisPlayer lastPlayer: null
+
+    property bool mprisVisible: true
+
+    property bool mprisArtVisible: true
+
     property var players: new Set()
 
     function updatePlayer() {

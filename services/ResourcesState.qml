@@ -10,6 +10,7 @@ Singleton {
     property int mem_percent
     property string mem_used
     property string disk_used
+    property bool resourcesVisible: false
 
     Process {
         id: process_cpu_percent
