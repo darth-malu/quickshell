@@ -8,12 +8,12 @@ Singleton {
     property var popupNotifs: []
     property var allNotifs: []
     property var defaultNotifTimeout: 5000
-    property bool notifOverlayOpen: false // controls visibility of notBar/NotificationOverlay.qml
+    property bool notifOverlayOpen: false
     property bool notifPanelOpen: false
 
     function togglePanel() {
         if (notifOverlayOpen && !notifPanelOpen)
-            notifOverlayOpen = false; // close overlay if notifPanel is not open
+            notifOverlayOpen = false;
 
         notifPanelOpen = !notifPanelOpen;
     }
@@ -84,9 +84,11 @@ Singleton {
         actionsSupported: true
         actionIconsSupported: false
         imageSupported: true
+
         onNotification: notif => {
             notif.tracked = true;
             root.onNewNotif(notif);
+
             notif.closed.connect(() => {
                 notifDismissByNotif(notif);
             });
