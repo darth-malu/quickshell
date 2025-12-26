@@ -84,7 +84,6 @@ Singleton {
         actionsSupported: true
         actionIconsSupported: false
         imageSupported: true
-
         onNotification: notif => {
             notif.tracked = true;
             root.onNewNotif(notif);

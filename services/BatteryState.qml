@@ -7,8 +7,6 @@ Singleton {
 
     property real batPercentage: battery.percentage // Energy/EnergyCapacity
 
-    property real batPercentage: battery.percentage // Energy/EnergyCapacity
-
     property var chargeState: battery.state
 
     property bool available: battery.isLaptopBattery
