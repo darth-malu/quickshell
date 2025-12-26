@@ -30,6 +30,7 @@ PanelWindow {
     ColumnLayout {
         id: notifs
         Item {
+            id: spaceFromBar
             implicitHeight: 7 // space from bar; y space 10::
         }
         Repeater {
@@ -42,7 +43,15 @@ PanelWindow {
                 timestamp: Date.now()
                 indexPopup: index
 
+                onContainsMouseChanged: {
+                    if (!containsMouse)
+                        notificationTimeout.restart();
+                    else
+                        notificationTimeout.stop();
+                }
+
                 Timer {
+                    id: notificationTimeout
                     running: true
                     interval: (notifBox.n.expireTimeout > 0 ? notifBox.n.expireTimeout : 4) * 1000
                     onTriggered: {

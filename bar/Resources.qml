@@ -48,7 +48,7 @@ BarBlock {
     content: RowLayout {
         id: resourcesRow
         anchors.centerIn: parent
-        spacing: 12
+        spacing: 16
         // uniformCellSizes: true
 
         Pipewire {}
@@ -63,7 +63,7 @@ BarBlock {
                     bold: true
                     family: "quicksand medium"
                 }
-                color: root.diskColor
+                baseColor: root.diskColor
                 symbolText: `🗃️ ${root.diskUsage}` //
             }
         }
@@ -78,7 +78,7 @@ BarBlock {
                     bold: true
                     family: "quicksand medium"
                 }
-                color: root.memoryColor
+                baseColor: root.memoryColor
                 symbolText: `🧠 ${root.memoryPercent}` //
             }
         }
@@ -93,8 +93,25 @@ BarBlock {
                     bold: true
                     family: "quicksand medium"
                 }
-                color: root.cpuColor
+                baseColor: root.cpuColor
                 symbolText: `❄️  ${root.cpuPercent}`
+            }
+            onClicked: cpuTemp.visible = !cpuTemp.visible
+        }
+
+        BarBlock {
+            id: cpuTemp
+            visible: false
+            content: BarText {
+                id: cpuTempText
+                renderNative: true
+                font {
+                    pixelSize: 12
+                    bold: true
+                    family: "quicksand medium"
+                }
+                baseColor: root.cpuColor
+                symbolText: `🥶  ${root.cpuPercent}`
             }
         }
     }

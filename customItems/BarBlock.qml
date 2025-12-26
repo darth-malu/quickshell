@@ -3,45 +3,50 @@ import QtQuick.Layouts
 import Quickshell
 
 Rectangle {
-    id: root //
+    id: root
     Layout.preferredWidth: contentContainer.implicitWidth + 4 // :+8
     Layout.preferredHeight: 20 // 30::
 
     property Item content
-    //property Item mouseArea: mouseArea
+
+    property Item mouseArea: mouseArea
 
     property string text
-    //property bool dim: false
+
+    property bool dim: false
+
     property bool underline: false
-    color: 'transparent'
-    //property var onClicked: function() {}
+    property color underlineColor: 'orange'
+
+    // color: 'transparent'
+
+    property var onClicked: function () {}
 
     property int leftPadding
     property int rightPadding
 
-    //property string hoveredBgColor: "#666666"
+    property string hoveredBgColor: "#666666"
 
-    // Background color
-    /* color: { */
-    /*   if (mouseArea.containsMouse) */
-    /*     return 'red'; */
-    /*   return "transparent"; */
-    /* } */
+    color: {
+        if (mouseArea.containsMouse)
+            return hoveredBgColor;
+        return "transparent";
+    }
 
-    /* states: [ */
-    /*   State { */
-    /*     when: mouseArea.containsMouse */
-    /*     PropertyChanges { */
-    /*       target: root */
-    /*     } */
-    /*   } */
-    /* ] */
+    states: [
+        State {
+            when: mouseArea.containsMouse
+            PropertyChanges {
+                target: root
+            }
+        }
+    ]
 
-    /* Behavior on color { */
-    /*   ColorAnimation { */
-    /*     duration: 200 */
-    /*   } */
-    /* } */
+    Behavior on color {
+        ColorAnimation {
+            duration: 200
+        }
+    }
 
     Item {
         // Contents of the bar block
@@ -52,26 +57,26 @@ Rectangle {
         children: content
     }
 
-    /* MouseArea { */
-    /*   id: mouseArea */
-    /*   anchors.fill: root */
-    //hoverEnabled: true
-    //acceptedButtons: Qt.LeftButton
-    //acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
-    //onClicked: root.onClicked()
-    /* } */
+    MouseArea {
+        id: mouseArea
+        anchors.fill: root
+        hoverEnabled: true
+        // acceptedButtons: Qt.LeftButton | PointerDevice.Mouse | PointerDevice.TouchPad
+        acceptedButtons: Qt.LeftButton
+        onClicked: root.onClicked()
+    }
 
-    //While line underneath workspace
-    /* Rectangle { */
-    /*   id: wsLine */
-    /*   width: root.width */
-    /*   height: 1 */
+    // While line underneath workspace
+    Rectangle {
+        id: wsLine
+        width: root.width
+        height: 1
 
-    /*   color: { */
-    /*     if (root.underline) */
-    /*       return "white"; */
-    /*     return "transparent"; */
-    /*   } */
-    /*   anchors.bottom: parent.bottom */
-    /* } */
+        color: {
+            if (root.underline)
+                return root.underlineColor;
+            return "transparent";
+        }
+        anchors.bottom: parent.bottom
+    }
 }

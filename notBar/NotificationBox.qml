@@ -29,8 +29,8 @@ WrapperMouseArea {
     property int indexPopup: -1
     property int indexAll: -1
 
-    property real iconSize: (n.appName == 'ncmpcpp' || n.appName == 'spotifY') ? 98 : 44
-    property real iconRadius: Math.round(iconSize / 8)
+    property real iconSize: (n.appName == 'ncmpcpp' || n.appName == 'spotifY') ? 98 : 49
+    property real iconRadius: Math.round(iconSize / 6) // 12??
 
     property bool showTime: true
     property bool expanded: false
@@ -120,14 +120,12 @@ WrapperMouseArea {
                 Layout.rightMargin: 4
                 spacing: 4
                 RowLayout {
-                    // Layout.maximumWidth: contentLayout.width - buttonLayout.width
-                    // Layout.maximumWidth: contentLayout.width
                     Text {
                         id: summary
                         // Layout.alignment: Qt.AlignRight
                         text: root.n.summary
-                        // elide: Text.ElideRight
-                        // wrapMode: Text.Wrap
+                        elide: Text.ElideRight
+                        wrapMode: Text.Wrap
                         color: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.98)
                         font {
                             pointSize: 10
@@ -146,14 +144,12 @@ WrapperMouseArea {
 
                 Text {
                     id: bodyText
-                    // Layout.fillWidth: true
                     Layout.maximumWidth: 500 // For absurdly long stuff
                     Layout.preferredWidth: implicitWidth
                     elide: Text.ElideRight
                     wrapMode: Text.Wrap
-                    // color: 'red'
                     font.weight: Font.Medium
-                    maximumLineCount: root.expanded ? 10 : (root.n.actions.length > 1 ? 1 : 2)
+                    maximumLineCount: root.expanded ? 20 : (root.n.actions.length > 1 ? 1 : 2)
                     text: root.n.body
                 }
 
