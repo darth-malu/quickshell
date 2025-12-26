@@ -32,7 +32,7 @@ WrapperMouseArea {
     property real iconSize: (n.appName == 'ncmpcpp' || n.appName == 'spotifY') ? 98 : 49
     property real iconRadius: Math.round(iconSize / 6) // 12??
 
-    property bool showTime: true
+    property bool showTime: false
     property bool expanded: false
 
     onClicked: mouse => {
