@@ -59,6 +59,11 @@ ProgressBar {
         }
     }
 
+    /*
+    True: As * Am.
+    False: As * (1 - Am).
+    */
+
     OpacityMask {
         id: roundingMask
         visible: false

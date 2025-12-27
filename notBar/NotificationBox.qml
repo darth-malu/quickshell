@@ -10,7 +10,7 @@ import qs.customItems
 import qs.services
 
 WrapperMouseArea {
-    id: root
+    id: rootMouseArea
 
     acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton //Qt.AllButtons
     hoverEnabled: true
@@ -23,22 +23,29 @@ WrapperMouseArea {
     IMAGE: icon associated with the notification eg. a profile picture in a messaging app
     appIcon: sending app's icon, if none provided .. the icon form an associated desktop entry will be retrieved. if none found = ""
      */
-    property string image: (n.image == "" && n.appIcon != "") ? n.appIcon : n.image // Return appIcon of application or image if image present.
+    readonly property bool ifMusic: (n.appName == 'ncmpcpp' || n.appName == 'spotifY')
+
+    readonly property bool isImageIcon: n.image == "" && n.appIcon != ""
+
+    readonly property string image: isImageIcon ? n.appIcon : n.image // Return appIcon of application or image if image present.
+
     property bool hasAppIcon: !(n.image == "" && n.appIcon != "") // negate ... no image + appIcon present = image + appIcon absent
 
     property int indexPopup: -1
     property int indexAll: -1
 
-    property real iconSize: (n.appName == 'ncmpcpp' || n.appName == 'spotifY') ? 98 : 49
-    property real iconRadius: Math.round(iconSize / 6) // 12??
+    property real iconSize: ifMusic ? 100 : 50
+
+    property real iconRadius: iconSize / 5 // 12??
 
     property bool showTime: false
+
     property bool expanded: false
 
     onClicked: mouse => {
         // actions: list <NotificationAction>
-        if (mouse.button == Qt.LeftButton && root.n.actions != []) {
-            root.n.actions[0].invoke();
+        if (mouse.button == Qt.LeftButton && rootMouseArea.n.actions != []) {
+            rootMouseArea.n.actions[0].invoke();
         } else if (mouse.button == Qt.RightButton) {
             if (indexAll != -1)
                 NotificationState.notifDismissByAll(indexAll);
@@ -54,60 +61,60 @@ WrapperMouseArea {
     }
 
     Timer {
-        running: root.showTime
+        running: rootMouseArea.showTime
         interval: 1000
         repeat: true
-        onTriggered: root.elapsed = elapsedTimer.elapsed()
+        onTriggered: rootMouseArea.elapsed = elapsedTimer.elapsed()
     }
 
     Rectangle {
         id: outerBox
-        implicitWidth: Math.max(100, mainLayout.implicitWidth + 10)
+        implicitWidth: Math.max(120, mainLayout.implicitWidth + 10)
         implicitHeight: mainLayout.implicitHeight
-        radius: root.iconSize / 6 // 16;;
+        radius: rootMouseArea.iconRadius
         color: Colors.bgBlur
 
         RowLayout {
             id: mainLayout
-
             spacing: 8 // picture and text space
-            Item { // songart parent item
-                id: coverItem
-                visible: root.image != ""
-                // Layout.alignment: Qt.AlignTop
-                implicitWidth: root.iconSize
-                implicitHeight: root.iconSize
+
+            Item {
+                id: songArtContainer
+                visible: rootMouseArea.image != ""
+                implicitWidth: rootMouseArea.iconSize
+                implicitHeight: rootMouseArea.iconSize
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.leftMargin: 2
-                Layout.rightMargin: 0
-                // Layout.minimumWidth: 200
-                // Layout.fillWidth: true
+                Layout.rightMargin: 4
 
                 ClippingWrapperRectangle {
                     id: songArt
-                    anchors.centerIn: parent
+                    visible: rootMouseArea.image != ""
                     radius: outerBox.radius - 2 // TODO make only TopLeft/bottom radius
+                    color: "transparent"
+                    // anchors.fill: parent
                     IconImage {
-                        implicitSize: coverItem.height
-                        source: Utils.getImage(root.image)
+                        implicitSize: songArtContainer.height
+                        source: rootMouseArea.ifMusic ? (MprisState.player?.trackArtUrl) : NotificationState.getImage(rootMouseArea.image)
                         asynchronous: true
+                        // mipmap: true // see smooth
                     }
                 }
 
                 ClippingWrapperRectangle {
-                    visible: root.hasAppIcon
+                    visible: rootMouseArea.hasAppIcon
                     radius: 2
-                    color: "red"
+                    color: "transparent"
                     anchors {
-                        horizontalCenter: coverItem.right
-                        verticalCenter: coverItem.bottom
+                        horizontalCenter: songArtContainer.right
+                        verticalCenter: songArtContainer.bottom
                         horizontalCenterOffset: -4
                         verticalCenterOffset: -4
                     }
                     IconImage {
                         implicitSize: 16
-                        source: Utils.getImage(root.n.appIcon)
+                        source: NotificationState.getImage(rootMouseArea.n.appIcon)
                         asynchronous: true
                     }
                 }
@@ -115,15 +122,11 @@ WrapperMouseArea {
 
             ColumnLayout {
                 id: contentLayout
-                Layout.fillWidth: true // TODO: see if usefull really lol
-                //Layout.leftMargin: coverItem.visible ? 4 : 12
-                Layout.rightMargin: 4
                 spacing: 4
                 RowLayout {
                     Text {
                         id: summary
-                        // Layout.alignment: Qt.AlignRight
-                        text: root.n.summary
+                        text: rootMouseArea.n.summary
                         elide: Text.ElideRight
                         wrapMode: Text.Wrap
                         color: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.98)
@@ -136,42 +139,36 @@ WrapperMouseArea {
                     }
                     Text {
                         id: currentTime
-                        visible: root.showTime
+                        visible: rootMouseArea.showTime
                         Layout.alignment: Qt.AlignRight
-                        text: Utils.humanTime(root.timestamp, root.elapsed)
+                        text: Utils.humanTime(rootMouseArea.timestamp, rootMouseArea.elapsed)
                     }
                 }
 
                 Text {
-                    id: bodyText
+                    id: body
                     Layout.maximumWidth: 500 // For absurdly long stuff
                     Layout.preferredWidth: implicitWidth
                     elide: Text.ElideRight
                     wrapMode: Text.Wrap
                     font.weight: Font.Medium
-                    maximumLineCount: root.expanded ? 20 : (root.n.actions.length > 1 ? 1 : 2)
-                    text: root.n.body
+                    maximumLineCount: rootMouseArea.expanded ? 20 : (rootMouseArea.n.actions.length > 1 ? 1 : 2)
+                    text: rootMouseArea.n.body
                 }
 
                 RowLayout {
-                    visible: root.n.actions.length > 1
+                    visible: rootMouseArea.n.actions.length > 1
 
                     Layout.fillWidth: true
                     implicitHeight: actionRepeater.implicitHeight
 
                     Repeater {
                         id: actionRepeater
-                        model: root.n.actions.slice(1) // This returns array of all elements in root.n.actions after index [0] to end... TODO see why needed
-                        // model: {
-                        //     // console.log("Printing n.actions[]:", root.n.actions.slice(0)); // NOTE Empty always
-                        //     return root.n.actions.slice(1); // This returns array of all elements in root.n.actions after index [0] to end
-                        // }
-                        // model: root.n.actions
+                        model: rootMouseArea.n.actions.slice(1) // This returns array of all elements in root.n.actions after index [0] to end... TODO see why needed
 
                         WrapperMouseArea {
                             id: actionButtonMA
                             required property NotificationAction modelData
-
                             hoverEnabled: true
                             implicitHeight: actionButton.implicitHeight
                             Layout.fillWidth: true
@@ -186,10 +183,8 @@ WrapperMouseArea {
                                 color: actionButtonMA.containsMouse ? Colors.buttonDisabledHover : Colors.buttonDisabled
                                 implicitHeight: buttonText.implicitHeight
                                 Layout.fillWidth: true
-
                                 Text {
                                     id: buttonText
-
                                     anchors.centerIn: parent
                                     text: actionButtonMA.modelData.text
                                 }
@@ -202,7 +197,7 @@ WrapperMouseArea {
 
         RowLayout {
             id: buttonLayout
-            visible: root.containsMouse
+            visible: rootMouseArea.containsMouse
             implicitHeight: 16
 
             anchors {
@@ -215,18 +210,17 @@ WrapperMouseArea {
             WrapperMouseArea {
                 id: expandButton
 
-                visible: bodyText.text.length > (root.n.actions.length > 1 ? 50 : 100)
+                visible: body.text.length > (rootMouseArea.n.actions.length > 1 ? 50 : 100)
 
-                property string sourceIcon: root.expanded ? "go-up-symbolic" : "go-down-symbolic"
+                property string sourceIcon: rootMouseArea.expanded ? "go-up-symbolic" : "go-down-symbolic"
 
                 hoverEnabled: true
                 Layout.fillHeight: true
                 implicitWidth: 16
 
-                onPressed: () => root.expanded = !root.expanded
+                onPressed: () => rootMouseArea.expanded = !rootMouseArea.expanded
 
                 Rectangle {
-                    // radius: 16
                     radius: implicitHeight / 2
                     color: expandButton.containsMouse ? Colors.buttonDisabledHover : Colors.buttonDisabled
                     implicitWidth: 16
@@ -236,26 +230,23 @@ WrapperMouseArea {
                         source: Quickshell.iconPath(expandButton.sourceIcon)
                         anchors.centerIn: parent
                         implicitHeight: parent.implicitHeight - 4
-                        implicitWidth: parent.implicitHeight - 4
-                        asynchronous: true
-                        /* isMask: true */
-                        //color: 'white'
+                        implicitWidth: parent.implicitWidth - 4
+                        // asynchronous: true
                     }
                 }
             }
 
             WrapperMouseArea {
                 id: closeButton
-
                 hoverEnabled: true
                 Layout.fillHeight: true
                 implicitWidth: 16
 
                 onPressed: () => {
-                    if (root.indexAll != -1)
-                        NotificationState.notifCloseByAll(root.indexAll);
-                    else if (root.indexPopup != -1)
-                        NotificationState.notifCloseByPopup(root.indexPopup);
+                    if (rootMouseArea.indexAll != -1)
+                        NotificationState.notifCloseByAll(rootMouseArea.indexAll);
+                    else if (rootMouseArea.indexPopup != -1)
+                        NotificationState.notifCloseByPopup(rootMouseArea.indexPopup);
                 }
 
                 Rectangle {
@@ -269,9 +260,7 @@ WrapperMouseArea {
                         anchors.centerIn: parent
                         implicitHeight: parent.implicitHeight - 4
                         implicitWidth: parent.implicitHeight - 4
-                        asynchronous: true
-                        //isMask: true
-                        //color: Colors.foreground
+                        // asynchronous: true
                     }
                 }
             }

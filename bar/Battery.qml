@@ -11,8 +11,11 @@ import qs.customItems
 
 MouseArea {
     id: root
+
     visible: BatteryState.available
+
     implicitWidth: batteryProgress.implicitWidth
+
     implicitHeight: batteryProgress.implicitHeight
 
     readonly property bool isCharging: BatteryState.isCharging // stops at 100 even if still plugged
@@ -79,10 +82,3 @@ MouseArea {
         }
     }
 }
-/* content: BarText { */
-/*     id: batText */
-/*     /\* baseColor: isCharging == 'Charging' ? 'red' : batLevel < 10 ? '#FF2DD1' : batLevel < 20 ? '#DCED31' : batLevel < 50 ? '#B0FF92' : '#AA78A6' *\/ */
-/*     baseColor: batLevel < 10 ? '#FF2DD1' : batLevel < 20 ? '#DCED31' : batLevel < 50 ? '#B0FF92' : '#AA78A6' */
-/*     font { pointSize: 10; family: 'lato'; bold: true} */
-/*     symbolText: batLevel  */
-/* } */

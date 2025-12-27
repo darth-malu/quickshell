@@ -1,5 +1,4 @@
 import QtQuick
-import Quickshell.Io
 import QtQuick.Layouts
 import qs.customItems
 import qs.services
@@ -55,6 +54,7 @@ BarBlock {
 
         BarBlock {
             id: disk
+            underline: false
             content: BarText {
                 id: diskText
                 renderNative: true

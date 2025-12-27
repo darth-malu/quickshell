@@ -23,33 +23,31 @@ PanelWindow {
 
     anchors {
         top: true
-        // TODO: how to center below MPRIS
         right: true
     }
 
     ColumnLayout {
         id: notifs
+
         Item {
             id: spaceFromBar
             implicitHeight: 7 // space from bar; y space 10::
         }
+
         Repeater {
             model: NotificationState.popupNotifs
-
             NotificationBox {
                 id: notifBox
                 required property int index // TODO investigate where index is fed from
                 n: NotificationState.popupNotifs[index]
                 timestamp: Date.now()
                 indexPopup: index
-
                 onContainsMouseChanged: {
                     if (!containsMouse)
                         notificationTimeout.restart();
                     else
                         notificationTimeout.stop();
                 }
-
                 Timer {
                     id: notificationTimeout
                     running: true
