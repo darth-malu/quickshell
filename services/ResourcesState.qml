@@ -6,10 +6,16 @@ import QtQuick
 
 Singleton {
     property int cpu_percent
-    property string cpu_freq
+    property real cpu_freq
+    property real cpu_temp
+
+    property int gpu_percent
+    property string gpu_freq
+    property real gpu_temp
+
     property int mem_percent
     property string mem_used
-    property string disk_used
+    property string darth_pool
     property bool resourcesVisible: false
 
     Process {
@@ -27,14 +33,14 @@ Singleton {
         command: ["sh", "-c", "(zfs get -H -o value avail darthPool 2>/dev/null) || (zfs get -H -o value avail darth-pool 2>/dev/null)"]
         /* command: ["sh", "-c", "zfs get -H -o value avail darthPool darth-pool 2>/dev/null"] */
         stdout: SplitParser {
-            onRead: data => disk_used = data
+            onRead: data => darth_pool = data
         }
     }
 
     Process {
         id: process_cpu_freq
         running: false
-        command: ["sh", "-c", "lscpu --parse=MHZ"]
+        command: ["sh", "-c", "lscpu --parse=MHZ | tails -n 12"]
         stdout: SplitParser {
             onRead: data => {
                 // delete the first 4 lines (comments)
@@ -42,7 +48,7 @@ Singleton {
                 // compute mean frequency
                 const freq = mhz.reduce((acc, e) => acc + Number(e), 0) / mhz.length;
 
-                cpu_freq = Math.round(freq) + " MHz";
+                cpu_freq = Math.round(freq);
             }
         }
     }
@@ -71,14 +77,14 @@ Singleton {
         repeat: true
         onTriggered: () => {
             process_cpu_percent.running = true;
-            // process_cpu_freq.running = true;
+            process_cpu_freq.running = true;
             process_mem_percent.running = true;
             process_mem_used.running = true;
             process_mem_used.running = true;
         }
     }
     Timer {
-        interval: 4000
+        interval: 10000
         running: true
         repeat: true
         onTriggered: () => {

@@ -22,10 +22,7 @@ Rectangle {
 
     property color underlineColor: 'orange'
 
-    property var onClicked: function () {}
-
-    // property int leftPadding
-    // property int rightPadding
+    signal clicked
 
     property string hoveredBgColor: "#666666"
 
@@ -35,14 +32,11 @@ Rectangle {
         return "transparent";
     }
 
-    // color: 'transparent'
-
     states: [
         State {
             when: mouseArea.containsMouse
             PropertyChanges {
                 target: root
-                // color: 'white'
             }
         }
     ]
@@ -54,7 +48,6 @@ Rectangle {
     }
 
     Item {
-        // Contents of the bar block
         id: contentContainer
         implicitWidth: root.content.implicitWidth
         implicitHeight: root.content.implicitHeight
@@ -67,7 +60,7 @@ Rectangle {
         anchors.fill: root
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | PointerDevice.Mouse | PointerDevice.TouchPad
-        onClicked: root.onClicked()
+        onClicked: root.clicked()
         propagateComposedEvents: true
     }
 

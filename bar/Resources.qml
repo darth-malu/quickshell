@@ -4,114 +4,130 @@ import qs.customItems
 import qs.services
 
 // TODO add LazyLoader for this
-BarBlock {
+Item {
     id: root
-    visible: ResourcesState.resourcesVisible
 
-    color: "transparent"
-    implicitWidth: resourcesRow.width
+    implicitWidth: resourceLoader.item ? resourceLoader.item.implicitWidth : 0
 
-    readonly property int valueSize: 8
+    implicitHeight: resourceLoader.item ? resourceLoader.item.implicitHeight : 0
 
-    readonly property int textSize: 8
-    readonly property string textFont: 'quicksand medium'
-    readonly property bool textBold: true
-    readonly property int cpuPercent: ResourcesState.cpu_percent
-    readonly property int memoryPercent: ResourcesState.mem_percent
-
-    readonly property string diskUsage: ResourcesState.disk_used
-
-    readonly property color diskColor: {
-        const match = diskUsage.match(/(\d+\.?\d*)/); // returns list...get first match...number only eg 37.8
-
-        if (match) {
-            // const usage = parseFloat(match[0]);
-            if (match[0] < 20) {
-                return "#7CE577";
-            } else if (match[0] < 10) {
-                return "#ff79c6";
-            } else {
-                return "#ccccccff";
-            }
-        }
-
-        return "grey";
+    Loader {
+        id: resourceLoader
+        active: ResourcesState.resourcesVisible
+        visible: active
+        sourceComponent: resourcesComponent
+        // anchors.fill: parent
     }
 
-    readonly property color cpuColor: cpuPercent > 80 ? "#7CE577" : cpuPercent > 50 ? "#7CE577" : '#C6CAED' // #EEFC57
+    Component {
+        id: resourcesComponent
 
-    readonly property color memoryColor: memoryPercent > 90 ? "#7CE577" : '#ccccccff'
+        RowLayout {
+            id: resourcesRow
+            spacing: 16
+            readonly property int valueSize: 8
+            readonly property int textSize: 8
+            readonly property string textFont: 'quicksand medium'
+            readonly property bool textBold: true
 
-    // readonly property color diskColor: ""  // TODO strip digits and make this color changes?
+            readonly property int cpuPercent: ResourcesState.cpu_percent
+            readonly property real cpuFreq: ResourcesState.cpu_freq
 
-    content: RowLayout {
-        id: resourcesRow
-        anchors.centerIn: parent
-        spacing: 16
-        // uniformCellSizes: true
+            readonly property int memoryPercent: ResourcesState.mem_percent
 
-        Pipewire {}
+            property bool showTemp: false
 
-        BarBlock {
-            id: disk
-            underline: false
-            content: BarText {
-                id: diskText
-                renderNative: true
-                font {
-                    pixelSize: 12
-                    bold: true
-                    family: "quicksand medium"
+            readonly property string diskUsage: ResourcesState.darth_pool
+
+            readonly property color diskColor: {
+                const match = diskUsage.match(/(\d+\.?\d*)/); // returns list...get first match...number only eg 37.8
+                if (match) {
+                    if (match[0] < 10) {
+                        return "#7CE577";
+                    } else if (match[0] < 20) {
+                        return "#ff79c6";
+                    } else {
+                        return "#ccccccff";
+                    }
                 }
-                baseColor: root.diskColor
-                symbolText: `🗃️ ${root.diskUsage}` //
+                return "grey";
             }
-        }
 
-        BarBlock {
-            id: memory
-            content: BarText {
-                id: memoryText
-                renderNative: true
-                font {
-                    pixelSize: 12
-                    bold: true
-                    family: "quicksand medium"
+            readonly property color cpuColor: cpuPercent > 80 ? "#7CE577" : cpuPercent > 50 ? "#7CE577" : '#C6CAED' // #EEFC57
+
+            readonly property color memoryColor: memoryPercent > 90 ? "#7CE577" : '#ccccccff'
+
+            Pipewire {}
+
+            BarBlock {
+                id: disk
+                underline: false
+                content: BarText {
+                    id: diskText
+                    renderNative: true
+                    font {
+                        pixelSize: 12
+                        bold: true
+                        family: "quicksand medium"
+                    }
+                    baseColor: resourcesRow.diskColor
+                    symbolText: `🗃️ ${resourcesRow.diskUsage}` //
                 }
-                baseColor: root.memoryColor
-                symbolText: `🧠 ${root.memoryPercent}` //
             }
-        }
 
-        BarBlock {
-            id: cpu
-            content: BarText {
-                id: cpuText
-                renderNative: true
-                font {
-                    pixelSize: 12
-                    bold: true
-                    family: "quicksand medium"
+            BarBlock {
+                id: memory
+                content: BarText {
+                    id: memoryText
+                    renderNative: true
+                    font {
+                        pixelSize: 12
+                        bold: true
+                        family: "quicksand medium"
+                    }
+                    baseColor: resourcesRow.memoryColor
+                    symbolText: `🧠 ${resourcesRow.memoryPercent}` //
                 }
-                baseColor: root.cpuColor
-                symbolText: `❄️  ${root.cpuPercent}`
             }
-            onClicked: cpuTemp.visible = !cpuTemp.visible
-        }
 
-        BarBlock {
-            id: cpuTemp
-            visible: false
-            content: BarText {
-                id: cpuTempText
-                renderNative: true
-                font {
-                    pixelSize: 12
-                    bold: true
-                    family: "quicksand medium"
+            BarBlock {
+                id: cpu
+                content: BarText {
+                    id: cpuText
+                    renderNative: true
+                    font {
+                        pixelSize: 12
+                        bold: true
+                        family: "quicksand medium"
+                    }
+                    baseColor: resourcesRow.cpuColor
+                    symbolText: `❄️  ${resourcesRow.cpuPercent}`
                 }
-                baseColor: root.cpuColor
-                symbolText: `🥶  ${root.cpuPercent}`
+                onClicked: {
+                    resourcesRow.showTemp = !resourcesRow.showTemp;
+                    // console.log(`$id clicked`)
+                }
+            }
+
+            BarBlock {
+                id: cpuTemp
+                visible: resourcesRow.showTemp
+
+                /* Layout.preferredWidth: visible ? implicitWidth : 0 */
+                /* Layout.preferredHeight: visible ? implicitHeight : 0 */
+                /* Layout. */
+
+                content: BarText {
+                    id: cpuTempText
+                    renderNative: true
+                    font {
+                        pixelSize: 12
+                        bold: true
+                        family: "quicksand medium"
+                    }
+                    baseColor: resourcesRow.cpuColor
+                    symbolText: `🥶  ${resourcesRow.cpuFreq}`
+                }
             }
         }
     }
