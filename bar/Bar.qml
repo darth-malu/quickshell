@@ -1,6 +1,6 @@
 pragma ComponentBehavior: Bound
-import Quickshell // PanelWindow
-import QtQuick // Text, Rectangle
+import Quickshell
+import QtQuick
 import Quickshell.Hyprland
 import QtQuick.Layouts
 import "./time"
@@ -8,10 +8,10 @@ import Quickshell.Wayland
 import "./systemTray"
 import qs.themes
 import qs.services
-import Quickshell.Io
 
 ShellRoot {
     id: root
+
     readonly property bool enableBar: BarState.enableBar
 
     Variants {
@@ -41,14 +41,6 @@ ShellRoot {
                 right: true
             }
 
-            // IpcHandler {
-            //     target: "bar"
-
-            //     function toggleBar(): void {
-            //         barr.visible = !barr.visible;
-            //     }
-            // }
-
             MouseArea {
                 anchors.fill: parent
                 onWheel: wheel => {
@@ -68,7 +60,7 @@ ShellRoot {
 
                 RowLayout {
                     id: leftBlock
-                    spacing: 0.4 //0.4
+                    spacing: 0.4
                     anchors.left: parent.left
                     Workspaces {}
                     ActiveWindow {}

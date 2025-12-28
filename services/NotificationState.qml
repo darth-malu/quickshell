@@ -115,7 +115,9 @@ Singleton {
         imageSupported: true
         onNotification: notif => {
             notif.tracked = true;
-            root.onNewNotif(notif);
+
+            if (!allNotifs.includes(notif))
+                root.onNewNotif(notif);
 
             notif.closed.connect(() => {
                 notifDismissByNotif(notif);

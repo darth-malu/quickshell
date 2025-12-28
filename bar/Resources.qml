@@ -3,7 +3,6 @@ import QtQuick.Layouts
 import qs.customItems
 import qs.services
 
-// TODO add LazyLoader for this
 Item {
     id: root
 

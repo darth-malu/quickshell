@@ -6,6 +6,7 @@ RowLayout {
     spacing: 0
     MonitorBlock {
         id: cpu
+        border.width: 0
 
         property bool showTemp: false
 
@@ -17,8 +18,8 @@ RowLayout {
 
         readonly property real cpuTemp: ResourcesState.cpuTemp
 
-        // TODO:Try JsonObject fonts
         readonly property string family: "quicksand"
+
         // antialiasing: true
 
         onClicked: {
@@ -30,14 +31,13 @@ RowLayout {
             BarText {
                 id: cpuText
                 renderNative: true
-                padding: 1
                 font {
                     pixelSize: 12
                     bold: true
                     family: cpu.family
                 }
                 color: cpu.cpuColor
-                symbolText: `❄️  ${cpu.cpuPercent}`
+                symbolText: `🤖  ${cpu.cpuPercent}` // 
             }
             BarText {
                 id: cpuFreqText
@@ -48,22 +48,20 @@ RowLayout {
                     bold: true
                     family: cpu.family
                 }
-                symbolText: `🥶  ${cpu.cpuFreq} Ghz`
+                symbolText: `🥶  ${cpu.cpuFreq} Ghz `
                 baseColor: cpu.cpuColor
-                // horizontalAlignment: Qt.AlignRight
             }
         }
     }
     MonitorBlock {
         radiusSide: "right"
         border {
-            width: 1
-        pixelAligned: false
+            width: 0
+            pixelAligned: false
         }
         content: BarText {
             id: cpuTemp
             renderNative: true
-            padding: 1
             symbolText: `${cpu.cpuTemp} `
             baseColor: cpu.cpuColor
             font {
