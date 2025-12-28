@@ -22,6 +22,18 @@ Rectangle {
 
     signal clicked
 
+    // antialiasing: true
+
+    border {
+        width: 1
+        color: 'red'
+        pixelAligned: true
+    }
+
+    topLeftRadius: height / 2
+
+    bottomLeftRadius: height / 2
+
     property string hoveredBgColor: "#666666"
 
     // color: {
@@ -67,7 +79,7 @@ Rectangle {
     // While line underneath workspace
     Rectangle {
         id: wsLine
-        width: root.width
+        implicitWidth: root.width
         radius: 12
         height: 1
 
