@@ -8,7 +8,7 @@ Singleton {
     readonly property var workspaces: Hyprland.workspaces.values.filter(w => !w.name.startsWith("special"))
 
     // property bool isFocusedMonitor: workspaces.monitor?.name === Hyprland.focusedMonitor?.name
-    // property bool isFocusedMonitor: workspaces.monitor?.name === Hyprland.focusedMonitor?.name
+    property bool isFocusedMonitor: workspaces.monitor?.name === Hyprland.focusedMonitor?.name
 
     property bool isFocusedActive: isFocusedMonitor && workspaces.active
 

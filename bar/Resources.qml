@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import qs.customItems
 import qs.services
+import qs.themes
 
 // TODO add LazyLoader for this
 Item {
@@ -15,19 +16,15 @@ Item {
         id: resourceLoader
         active: ResourcesState.resourcesVisible
         visible: active
-        sourceComponent: resourcesComponent
-        // anchors.fill: parent
-    }
-
-    Component {
-        id: resourcesComponent
-
-        RowLayout {
+        sourceComponent: RowLayout {
             id: resourcesRow
             spacing: 16
             readonly property int valueSize: 8
             readonly property int textSize: 8
-            readonly property string textFont: 'quicksand medium'
+
+            // TODO:Try JsonObject fonts
+            readonly property string family: "quicksand"
+
             readonly property bool textBold: true
 
             readonly property int cpuPercent: ResourcesState.cpu_percent
@@ -57,7 +54,9 @@ Item {
 
             readonly property color memoryColor: memoryPercent > 90 ? "#7CE577" : '#ccccccff'
 
-            Pipewire {}
+            Pipewire {
+                textFont: "quicksand"
+            }
 
             BarBlock {
                 id: disk
@@ -68,7 +67,7 @@ Item {
                     font {
                         pixelSize: 12
                         bold: true
-                        family: "quicksand medium"
+                        family: "quicksand"
                     }
                     baseColor: resourcesRow.diskColor
                     symbolText: `🗃️ ${resourcesRow.diskUsage}` //
@@ -83,7 +82,7 @@ Item {
                     font {
                         pixelSize: 12
                         bold: true
-                        family: "quicksand medium"
+                        family: "quicksand"
                     }
                     baseColor: resourcesRow.memoryColor
                     symbolText: `🧠 ${resourcesRow.memoryPercent}` //
@@ -92,41 +91,36 @@ Item {
 
             BarBlock {
                 id: cpu
-                content: BarText {
-                    id: cpuText
-                    renderNative: true
-                    font {
-                        pixelSize: 12
-                        bold: true
-                        family: "quicksand medium"
-                    }
-                    baseColor: resourcesRow.cpuColor
-                    symbolText: `❄️  ${resourcesRow.cpuPercent}`
-                }
                 onClicked: {
                     resourcesRow.showTemp = !resourcesRow.showTemp;
-                    // console.log(`$id clicked`)
                 }
-            }
-
-            BarBlock {
-                id: cpuTemp
-                visible: resourcesRow.showTemp
-
-                /* Layout.preferredWidth: visible ? implicitWidth : 0 */
-                /* Layout.preferredHeight: visible ? implicitHeight : 0 */
-                /* Layout. */
-
-                content: BarText {
-                    id: cpuTempText
-                    renderNative: true
-                    font {
-                        pixelSize: 12
-                        bold: true
-                        family: "quicksand medium"
+                content: RowLayout {
+                    spacing: 16
+                    BarText {
+                        id: cpuText
+                        renderNative: true
+                        font {
+                            pixelSize: 12
+                            bold: true
+                            family: resourcesRow.family
+                        }
+                        baseColor: resourcesRow.cpuColor
+                        symbolText: `❄️  ${resourcesRow.cpuPercent}`
+                        // horizontalAlignment: Qt.AlignLeft
                     }
-                    baseColor: resourcesRow.cpuColor
-                    symbolText: `🥶  ${resourcesRow.cpuFreq}`
+                    BarText {
+                        id: cpuFreqText
+                        visible: resourcesRow.showTemp
+                        renderNative: true
+                        font {
+                            pixelSize: 12
+                            bold: true
+                            family: resourcesRow.family
+                        }
+                        symbolText: `🥶  ${resourcesRow.cpuFreq} Ghz`
+                        baseColor: resourcesRow.cpuColor
+                        // horizontalAlignment: Qt.AlignRight
+                    }
                 }
             }
         }

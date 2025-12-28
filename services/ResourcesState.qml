@@ -40,15 +40,30 @@ Singleton {
     Process {
         id: process_cpu_freq
         running: false
-        command: ["sh", "-c", "lscpu --parse=MHZ | tails -n 12"]
+        command: ["sh", "-c", "lscpu --parse=MHZ"]
         stdout: SplitParser {
             onRead: data => {
                 // delete the first 4 lines (comments)
-                const mhz = data.split("\n").slice(4);
-                // compute mean frequency
-                const freq = mhz.reduce((acc, e) => acc + Number(e), 0) / mhz.length;
+                // const lines = data.trim().split("\n").slice(4);
 
-                cpu_freq = Math.round(freq);
+                // 1. Split into lines and trim whitespace
+                const rawLines = data.trim().split("\n");
+
+                // 2. Filter: Keep only lines that are NOT comments and NOT empty
+                const numericLines = rawLines.filter(line => {
+                    return line.trim() !== "" && !line.startsWith("#");
+                });
+                if (numericLines.length === 0)
+                    return;
+
+                // 3. Convert to numbers and sum
+                const totalMhz = numericLines.reduce((acc, val) => {
+                    const num = parseFloat(val);
+                    return acc + (isNaN(num) ? 0 : num);
+                }, 0);
+
+                // 4. Update the variable
+                cpu_freq = Math.round(totalMhz / numericLines.length);
             }
         }
     }

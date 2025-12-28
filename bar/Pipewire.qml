@@ -9,7 +9,7 @@ BarBlock {
 
     //underline: true
     readonly property int textSize: 8
-    readonly property string textFont: 'inter'
+    property string textFont: 'inter'
     readonly property bool textBold: true
     readonly property color volumeColor: "#ccccccff"
     readonly property PwNode defaultOut: PipewireState.outputSink
@@ -37,7 +37,7 @@ BarBlock {
         font {
             pixelSize: 12
             bold: true
-            family: "quicksand medium"
+            family: text.textFont
         }
     }
 }

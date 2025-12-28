@@ -1,8 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 
-// import Quickshell
-
 Rectangle {
     id: root
 
@@ -26,26 +24,28 @@ Rectangle {
 
     property string hoveredBgColor: "#666666"
 
-    color: {
-        if (mouseArea.containsMouse)
-            return hoveredBgColor;
-        return "transparent";
-    }
+    // color: {
+    //     if (mouseArea.containsMouse)
+    //         return hoveredBgColor;
+    //     return "transparent";
+    // }
 
-    states: [
-        State {
-            when: mouseArea.containsMouse
-            PropertyChanges {
-                target: root
-            }
-        }
-    ]
+    color: "transparent"
 
-    Behavior on color {
-        ColorAnimation {
-            duration: 150
-        }
-    }
+    // states: [
+    //     State {
+    //         when: mouseArea.containsMouse
+    //         PropertyChanges {
+    //             target: root
+    //         }
+    //     }
+    // ]
+
+    // Behavior on color {
+    //     ColorAnimation {
+    //         duration: 150
+    //     }
+    // }
 
     Item {
         id: contentContainer
@@ -61,13 +61,14 @@ Rectangle {
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | PointerDevice.Mouse | PointerDevice.TouchPad
         onClicked: root.clicked()
-        propagateComposedEvents: true
+        // propagateComposedEvents: true
     }
 
     // While line underneath workspace
     Rectangle {
         id: wsLine
         width: root.width
+        radius: 12
         height: 1
 
         color: {
