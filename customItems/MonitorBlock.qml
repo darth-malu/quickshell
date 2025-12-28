@@ -12,6 +12,8 @@ Rectangle {
 
     property Item mouseArea: mouseArea
 
+    property string radiusSide: "left"
+
     property string text
 
     // property bool dim: false
@@ -30,9 +32,17 @@ Rectangle {
         pixelAligned: true
     }
 
-    topLeftRadius: height / 2
+    topLeftRadius: if (radiusSide == "left")
+        height / 2
 
-    bottomLeftRadius: height / 2
+    bottomLeftRadius: if (radiusSide == "left")
+        height / 2
+
+    topRightRadius: if (radiusSide == "right")
+        height / 2
+
+    bottomRightRadius: if (radiusSide == "right")
+        height / 2
 
     property string hoveredBgColor: "#666666"
 
@@ -62,7 +72,8 @@ Rectangle {
     Item {
         id: contentContainer
         implicitWidth: root.content.implicitWidth
-        implicitHeight: root.content.implicitHeight
+        // implicitHeight: root.content.implicitHeight
+        implicitHeight: 17
         anchors.centerIn: parent
         children: root.content
     }

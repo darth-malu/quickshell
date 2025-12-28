@@ -1,28 +1,30 @@
-import Quickshell
-import Quickshell.Io
-import Quickshell.Widgets
+// import Quickshell
+// import Quickshell.Io
+// import Quickshell.Widgets
 import QtQuick
-import QtQuick.Layouts
-import QtQuick.Effects
+// import QtQuick.Layouts
+// import QtQuick.Effects
 import Qt5Compat.GraphicalEffects
 
 Text {
-    property string mainFont: "lato"
+    property string mainFont: "quicksand"
     property string symbolFont: "Symbols Nerd Font Mono"
     property int pointSize: 12
     property bool renderNative: false
     property int symbolSize: pointSize * 1.37
-    // property int symbolSize: 12
     property string symbolText
     property bool dim
     property color baseColor: "#D295BF"
+
     color: dim ? "#CCCCCC" : baseColor
     text: wrapSymbols(symbolText)
     renderType: this.renderNative ?? Text.NativeRendering // FIXME: doubles clocwidget
     textFormat: Text.RichText //PlainText, RichText
+
     font {
         family: mainFont
-        pointSize: pointSize
+        pixelSize: pointSize
+        bold: true
     }
 
     Text {
@@ -35,6 +37,7 @@ Text {
     }
 
     DropShadow {
+        visible: true
         anchors.fill: parent
         horizontalOffset: 1
         verticalOffset: 1

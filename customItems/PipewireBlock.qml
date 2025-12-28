@@ -9,7 +9,7 @@ BarBlock {
 
     //underline: true
     readonly property int textSize: 8
-    property string textFont: 'inter'
+    property string textFont: 'quicksand'
     readonly property bool textBold: true
     readonly property color volumeColor: "#ccccccff"
     readonly property PwNode defaultOut: PipewireState.outputSink
@@ -17,12 +17,11 @@ BarBlock {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: Hyprland.dispatch("workspace 1")
         onWheel: event => {
-            if (!defaultOut?.audio)
+            if (!text.defaultOut?.audio)
                 return;
             const step = 4;
-            let volume = defaultOut.audio.volume * 100;
+            let volume = text.defaultOut.audio.volume * 100;
             volume += event.angleDelta.y > 0 ? step : -step;
             volume = Math.max(0, Math.min(volume, 100)); // Clamp 0% - 100% even with continued scrolling
             Pipewire.defaultAudioSink.audio.volume = volume / 100;

@@ -5,16 +5,17 @@ import Quickshell.Io
 import QtQuick
 
 Singleton {
-    property int cpu_percent
-    property real cpu_freq
-    property real cpu_temp
+    property int cpuPercent
+    property real cpuFreq
+    property real cpuTemp
 
-    property int gpu_percent
-    property string gpu_freq
-    property real gpu_temp
+    property int gpuPercent
+    property string gpuFreq
+    property real gpuFans
+    property real gpuTemp
 
-    property int mem_percent
-    property string mem_used
+    property int memPercent
+    property string memUsed
     property string darth_pool
     property bool resourcesVisible: false
 
@@ -23,7 +24,43 @@ Singleton {
         running: false
         command: ["sh", "-c", "top -bn1 | rg '%Cpu' | awk '{print 100-$8}'"]
         stdout: SplitParser {
-            onRead: data => cpu_percent = Math.round(data)
+            onRead: data => cpuPercent = Math.round(data)
+        }
+    }
+
+    Process {
+        id: process_cpu_temp
+        running: false
+        command: ["sh", "-c", "cat /sys/class/hwmon/hwmon1/temp1_input"]
+        stdout: SplitParser {
+            onRead: data => cpuTemp = Math.round(data / 1000)
+        }
+    }
+
+    Process {
+        id: process_gpu_percent
+        running: false
+        command: ["sh", "-c", "top -bn1 | rg '%Cpu' | awk '{print 100-$8}'"]
+        stdout: SplitParser {
+            onRead: data => gpuPercent = Math.round(data)
+        }
+    }
+
+    Process {
+        id: process_gpu_temp
+        running: false
+        command: ["sh", "-c", "cat /sys/class/hwmon/hwmon1/temp1_input"]
+        stdout: SplitParser {
+            onRead: data => gpuTemp = Math.round(data / 1000)
+        }
+    }
+
+    Process {
+        id: process_gpu_fans
+        running: false
+        command: ["sh", "-c", "cat /sys/class/hwmon/hwmon1/temp1_input"]
+        stdout: SplitParser {
+            onRead: data => gpuTemp = Math.round(data / 1000)
         }
     }
 
@@ -63,7 +100,7 @@ Singleton {
                 }, 0);
 
                 // 4. Update the variable
-                cpu_freq = Math.round(totalMhz / numericLines.length);
+                cpuFreq = Math.round(totalMhz / numericLines.length);
             }
         }
     }
@@ -73,7 +110,7 @@ Singleton {
         running: false
         command: ["sh", "-c", "free | awk 'NR==2{print $3/$2*100}'"]
         stdout: SplitParser {
-            onRead: data => mem_percent = Math.round(data)
+            onRead: data => memPercent = Math.round(data)
         }
     }
 
@@ -82,7 +119,7 @@ Singleton {
         running: false
         command: ["sh", "-c", "free --si -h | awk 'NR==2{print $3}'"]
         stdout: SplitParser {
-            onRead: data => mem_used = data
+            onRead: data => memUsed = data
         }
     }
 
@@ -93,6 +130,7 @@ Singleton {
         onTriggered: () => {
             process_cpu_percent.running = true;
             process_cpu_freq.running = true;
+            process_cpu_temp.running = true;
             process_mem_percent.running = true;
             process_mem_used.running = true;
             process_mem_used.running = true;
