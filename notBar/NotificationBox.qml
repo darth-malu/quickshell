@@ -38,7 +38,7 @@ WrapperMouseArea {
 
     property real iconRadius: iconSize / 5 // 12??
 
-    property bool showTime: false
+    property bool showTime: true
 
     property bool expanded: false
 
@@ -141,7 +141,7 @@ WrapperMouseArea {
                         id: currentTime
                         visible: rootMouseArea.showTime
                         Layout.alignment: Qt.AlignRight
-                        text: Utils.humanTime(rootMouseArea.timestamp, rootMouseArea.elapsed)
+                        text: NotificationState.humanTime(rootMouseArea.timestamp, rootMouseArea.elapsed)
                     }
                 }
 

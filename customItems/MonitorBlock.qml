@@ -73,6 +73,7 @@ Rectangle {
         id: contentContainer
         implicitWidth: root.content.implicitWidth
         // implicitHeight: root.content.implicitHeight
+        // NOTE key difference with BarBlock
         implicitHeight: 17
         anchors.centerIn: parent
         children: root.content

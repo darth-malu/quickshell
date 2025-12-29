@@ -4,7 +4,7 @@ import QtQuick
 
 RowLayout {
     spacing: 0
-    MonitorBlock {
+    BarBlock {
         id: cpu
         border.width: 0
 
@@ -53,8 +53,8 @@ RowLayout {
             }
         }
     }
-    MonitorBlock {
-        radiusSide: "right"
+    BarBlock {
+        // radiusSide: "right"
         border {
             width: 0
             pixelAligned: false
