@@ -38,7 +38,7 @@ WrapperMouseArea {
 
     property real iconRadius: iconSize / 5 // 12??
 
-    property bool showTime: true
+    property bool showTime: false
 
     property bool expanded: false
 
