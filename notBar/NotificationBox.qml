@@ -5,7 +5,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Services.Notifications
 import Quickshell.Widgets
-import qs
+import qs.themes
 import qs.customItems
 import qs.services
 
@@ -154,6 +154,7 @@ WrapperMouseArea {
                     font.weight: Font.Medium
                     maximumLineCount: rootMouseArea.expanded ? 20 : (rootMouseArea.n.actions.length > 1 ? 1 : 2)
                     text: rootMouseArea.n.body
+                    color: 'white'
                 }
 
                 RowLayout {

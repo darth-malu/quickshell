@@ -6,7 +6,6 @@ import qs.notBar
 
 ShellRoot {
     //TODO: scope vs shellroot
-    //FollowBar {}   //Any qml file that starts with an uppercase can be referenced this way
     Bar {}
     Volume {}
     IpcHandler {}

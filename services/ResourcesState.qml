@@ -4,6 +4,8 @@ import Quickshell
 import Quickshell.Io
 import QtQuick
 
+// import qs.scripts
+
 Singleton {
     property int cpuPercent
     property real cpuFreq
@@ -22,6 +24,8 @@ Singleton {
     Process {
         id: process_cpu_percent
         running: false
+        // command: ["sh", "-c", "top -bn1 | rg '%Cpu' | awk '{print 100-$8}'"]
+        // TODO: use procs/cpu
         command: ["sh", "-c", "top -bn1 | rg '%Cpu' | awk '{print 100-$8}'"]
         stdout: SplitParser {
             onRead: data => cpuPercent = Math.round(data)
@@ -31,7 +35,7 @@ Singleton {
     Process {
         id: process_cpu_temp
         running: false
-        command: ["sh", "-c", "cat /sys/class/hwmon/hwmon1/temp1_input"]
+        command: ["sh", "-c", "$HOME/.config/quickshell/scripts/cpuTemp.sh"]
         stdout: SplitParser {
             onRead: data => cpuTemp = Math.round(data / 1000)
         }

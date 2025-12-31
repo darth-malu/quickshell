@@ -46,17 +46,16 @@ Loader {
 
         onClicked: mouse => {
             mouse.accepted = true; // Prevent background click
-            if (mouse.button == Qt.LeftButton) {
+            if (mouse.button == Qt.LeftButton)
                 MprisState.player?.togglePlaying();
-            } else if (mouse.button == Qt.RightButton) {
+            else if (mouse.button == Qt.RightButton)
                 MprisState.player?.next();
-            } else if (mouse.button == Qt.MiddleButton) {
+            else if (mouse.button == Qt.MiddleButton)
                 MprisState.player?.raise();
-            } else if (mouse.button == Qt.ForwardButton) {
+            else if (mouse.button == Qt.ForwardButton)
                 MprisState.player?.next();
-            } else if (mouse.button == Qt.BackButton) {
+            else if (mouse.button == Qt.BackButton)
                 MprisState.player?.previous();
-            }
         }
 
         onWheel: event => {

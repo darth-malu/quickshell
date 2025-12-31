@@ -8,6 +8,8 @@ Rectangle {
 
     Layout.preferredHeight: contentContainer.implicitHeight // 30::
 
+    Layout.alignment: Qt.AlignVCenter
+
     property Item content
 
     property Item mouseArea: mouseArea
@@ -27,7 +29,7 @@ Rectangle {
     // antialiasing: true
 
     border {
-        width: 1
+        width: radius > 0 ? 1 : 0
         color: 'red'
         pixelAligned: true
     }
@@ -43,6 +45,8 @@ Rectangle {
 
     bottomRightRadius: if (radiusSide == "right")
         height / 2
+
+    radius: radiusSide == "null" ?? 0
 
     property string hoveredBgColor: "#666666"
 
@@ -72,9 +76,9 @@ Rectangle {
     Item {
         id: contentContainer
         implicitWidth: root.content.implicitWidth
-        // implicitHeight: root.content.implicitHeight
+        implicitHeight: root.content.implicitHeight
         // NOTE key difference with BarBlock
-        implicitHeight: 17
+        // implicitHeight: 17
         anchors.centerIn: parent
         children: root.content
     }

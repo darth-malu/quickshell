@@ -2,6 +2,7 @@ import QtQuick
 import Qt5Compat.GraphicalEffects
 
 Text {
+    id: root
     property string mainFont: "quicksand"
     property string symbolFont: "Symbols Nerd Font Mono"
     property int pointSize: 12
@@ -24,6 +25,7 @@ Text {
 
     Text {
         id: textcopy
+        // padding: root.padding
         visible: true
         text: parent.text
         textFormat: parent.textFormat
@@ -32,7 +34,7 @@ Text {
     }
 
     DropShadow {
-        visible: true
+        visible: textcopy.visible
         anchors.fill: parent
         horizontalOffset: 1
         verticalOffset: 1

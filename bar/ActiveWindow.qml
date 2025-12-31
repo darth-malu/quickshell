@@ -9,7 +9,7 @@ Text {
         return str.length > chop ? str.slice(0, chop) + '..' : str;
     }
     color: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1) //#8390FA
-    leftPadding: 10
+    leftPadding: 15
     font {
         family: 'quicksand'
         bold: true

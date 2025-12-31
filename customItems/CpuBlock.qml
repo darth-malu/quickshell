@@ -10,13 +10,13 @@ RowLayout {
 
         property bool showTemp: false
 
-        readonly property color cpuColor: cpuPercent > 80 ? "#7CE577" : cpuPercent > 50 ? "#7CE577" : '#C6CAED' // #EEFC57
-
         readonly property int cpuPercent: ResourcesState.cpuPercent
+        readonly property color cpuColor: cpuPercent > 80 ? "#7CE577" : cpuPercent > 50 ? "#7CE577" : '#C6CAED' // #EEFC57
 
         readonly property real cpuFreq: ResourcesState.cpuFreq
 
         readonly property real cpuTemp: ResourcesState.cpuTemp
+        readonly property color cpuTempColor: cpuTemp > 80 ? "red" : cpuPercent > 50 ? "orange" : 'teal' // #EEFC57
 
         readonly property string family: "quicksand"
 
@@ -49,12 +49,11 @@ RowLayout {
                     family: cpu.family
                 }
                 symbolText: `🥶  ${cpu.cpuFreq} Ghz `
-                baseColor: cpu.cpuColor
+                // baseColor: cpu.cpuColor
             }
         }
     }
     BarBlock {
-        // radiusSide: "right"
         border {
             width: 0
             pixelAligned: false
@@ -62,8 +61,8 @@ RowLayout {
         content: BarText {
             id: cpuTemp
             renderNative: true
-            symbolText: `${cpu.cpuTemp} `
-            baseColor: cpu.cpuColor
+            symbolText: `${cpu.cpuTemp}`
+            baseColor: cpu.cpuTempColor
             font {
                 pixelSize: 12
                 bold: true

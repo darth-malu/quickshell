@@ -2,12 +2,11 @@ import QtQuick
 import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
 
-// TODO why this does not change color
 ProgressBar {
     id: root
     // property bool vertical: false
-    property real valueBarWidth: 30
-    property real valueBarHeight: 15
+    property real valueBarWidth: 27
+    property real valueBarHeight: 14
     property color highlightColor: "#685496" //Filled part
     property color trackColor: "#F1D3F9" //empty part
     property alias radius: contentItem.radius
@@ -16,18 +15,18 @@ ProgressBar {
     default property Item textMask: Item {
         width: valueBarWidth
         height: valueBarHeight
-        BarText {
-            anchors.centerIn: parent
-            font: root.font
-            text: root.text
-        }
+        // BarText {
+        //     anchors.centerIn: parent
+        //     font: root.font
+        //     text: root.text
+        // }
     }
 
-    text: Math.round(value * 100) // value here is the percentage from battery
+    text: Math.round(value * 100) // provide value which is used for text calculations
 
     font {
         pixelSize: 12
-        family: "Quicksand medium"
+        family: "Quicksand"
         weight: text.length > 2 ? Font.Medium : Font.DemiBold
     }
 
@@ -45,7 +44,6 @@ ProgressBar {
 
         Rectangle {
             id: progressFill
-            // width: parent.width * root.visualPosition
             width: parent.width * root.visualPosition // TODO see hwo visualPosition works
             height: parent.height
             radius: 12

@@ -79,7 +79,7 @@ ShellRoot {
                     Resources {}
                     ClockWidget {}
                     Battery {}
-                    SystemTrayy {}
+                    SystemTray {}
                 }
             }
         }
