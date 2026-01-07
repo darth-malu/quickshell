@@ -1,10 +1,8 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls
 import Quickshell.Services.SystemTray
 import Quickshell.Widgets
-
 
 RowLayout {
     id: trayList
@@ -12,61 +10,62 @@ RowLayout {
         model: SystemTray.items
 
         MouseArea {
-          id: delegate
-          required property SystemTrayItem modelData
-          property alias item: delegate.modelData
+            id: delegate
+            required property SystemTrayItem modelData
+            property alias item: delegate.modelData
 
-          Layout.fillHeight: true
-          implicitWidth: icon.implicitWidth + 5
+            Layout.fillHeight: true
+            implicitWidth: icon.implicitWidth + 5
 
-          acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
-          hoverEnabled: true
+            acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+            hoverEnabled: true
 
-          onClicked: event => {
-            if (event.button == Qt.LeftButton) {
-              item.activate();
-            } else if (event.button == Qt.MiddleButton) {
-              item.secondaryActivate();
-            } else if (event.button == Qt.RightButton) {
-              menuAnchor.open();
-            }
-          }
-
-          IconImage {
-            id: icon
-            anchors {
-                verticalCenter: parent.verticalCenter
+            onClicked: event => {
+                if (event.button == Qt.LeftButton) {
+                    item.activate();
+                } else if (event.button == Qt.MiddleButton) {
+                    item.secondaryActivate();
+                } else if (event.button == Qt.RightButton) {
+                    menuAnchor.open();
+                }
             }
 
-            source: modelData.icon
+            IconImage {
+                id: icon
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                }
 
-            implicitSize: 12
+                source: modelData.icon
 
-            asynchronous: true
-          }
+                implicitSize: 12
 
-          QsMenuAnchor {
-            id: menuAnchor
-            menu: modelData.menu
-
-            anchor.window: delegate.QsWindow.window
-            anchor.adjustment: PopupAdjustment.Flip
-
-            anchor.onAnchoring: {
-              const window = delegate.QsWindow.window;
-              const widgetRect = window.contentItem.mapFromItem(delegate, 0, delegate.height, delegate.width, delegate.height);
-
-              menuAnchor.anchor.rect = widgetRect;
+                asynchronous: true
             }
-          }
 
-          /* Tooltip { */
-          /*   relativeItem: delegate.containsMouse ? delegate : null */
+            QsMenuAnchor {
+                id: menuAnchor
+                menu: modelData.menu
 
-          /*   Label { */
-          /*     text: delegate.item.tooltipTitle || delegate.item.id */
-          /*   } */
-          /* } */
+                anchor.window: delegate.QsWindow.window
+                anchor.adjustment: PopupAdjustment.Flip
+
+                anchor.onAnchoring: {
+                    const window = delegate.QsWindow.window;
+                    const widgetRect = window.contentItem.mapFromItem(delegate, 0, delegate.height, delegate.width, delegate.height);
+
+                    menuAnchor.anchor.rect = widgetRect;
+                }
+            }
+
+            // TODO make tooltip
+            /* Tooltip { */
+            /*   relativeItem: delegate.containsMouse ? delegate : null */
+
+            /*   Label { */
+            /*     text: delegate.item.tooltipTitle || delegate.item.id */
+            /*   } */
+            /* } */
         }
     }
 }

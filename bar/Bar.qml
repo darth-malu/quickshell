@@ -28,12 +28,9 @@ ShellRoot {
 
             aboveWindows: false // true::
             color: Themes.bar_bg
-            implicitHeight: 20
+            implicitHeight: 22//20
 
-            margins {
-                left: 12
-                right: 12
-            }
+            margins.right: 6
 
             anchors {
                 top: true
@@ -41,43 +38,44 @@ ShellRoot {
                 right: true
             }
 
-            MouseArea {
-                anchors.fill: parent
-                onWheel: wheel => {
-                    if (wheel.angleDelta.y > 0) {
-                        Hyprland.dispatch("workspace m-1");
-                    } else if (wheel.angleDelta.y < 0) {
-                        Hyprland.dispatch("workspace m+1");
-                    }
-                }
-            }
-
-            Rectangle {
+            RowLayout {
                 id: panel
                 anchors.fill: parent
-                //radius: 16
-                color: 'transparent'
+
+                MouseArea {
+                    anchors.fill: parent
+                    onWheel: wheel => {
+                        if (wheel.angleDelta.y > 0) {
+                            Hyprland.dispatch("workspace m-1");
+                        } else if (wheel.angleDelta.y < 0) {
+                            Hyprland.dispatch("workspace m+1");
+                        }
+                    }
+                }
 
                 RowLayout {
                     id: leftBlock
                     spacing: 0.4
-                    anchors.left: parent.left
+                    Layout.alignment: Qt.AlignLeft
                     Workspaces {}
                     ActiveWindow {}
                 }
 
                 Mpris {
                     id: centerBlock
+                    Layout.alignment: Qt.AlignCenter
                 }
 
                 RowLayout {
                     id: rightBlock
-                    anchors.right: parent.right
+                    Layout.alignment: Qt.AlignRight
                     spacing: 10 //0.4::
-                    // Layout.rightMargin: 50
+
                     Netspeed_darth {}
                     Resources {}
-                    ClockWidget {}
+                    ClockWidget {
+                        onClicked: ResourcesState.resourcesVisible = !ResourcesState.resourcesVisible
+                    }
                     Battery {}
                     SystemTray {}
                 }

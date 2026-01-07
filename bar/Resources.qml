@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import qs.customItems
 import qs.services
 
-Item {
+RowLayout {
     id: root
 
     implicitWidth: resourceLoader.item ? resourceLoader.item.implicitWidth : 0
@@ -20,7 +20,7 @@ Item {
         sourceComponent: RowLayout {
             id: resourcesRow
 
-            spacing: 16
+            spacing: 12
 
             PipewireBlock {}
 

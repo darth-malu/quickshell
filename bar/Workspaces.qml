@@ -1,6 +1,5 @@
 import QtQuick
 import qs.services
-import qs.customItems
 import qs.themes
 import Quickshell.Hyprland
 import QtQuick.Layouts
@@ -29,7 +28,7 @@ RowLayout {
 
             implicitHeight: 20
 
-            radius: height / 2
+            radius: implicitHeight / 2
 
             color: isMonitorFocused && isActiveOnMonitor ? "#b298dc" : "transparent"
 

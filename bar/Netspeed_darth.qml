@@ -1,5 +1,4 @@
 import QtQuick
-import Quickshell.Io
 import QtQuick.Layouts
 import qs.customItems
 import qs.services
@@ -16,7 +15,7 @@ RowLayout {
         id: download
 
         content: BarText {
-            symbolText: root.download < 0.2 ? "" : `↘ ${root.download}`
+            symbolText: root.download`↘ ${root.download}`
             font: Themes.quick_medium
         }
     }
@@ -24,7 +23,7 @@ RowLayout {
         id: upload
 
         content: BarText {
-            symbolText: root.upload < 0.2 ? "" : `↗ ${root.upload}`
+            symbolText: root.upload`↗ ${root.upload}`
             font: Themes.quick_medium
         }
     }

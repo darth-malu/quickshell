@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import qs.services
 import qs.customItems
+import Quickshell
 
 /* TODO
    + Alternative modes on click eg. time to full, empty, charge rate
@@ -40,7 +41,13 @@ RowLayout {
 
         // hoverEnabled: true
 
-        property string powerProfile: BatteryState.whichPowerProfile
+        property var powerProfile: BatteryState.powerProfile
+
+        property bool balancedMode: BatteryState.balMode
+        property bool performanceMode: BatteryState.perfMode
+        property bool powerSaverMode: BatteryState.saverMode
+
+        // property bool balancedMode: BatteryState.balMode
 
         onClicked: mouse => {
             mouse.accepted = true;
@@ -89,7 +96,6 @@ RowLayout {
                         Layout.alignment: Qt.AlignVCenter
                         font: batteryProgress.font
                         text: root.isFull ? '⚡' : batteryProgress.text
-                        color: 'red'
                     }
                 }
             }
@@ -99,35 +105,31 @@ RowLayout {
     BarBlock {
         id: perfomanceBlock
         visible: root.togglePerformanceMode
-        onClicked: mouse => {
-            mouse.accepted = true;
-
-            if (mouse.button === Qt.LeftButton) {
-                const profiles = ['power-saver', 'performance', 'balanced'];
-
-                // current
-                let currentIndex = profiles.indexOf(root.powerProfile);
-
-                //next index - Modulo of current + 1 eg 5/4 0 r 1 so loop back
-                let nextIndex = (currentIndex + 1) % profiles.length;
-                let nextProfile = profiles[nextIndex];
-
-                Quickshell.execDetached(["sh", "-c", `powerprofilesctl set ${nextProfile} && canberra-gtk-play -i bell`]);
-
-                root.powerProfile = nextProfile;
-            }
-        }
         content: BarText {
             text: {
-                switch (root.powerProfile) {
-                case 'power-saver':
-                    return '🍀';
-                case 'performance':
-                    return '⚡';
-                case 'balanced':
+                if (root.balancedMode) {
+                    console.log(`mode is: ${root.balancedMode}`);
                     return '☯';
                 }
+                if (root.performanceMode)
+                    return '⚡';
+                if (root.powerSaverMode)
+                    return '🍀';
             }
+        }
+        onClicked: {
+            const profiles = ['power-saver', 'performance', 'balanced'];
+
+            // current
+            let currentIndex = profiles.indexOf(root.powerProfile);
+
+            //next index - Modulo of current + 1 eg 5/4 0 r 1 so loop back
+            let nextIndex = (currentIndex + 1) % profiles.length;
+            let nextProfile = profiles[nextIndex];
+
+            Quickshell.execDetached(["sh", "-c", `powerprofilesctl set ${nextProfile} && notify-send -u low -i ${this.content.text} ${nextProfile}`]); // TODO: better Icons here, and menu
+
+            root.powerProfile = nextProfile;
         }
     }
 }
