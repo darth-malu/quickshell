@@ -4,9 +4,15 @@ import Quickshell
 import Quickshell.Io
 import QtQuick
 
-// import qs.scripts
-
 Singleton {
+    id: root
+
+    property var lastStats: ({
+            "total": 0,
+            "idle": 0
+        })
+    property int cpuUsageString
+
     property int cpuPercent
     property real cpuFreq
     property real cpuTemp
@@ -21,15 +27,90 @@ Singleton {
     property string darth_pool
     property bool resourcesVisible: false
 
-    Process {
-        id: process_cpu_percent
-        running: false
-        // command: ["sh", "-c", "top -bn1 | rg '%Cpu' | awk '{print 100-$8}'"]
-        // TODO: use procs/cpu
-        command: ["sh", "-c", "top -bn1 | rg '%Cpu' | awk '{print 100-$8}'"]
-        stdout: SplitParser {
-            onRead: data => cpuPercent = Math.round(data)
+    FileView {
+        id: cpuUsageFile
+        path: "file:///proc/stat"
+    }
+
+    FileView {
+        id: memoryFile
+        path: "file:///proc/meminfo"
+    }
+
+    Timer {
+        interval: 2000
+        running: true
+        repeat: true
+        onTriggered: {
+            cpuUsageFile.reload();
+            root.processCpuData(cpuUsageFile.text());
+            memoryFile.reload();
+            root.processMemoryData(memoryFile.text());
+            process_cpu_temp.running = true;
         }
+    }
+
+    function processMemoryData(rawText) {
+        if (!rawText)
+            return;
+
+        let lines = rawText.split('\n');
+        let memTotalLine = lines[0];
+        let memAvailableLine = lines[2];
+
+        // split by spaces to get only the number
+        let memTotalKB = parseInt(memTotalLine.split(/\s+/)[1]);
+        let memAvailableKB = parseInt(memAvailableLine.split(/\s+/)[1]);
+
+        // calculate used ram - difference total - avail
+        let used = memTotalKB - memAvailableKB;
+        let percent = (used / memTotalKB) * 100;
+        root.memPercent = Math.round(percent);
+    }
+
+    function processCpuData(rawText) {
+        if (!rawText)
+            return;
+
+        // Split by line and then by whitespace
+        let lines = rawText.split('\n');
+        let cpuLine = lines[0].trim().split(/\s+/);
+
+        // Map columns based on your C struct:
+        // cpuLine[1]=user, [2]=nice, [3]=system, [4]=idle, [5]=iowait, [6]=irq...
+        let user = parseInt(cpuLine[1] || 0);
+        let nice = parseInt(cpuLine[2] || 0);
+        let system = parseInt(cpuLine[3] || 0);
+        let idle = parseInt(cpuLine[4] || 0);
+        let iowait = parseInt(cpuLine[5] || 0);
+        let irq = parseInt(cpuLine[6] || 0);
+        let softirq = parseInt(cpuLine[7] || 0);
+        let steal = parseInt(cpuLine[8] || 0);
+
+        // C Logic: s->idle_all = s->idle + s->iowait;
+        let currentIdleAll = idle + iowait;
+
+        // C Logic: s->total_sum = user + nice + system + idle + iowait + irq + softirq + steal;
+        let currentTotalSum = user + nice + system + idle + iowait + irq + softirq + steal;
+
+        // Calculate Deltas (curr - prev)
+        let totalDelta = currentTotalSum - lastStats.total;
+        let idleDelta = currentIdleAll - lastStats.idle;
+
+        if (totalDelta > 0) {
+            // C Logic: (double)(total_delta - idle_delta) / total_delta * 100.0
+            let usedDelta = totalDelta - idleDelta;
+            let utilization = (usedDelta / totalDelta) * 100.0;
+
+            // root.cpuUsageString = utilization.toFixed(2) + "%";
+            root.cpuUsageString = Math.round(utilization);
+        }
+
+        // prev = curr
+        lastStats = {
+            "total": currentTotalSum,
+            "idle": currentIdleAll
+        };
     }
 
     Process {
@@ -44,27 +125,9 @@ Singleton {
     Process {
         id: process_gpu_percent
         running: false
-        command: ["sh", "-c", "top -bn1 | rg '%Cpu' | awk '{print 100-$8}'"]
+        command: ["sh", "-c", "top -bn1 | rg '%Cpu' | awk '{print 100-$8}'"] // TODO: make this cheaper
         stdout: SplitParser {
             onRead: data => gpuPercent = Math.round(data)
-        }
-    }
-
-    Process {
-        id: process_gpu_temp
-        running: false
-        command: ["sh", "-c", "cat /sys/class/hwmon/hwmon1/temp1_input"]
-        stdout: SplitParser {
-            onRead: data => gpuTemp = Math.round(data / 1000)
-        }
-    }
-
-    Process {
-        id: process_gpu_fans
-        running: false
-        command: ["sh", "-c", "cat /sys/class/hwmon/hwmon1/temp1_input"]
-        stdout: SplitParser {
-            onRead: data => gpuTemp = Math.round(data / 1000)
         }
     }
 
@@ -72,74 +135,11 @@ Singleton {
         id: disk_usage
         running: false
         command: ["sh", "-c", "(zfs get -H -o value avail darthPool 2>/dev/null) || (zfs get -H -o value avail darth-pool 2>/dev/null)"]
-        /* command: ["sh", "-c", "zfs get -H -o value avail darthPool darth-pool 2>/dev/null"] */
         stdout: SplitParser {
             onRead: data => darth_pool = data
         }
     }
 
-    Process {
-        id: process_cpu_freq
-        running: false
-        command: ["sh", "-c", "lscpu --parse=MHZ"]
-        stdout: SplitParser {
-            onRead: data => {
-                // delete the first 4 lines (comments)
-                // const lines = data.trim().split("\n").slice(4);
-
-                // 1. Split into lines and trim whitespace
-                const rawLines = data.trim().split("\n");
-
-                // 2. Filter: Keep only lines that are NOT comments and NOT empty
-                const numericLines = rawLines.filter(line => {
-                    return line.trim() !== "" && !line.startsWith("#");
-                });
-                if (numericLines.length === 0)
-                    return;
-
-                // 3. Convert to numbers and sum
-                const totalMhz = numericLines.reduce((acc, val) => {
-                    const num = parseFloat(val);
-                    return acc + (isNaN(num) ? 0 : num);
-                }, 0);
-
-                // 4. Update the variable
-                cpuFreq = Math.round(totalMhz / numericLines.length);
-            }
-        }
-    }
-
-    Process {
-        id: process_mem_percent
-        running: false
-        command: ["sh", "-c", "free | awk 'NR==2{print $3/$2*100}'"]
-        stdout: SplitParser {
-            onRead: data => memPercent = Math.round(data)
-        }
-    }
-
-    Process {
-        id: process_mem_used
-        running: false
-        command: ["sh", "-c", "free --si -h | awk 'NR==2{print $3}'"]
-        stdout: SplitParser {
-            onRead: data => memUsed = data
-        }
-    }
-
-    Timer {
-        interval: 2000
-        running: true
-        repeat: true
-        onTriggered: () => {
-            process_cpu_percent.running = true;
-            process_cpu_freq.running = true;
-            process_cpu_temp.running = true;
-            process_mem_percent.running = true;
-            process_mem_used.running = true;
-            process_mem_used.running = true;
-        }
-    }
     Timer {
         interval: 10000
         running: true

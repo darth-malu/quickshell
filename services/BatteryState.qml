@@ -1,14 +1,19 @@
 pragma Singleton
 import Quickshell
 import QtQuick
-import Quickshell.Io
 import Quickshell.Services.UPower
 
 Singleton {
     id: root
     readonly property UPowerDevice battery: UPower.displayDevice
 
-    readonly property string whichPowerProfile: PowerProfiles.profile?.name ?? "unknown"
+    readonly property var powerProfile: PowerProfiles.profile
+
+    property bool perfMode: powerProfile === PowerProfile.Performance
+
+    property bool saverMode: powerProfile === PowerProfile.PowerSaver
+
+    property bool balMode: powerProfile === PowerProfile.Balanced
 
     property real batPercentage: battery.percentage // Energy/EnergyCapacity
 
@@ -55,7 +60,6 @@ Singleton {
     onBatPercentageChanged: {
         if (!isDischarging)
             return;
-
         if (isCritical) {
             notify("Critical battery!", "warning-battery", "critical");
         } else if (isLow) {

@@ -1,5 +1,6 @@
 import QtQuick.Layouts
 import qs.services
+import qs.customItems
 import QtQuick
 
 RowLayout {
@@ -10,13 +11,15 @@ RowLayout {
 
         property bool showTemp: false
 
-        readonly property int cpuPercent: ResourcesState.cpuPercent
+        readonly property int cpuPercent: ResourcesState.cpuUsageString
+
         readonly property color cpuColor: cpuPercent > 80 ? "#7CE577" : cpuPercent > 50 ? "#7CE577" : '#C6CAED' // #EEFC57
 
         readonly property real cpuFreq: ResourcesState.cpuFreq
 
         readonly property real cpuTemp: ResourcesState.cpuTemp
-        readonly property color cpuTempColor: cpuTemp > 80 ? "red" : cpuPercent > 50 ? "orange" : 'teal' // #EEFC57
+
+        readonly property color cpuTempColor: this.cpuTemp > 80 ? "red" : this.cpuTemp > 60 ? "orange" : 'grey' // #EEFC57
 
         readonly property string family: "quicksand"
 
@@ -27,7 +30,7 @@ RowLayout {
         }
 
         content: RowLayout {
-            spacing: 16
+            // spacing: 16
             BarText {
                 id: cpuText
                 renderNative: true
@@ -40,32 +43,15 @@ RowLayout {
                 symbolText: `🤖  ${cpu.cpuPercent}` // 
             }
             BarText {
-                id: cpuFreqText
+                id: cpuTemp
                 visible: cpu.showTemp
                 renderNative: true
+                symbolText: `${cpu.cpuTemp}`
+                baseColor: cpu.cpuTempColor
                 font {
                     pixelSize: 12
                     bold: true
-                    family: cpu.family
                 }
-                symbolText: `🥶  ${cpu.cpuFreq} Ghz `
-                // baseColor: cpu.cpuColor
-            }
-        }
-    }
-    BarBlock {
-        border {
-            width: 0
-            pixelAligned: false
-        }
-        content: BarText {
-            id: cpuTemp
-            renderNative: true
-            symbolText: `${cpu.cpuTemp}`
-            baseColor: cpu.cpuTempColor
-            font {
-                pixelSize: 12
-                bold: true
             }
         }
     }

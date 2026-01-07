@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
 
-# mapfile -t names_hwmon < <(cat /sys/class/hwmon/*/name)
-mapfile -t hwmon_directories < <(ls /sys/class/hwmon)
-
-for dir in "${hwmon_directories[@]}"; do
-    SYS_DIR="/sys/class/hwmon/$dir"
-    if [ "$(cat "$SYS_DIR/name")" = "coretemp" ]; then
-        cat "$SYS_DIR/temp1_input"
+for name_file in /sys/class/hwmon/hwmon*/name; do
+    read -r name <"$name_file"
+    if [ "$name" = "coretemp" ]; then
+        # Get the path to temp1_input in the same directory
+        read -r temp <"${name_file%name}temp1_input"
+        echo "$temp"
+        break # Exit once found to save time
     fi
 done
-
-# Get all Dir in sys/class/hwmon
-# Check if each dir/name mateches 'coretemp' | 'carthage'
-# if match cat temp1_input (to solve conflict)
