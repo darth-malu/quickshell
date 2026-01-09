@@ -11,11 +11,12 @@ import Quickshell
 RowLayout {
     id: batteryBlock
     spacing: 2
+    visible: BatteryState.available
 
     MouseArea {
         id: root
 
-        visible: BatteryState.available
+        // visible: BatteryState.available
 
         implicitWidth: batteryProgress.implicitWidth
 

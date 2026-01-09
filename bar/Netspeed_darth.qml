@@ -15,7 +15,7 @@ RowLayout {
         id: download
 
         content: BarText {
-            symbolText: root.download`↘ ${root.download}`
+            symbolText: `↘ ${root.download}`
             font: Themes.quick_medium
         }
     }
@@ -23,7 +23,7 @@ RowLayout {
         id: upload
 
         content: BarText {
-            symbolText: root.upload`↗ ${root.upload}`
+            symbolText: `↗ ${root.upload}`
             font: Themes.quick_medium
         }
     }

@@ -31,6 +31,7 @@ ShellRoot {
             implicitHeight: 22//20
 
             margins.right: 6
+            margins.left: 6
 
             anchors {
                 top: true
@@ -63,7 +64,8 @@ ShellRoot {
 
                 Mpris {
                     id: centerBlock
-                    Layout.alignment: Qt.AlignCenter
+                    // Layout.alignment: Qt.AlignCenter
+                    anchors.centerIn: parent
                 }
 
                 RowLayout {
@@ -71,7 +73,7 @@ ShellRoot {
                     Layout.alignment: Qt.AlignRight
                     spacing: 10 //0.4::
 
-                    Netspeed_darth {}
+                    // Netspeed_darth {}
                     Resources {}
                     ClockWidget {
                         onClicked: ResourcesState.resourcesVisible = !ResourcesState.resourcesVisible

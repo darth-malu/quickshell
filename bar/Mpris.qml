@@ -9,12 +9,8 @@ Loader {
 
     active: MprisState.player != null && MprisState.mprisVisible
 
-    anchors.centerIn: parent
-
     sourceComponent: WrapperMouseArea {
         id: mprisRoot
-
-        // visible: MprisState.player != null && MprisState.mprisVisible
 
         hoverEnabled: true
 
@@ -95,9 +91,9 @@ Loader {
                 id: title
                 renderNative: true
                 text: {
-                    let x = 50;
+                    let strLength = 50;
                     var str = MprisState.player?.trackTitle || "";
-                    return str.length > x ? str.slice(0, x) + '..' : str;
+                    return str.length > strLength ? str.slice(0, strLength) + '..' : str;
                 }
                 color: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.98)
                 font {
@@ -116,10 +112,7 @@ Loader {
                     family: 'lato'
                     bold: mprisRoot.volumeBold
                 }
-                //opacity: mprisRoot.showVolume ? 1 : 0
-                //opacity: mprisRoot.containsMouse ? 1 : 0
                 color: '#ff79c6'
-                //Behavior on opacity { NumberAnimation { duration: 460 } }
             }
         }
     }

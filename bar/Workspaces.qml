@@ -39,7 +39,7 @@ RowLayout {
 
             Text { // TODO reveal appss in workspace on hover
                 id: workspaceId
-                text: modelData.id
+                text: modelData.name
                 anchors.centerIn: parent
                 color: circleBackground.isMonitorFocused ? (parent.isActiveOnMonitor ? "black" : parent.activeWorkspaceColor) : "#6D5D6E" //#5c0099 4C585B
                 font.pixelSize: 13

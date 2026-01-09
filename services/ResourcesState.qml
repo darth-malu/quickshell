@@ -32,6 +32,11 @@ Singleton {
         path: "file:///proc/stat"
     }
 
+    // FileView {
+    //     id: cpuTempFile
+    //     path: "file:///proc/stat"
+    // }
+
     FileView {
         id: memoryFile
         path: "file:///proc/meminfo"
@@ -123,20 +128,20 @@ Singleton {
     }
 
     Process {
-        id: process_gpu_percent
-        running: false
-        command: ["sh", "-c", "top -bn1 | rg '%Cpu' | awk '{print 100-$8}'"] // TODO: make this cheaper
-        stdout: SplitParser {
-            onRead: data => gpuPercent = Math.round(data)
-        }
-    }
-
-    Process {
         id: disk_usage
         running: false
         command: ["sh", "-c", "(zfs get -H -o value avail darthPool 2>/dev/null) || (zfs get -H -o value avail darth-pool 2>/dev/null)"]
         stdout: SplitParser {
             onRead: data => darth_pool = data
+        }
+    }
+
+    Timer {
+        interval: 2000
+        running: true
+        repeat: true
+        onTriggered: () => {
+            process_cpu_temp.running = true;
         }
     }
 
