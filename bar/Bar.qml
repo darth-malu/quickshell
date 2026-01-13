@@ -73,7 +73,7 @@ ShellRoot {
                     Layout.alignment: Qt.AlignRight
                     spacing: 10 //0.4::
 
-                    // Netspeed_darth {}
+                    Netspeed_darth {}
                     Resources {}
                     ClockWidget {
                         onClicked: ResourcesState.resourcesVisible = !ResourcesState.resourcesVisible

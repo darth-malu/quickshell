@@ -9,7 +9,9 @@ RowLayout {
     visible: NetworkState.netspeedVisible
     readonly property real upload: NetworkState.upload
     readonly property real download: NetworkState.download
-    spacing: 10
+    // implicitWidth: upload.width
+    // implicitHeight: upload.height
+    // spacing: 10
 
     BarBlock {
         id: download

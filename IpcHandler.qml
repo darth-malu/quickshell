@@ -39,10 +39,10 @@ Item {
             console.log(`ncmpcpp name: ${player.identity}`);
             if (player && player.canRaise)
                 player.raise();
-            if (player)
-                // Quickshell.execDetached(["hyprctl", "dispatch workspace special:nc"]);
-                console.log(`ncmpcpp name: ${player.identity}`);
-            Quickshell.execDetached(["sh", "-c", "notify-send 'Charger Disconnected' -u low -i /home/malu/.config/quickshell/assets/battery/unplug.png -a Shell && canberra-gtk-play -i bell"]);
+        // if (player)
+        //     // Quickshell.execDetached(["hyprctl", "dispatch workspace special:nc"]);
+        //     console.log(`ncmpcpp name: ${player.identity}`);
+        // Quickshell.execDetached(["sh", "-c", "notify-send 'Charger Disconnected' -u low -i /home/malu/.config/quickshell/assets/battery/unplug.png -a Shell && canberra-gtk-play -i bell"]);
         }
 
         function toggleMpris(): void {

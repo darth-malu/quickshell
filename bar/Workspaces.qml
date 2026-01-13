@@ -5,7 +5,7 @@ import Quickshell.Hyprland
 import QtQuick.Layouts
 
 RowLayout {
-    spacing: 0
+    spacing: 30
     property HyprlandMonitor monitor: Hyprland.monitorFor(screen)
 
     Repeater {
@@ -25,7 +25,6 @@ RowLayout {
             readonly property bool isMonitorFocused: modelData.monitor === Hyprland.monitorFor(screen) // TODO difference betweeen Hyprland.focusedMonitor / Hyprland/monitorFor(screen)
 
             implicitWidth: 20
-
             implicitHeight: 20
 
             radius: implicitHeight / 2
@@ -54,6 +53,47 @@ RowLayout {
                 color: "#ffffff"
                 font.pixelSize: 12
             }
+        }
+
+        property var symbolImgMap: {
+            "": "extra-scale-vim",
+            "󰇥": "extra-scale-yazi",
+            // "󰇧": "extra-zen",
+            "󰇧": "extra-scale-firefox",
+            "󰒱": "extra-scale-slack",
+            "": "extra-scale-terminal-thin",
+            "": "extra-scale-firefox",
+            "": "extra-scale-element-desktop",
+            "󰊴": "extra-scale-discord-circle-dark",
+            "": "extra-scale-chromium",
+            // "": "chromium",
+            "󰽉": "libreoffice-draw",
+            "󰷈": "libreoffice-writer",
+            "": "libreoffice-calc",
+            "󰈩": "libreoffice-impress",
+            // "󰭹": "signal-desktop",
+            "󰭹": "extra-signal-simple",
+            "": "extra-zathura",
+            "": "extra-spotify",
+            // "": "extra-scale-spotify",
+            "": "extra-steam",
+            "": "extra-scale-bluetooth",
+            "": "extra-anki",
+            "": "extra-scale-gimp",
+            "": "extra-ghidra",
+            // "󰄄": "com.obsproject.Studio",
+            "󰄄": "extra-scale-obs",
+            "": "extra-scale-photos",
+            "": "extra-anki",
+            "": "extra-mpv",
+            "": "extra-virtualbox",
+            "": "extra-scale-emacs",
+            "": "monero",
+            "󰻎": "extra-system-explorer-outline",
+            "󱍼": "extra-scale-vlc",
+            "": "com.usebottles.bottles",
+            "": "Zoom",
+            "󰊻": "teams-for-linux"
         }
     }
 }
