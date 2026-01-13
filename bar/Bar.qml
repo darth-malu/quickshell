@@ -44,7 +44,7 @@ ShellRoot {
                 anchors.fill: parent
 
                 MouseArea {
-                    anchors.fill: parent
+                    anchors.fill: parent // TODO: layout.alignment instead
                     onWheel: wheel => {
                         if (wheel.angleDelta.y > 0) {
                             Hyprland.dispatch("workspace m-1");
@@ -57,21 +57,23 @@ ShellRoot {
                 RowLayout {
                     id: leftBlock
                     spacing: 0.4
-                    Layout.alignment: Qt.AlignLeft
-                    Workspaces {}
+                    // Layout.alignment: Qt.AlignRight
+                    // Workspaces {}
+                    Workspaces2 {}
                     ActiveWindow {}
                 }
 
                 Mpris {
                     id: centerBlock
-                    // Layout.alignment: Qt.AlignCenter
+                    // Layout.alignment: Qt.AlignVCenter | QtAlignHCenter
                     anchors.centerIn: parent
                 }
 
                 RowLayout {
                     id: rightBlock
                     Layout.alignment: Qt.AlignRight
-                    spacing: 10 //0.4::
+                    // spacing: 10 //0.4::
+                    spacing: 0
 
                     Netspeed_darth {}
                     Resources {}

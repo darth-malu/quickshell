@@ -1,11 +1,13 @@
-{
-  lib,
-  pkgs,
-  stdenv,
-  fetchurl,
-}:
-
-stdenv.mkDerivation rec {
+# {
+#   # lib,
+#   pkgs ? <nixpkgs> { },
+#   # stdenv,
+#   # fetchurl,
+# }:
+let
+  pkgs = import <nixpkgs> { };
+in
+pkgs.stdenv.mkDerivation rec {
   pname = "extra-icons";
   version = "0.0.1";
 

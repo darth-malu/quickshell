@@ -9,13 +9,16 @@ Text {
     property bool renderNative: false
     property int symbolSize: pointSize * 1.10 // 1.37
     property string symbolText
+    property int paddingg: 4
     property bool dim
-    property color baseColor: "#D295BF"
+    property color baseColor: "#ff79c6" // #D295BF
 
-    color: dim ? "#CCCCCC" : baseColor
+    color: dim ? "grey" : baseColor
     text: wrapSymbols(symbolText)
     renderType: this.renderNative ?? Text.NativeRendering // FIXME: doubles clocwidget
     textFormat: Text.RichText //PlainText, RichText
+    leftPadding: root.paddingg
+    rightPadding: root.paddingg
 
     font {
         family: mainFont
@@ -31,6 +34,8 @@ Text {
         textFormat: parent.textFormat
         color: parent.color
         font: parent.font
+        leftPadding: root.paddingg
+        rightPadding: root.paddingg
     }
 
     DropShadow {

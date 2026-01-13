@@ -8,13 +8,15 @@ Rectangle {
 
     Layout.preferredHeight: contentContainer.implicitHeight // 30::
 
+    radius: 10
+
     property Item content
 
     property Item mouseArea: mouseArea
 
     property string text
 
-    // property bool dim: false
+    property bool dim: false
 
     property bool underline: false
 
@@ -24,13 +26,13 @@ Rectangle {
 
     property string hoveredBgColor: "#666666"
 
-    // color: {
-    //     if (mouseArea.containsMouse)
-    //         return hoveredBgColor;
-    //     return "transparent";
-    // }
+    color: {
+        if (mouseArea.containsMouse)
+            return hoveredBgColor;
+        return "transparent";
+    }
 
-    color: "transparent"
+    // color: "transparent"
 
     // states: [
     //     State {
@@ -41,11 +43,11 @@ Rectangle {
     //     }
     // ]
 
-    // Behavior on color {
-    //     ColorAnimation {
-    //         duration: 150
-    //     }
-    // }
+    Behavior on color {
+        ColorAnimation {
+            duration: 150
+        }
+    }
 
     Item {
         id: contentContainer
@@ -69,13 +71,13 @@ Rectangle {
         id: wsLine
         width: root.width
         radius: 12
-        height: 1
+        height: 0.1
 
         color: {
             if (root.underline)
                 return root.underlineColor;
             return "transparent";
         }
-        anchors.bottom: parent.bottom
+        anchors.top: parent.top
     }
 }

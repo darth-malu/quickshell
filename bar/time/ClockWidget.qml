@@ -10,6 +10,5 @@ BarBlock {
             bold: true
         }
         baseColor: '#ff79c6'
-        //rightPadding: 9
     }
 }
