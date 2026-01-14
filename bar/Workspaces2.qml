@@ -27,11 +27,11 @@ RowLayout {
                     const isNumeric = /^\d+$/.test(ws.name);
                     if (!isNumeric)
                         return true;
-                    // if (!seenEmpty) {
-                    //     seenEmpty = true;
-                    //     return true;
-                    // }
-                    // return false;
+                    if (!seenEmpty) {
+                        seenEmpty = true;
+                        return true;
+                    }
+                    return false;
                 });
                 // Sort workspaces by id
                 // .sort((a, b) => a.id - b.id);
@@ -45,9 +45,9 @@ RowLayout {
             property bool hasClients: ws.name.length > 2
 
             // dim: true
-            underline: isActive ? true : false
+            // underline: isActive ? true : false
             underlineColor: "#D295BF"
-            border.color: Themes.buttonBorderColor
+            // border.color: Themes.buttonBorderColor
             // radius: 5
             // gradient: isActive || isOpen ? Themes.buttonActiveGradient : Themes.buttonInactiveGradientV
             Layout.preferredWidth: content.width + 10
@@ -236,8 +236,8 @@ RowLayout {
     }
 
     property var symbolImgMap: {
-        "": "extra-scale-vim",
-        "󰇥": "extra-scale-yazi",
+        // "": "extra-scale-vim",
+        // "󰇥": "extra-scale-yazi",
         // "󰇧": "extra-zen",
         "󰇧": "extra-scale-firefox",
         "󰒱": "extra-scale-slack",
@@ -259,7 +259,7 @@ RowLayout {
         "": "extra-steam",
         "": "extra-scale-bluetooth",
         "": "extra-anki",
-        "": "extra-scale-gimp",
+        // "": "extra-scale-gimp",
         "": "extra-ghidra",
         // "󰄄": "com.obsproject.Studio",
         "󰄄": "extra-scale-obs",
