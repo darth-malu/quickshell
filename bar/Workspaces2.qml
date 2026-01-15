@@ -9,7 +9,7 @@ import Quickshell
 import Qt5Compat.GraphicalEffects
 
 RowLayout {
-    spacing: 1
+    spacing: 0
     property HyprlandMonitor monitor: Hyprland.monitorFor(screen)
 
     Repeater {
@@ -50,34 +50,33 @@ RowLayout {
             // border.color: Themes.buttonBorderColor
             // radius: 5
             // gradient: isActive || isOpen ? Themes.buttonActiveGradient : Themes.buttonInactiveGradientV
-            Layout.preferredWidth: content.width + 10
-            Layout.preferredHeight: content.height + 4
+            Layout.preferredWidth: content.width + 8
+            Layout.preferredHeight: content.height
             topRightRadius: height / 2
             bottomRightRadius: height / 2
 
-            Rectangle {
-                // visible: !isActive && !isOpen
-                visible: false
-                gradient: Themes.buttonInactiveGradientH
-                implicitWidth: parent.width
-                implicitHeight: parent.height
-                radius: parent.radius
-                z: -1
-            }
+            // Rectangle {
+            //     visible: !isActive && !isOpen
+            //     gradient: Themes.buttonInactiveGradientH
+            //     implicitWidth: parent.width
+            //     implicitHeight: parent.height
+            //     radius: parent.radius
+            //     z: -1
+            // }
 
-            Rectangle {
-                visible: false //Themes.buttonBorderShadow
-                implicitWidth: parent.width - 1
-                implicitHeight: parent.height - 1
-                radius: parent.radius
-                color: "transparent" // Transparent fill
-                border.color: parent.isActive || parent.isOpen ? "transparent" : "black" // Inner border color
-                border.width: 1 // Inner border width
+            // Rectangle {
+            //     visible: Themes.buttonBorderShadow
+            //     implicitWidth: parent.width - 1
+            //     implicitHeight: parent.height - 1
+            //     radius: parent.radius
+            //     color: "transparent" // Transparent fill
+            //     border.color: parent.isActive || parent.isOpen ? "transparent" : "black" // Inner border color
+            //     border.width: 1 // Inner border width
 
-                x: 1
-                y: 1
-                z: -1
-            }
+            //     x: 1
+            //     y: 1
+            //     z: -1
+            // }
 
             onClicked: function () {
                 Hyprland.dispatch(`workspace ${ws.id}`);
@@ -96,7 +95,7 @@ RowLayout {
                     delegate: Item {
                         property bool showText: modelData.type === "text" && modelData.value.length > 0
                         property bool showIcon: modelData.type === "icon"
-                        property int symbolSize: 22 // 18
+                        property int symbolSize: 18 // 18
                         property int spacerSize: 3
 
                         implicitWidth: {
@@ -123,8 +122,7 @@ RowLayout {
                                 text: modelData.value
                                 dim: !isActive
                                 paddingg: 2
-
-                                pointSize: 13
+                                // pointSize: 13
                             }
                         }
 
@@ -162,7 +160,7 @@ RowLayout {
                                     opacity: 0.8
                                     BarText {
                                         text: modelData.mult
-                                        pointSize: 10
+                                        pointSize: 11
                                         dim: !isActive
                                         style: Text.Outline
                                         styleColor: "black"
@@ -236,43 +234,36 @@ RowLayout {
     }
 
     property var symbolImgMap: {
-        // "": "extra-scale-vim",
-        // "󰇥": "extra-scale-yazi",
-        // "󰇧": "extra-zen",
-        "󰇧": "extra-scale-firefox",
-        "󰒱": "extra-scale-slack",
-        // "": "extra-scale-terminal-thin",
-        "": "extra-scale-firefox",
-        "": "extra-scale-element-desktop",
-        "󰊴": "extra-scale-discord-circle-dark",
-        "": "extra-scale-chromium",
-        // "": "chromium",
-        "󰽉": "libreoffice-draw",
-        "󰷈": "libreoffice-writer",
-        "": "libreoffice-calc",
-        "󰈩": "libreoffice-impress",
-        // "󰭹": "signal-desktop",
+        "": "extra-scale-vim",
+        "": "extra-firefox_flat",
+        "": "extra-scale-terminal",
+        "󰇥": "extra-yazi",
+        "": "extra-scale-chrome",
+        "󰽉": "extra-libreoffice_draw",
+        "󰷈": "extra-libreoffice_writer",
+        "": "extra-libreoffice_calc",
+        "󰈩": "extra-libreoffice_impress",
+        "B": "extra-qbittorrent",
+        "🪛": "extra-btop",
+        "📂": "extra-scale-file",
+        "💬": "extra-whatsapp",
         "󰭹": "extra-signal-simple",
         "": "extra-zathura",
-        // "": "extra-spotify",
-        // "": "extra-scale-spotify",
-        "": "extra-steam",
+        "": "extra-spotify",
+        "": "extra-scale-epic-games",
+        "l": "extra-Lutris_Logo-svg",
+        "": "extra-steam_blue",
         "": "extra-scale-bluetooth",
-        "": "extra-anki",
-        // "": "extra-scale-gimp",
-        "": "extra-ghidra",
-        // "󰄄": "com.obsproject.Studio",
+        "": "extra-scale-gimp",
         "󰄄": "extra-scale-obs",
         "": "extra-scale-photos",
-        "": "extra-anki",
         "": "extra-mpv",
-        "": "extra-virtualbox",
-        // "": "extra-scale-emacs",
-        "": "monero",
+        "": "extra-emacs",
         "󰻎": "extra-system-explorer-outline",
         "󱍼": "extra-scale-vlc",
         "": "com.usebottles.bottles",
         "": "Zoom",
-        "󰊻": "teams-for-linux"
+        "󰊻": "teams-for-linux",
+        "": "extra-discord"
     }
 }
