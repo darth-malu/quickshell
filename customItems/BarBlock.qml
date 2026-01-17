@@ -8,7 +8,7 @@ Rectangle {
 
     Layout.preferredHeight: contentContainer.implicitHeight // 30::
 
-    radius: 10
+    radius: height / 2
 
     property Item content
 

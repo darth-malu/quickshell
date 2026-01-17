@@ -3,32 +3,24 @@ import QtQuick.Layouts
 import qs.customItems
 import qs.services
 
-RowLayout {
-    id: root
+Loader {
+    id: resourceLoader
 
-    implicitWidth: resourceLoader.item ? resourceLoader.item.implicitWidth : 0
+    active: ResourcesState.resourcesVisible
 
-    implicitHeight: resourceLoader.item ? resourceLoader.item.implicitHeight : 0
+    visible: active
 
-    Loader {
-        id: resourceLoader
+    sourceComponent: RowLayout {
+        id: resourcesRow
 
-        active: ResourcesState.resourcesVisible
+        spacing: 7
 
-        visible: active
+        PipewireBlock {}
 
-        sourceComponent: RowLayout {
-            id: resourcesRow
+        DiskBlock {}
 
-            spacing: 12
+        MemoryBlock {}
 
-            PipewireBlock {}
-
-            DiskBlock {}
-
-            MemoryBlock {}
-
-            CpuBlock {}
-        }
+        CpuBlock {}
     }
 }

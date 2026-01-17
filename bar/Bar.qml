@@ -72,8 +72,7 @@ ShellRoot {
                 RowLayout {
                     id: rightBlock
                     Layout.alignment: Qt.AlignRight
-                    // spacing: 10 //0.4::
-                    spacing: 0
+                    spacing: 0 //10, 0.4::
 
                     Netspeed_darth {}
                     Resources {}

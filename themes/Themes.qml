@@ -40,8 +40,12 @@ Singleton {
             color: "#55FFFFFF"
         }
         GradientStop {
-            position: 0.3
+            position: 0.5
             color: "#22FFFFFF"
+        }
+        GradientStop {
+            position: 1.0
+            color: "black"
         }
     }
 
@@ -49,7 +53,7 @@ Singleton {
         orientation: Gradient.Horizontal
         GradientStop {
             position: 0.0
-            color: "#55FFFFFF"
+            color: "black"
         }
         GradientStop {
             position: 0.1

@@ -6,12 +6,10 @@ import qs.themes
 
 RowLayout {
     id: root
+    spacing: 0
     visible: NetworkState.netspeedVisible
     readonly property real upload: NetworkState.upload
     readonly property real download: NetworkState.download
-    // implicitWidth: upload.width
-    // implicitHeight: upload.height
-    // spacing: 10
 
     BarBlock {
         id: download
