@@ -35,10 +35,10 @@ Singleton {
     property string buttonBorderColor: "#99000000"
     property bool buttonBorderShadow: false
     property Gradient buttonInactiveGradientV: Gradient {
-        GradientStop {
-            position: 0.0
-            color: "#55FFFFFF"
-        }
+        // GradientStop {
+        //     position: 0.0
+        //     color: "#55FFFFFF"
+        // }
         GradientStop {
             position: 0.5
             color: "#22FFFFFF"

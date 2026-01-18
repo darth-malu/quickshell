@@ -9,7 +9,7 @@ import Quickshell
 import Qt5Compat.GraphicalEffects
 
 RowLayout {
-    spacing: 0
+    spacing: 2
     property HyprlandMonitor monitor: Hyprland.monitorFor(screen)
 
     Repeater {
@@ -46,22 +46,21 @@ RowLayout {
             property bool hasClients: ws.name.length > 2
 
             property color glassTint: isActive ? Qt.rgba(1, 1, 1, 0.25) : Qt.rgba(1, 1, 1, 0.1)
-            property color glassBorder: isActive ? Qt.rgba(1, 1, 1, 0.2) : Qt.rgba(1, 1, 1, 0.18)
+            property color glassBorder: (isActive && hasClients) ? Qt.rgba(1, 1, 1, 0.2) : "transparent"
 
-            dim: true
+            dim: false
             underline: isActive ? true : false
             underlineColor: "#D295BF"
             // border.color: Themes.buttonBorderColor
             // border.color: Qt.rgba(1, 1, 1, 0.2)
-            border.color: isActive ? glassBorder : "transparent"
+            border.color: glassBorder
             color: glassTint
 
-            // color: Qt.rgba(1, 1, 1, 0.1) // White with 10% opacity
             // layer.enabled: true
 
             radius: height / 2
             gradient: isActive || isOpen ? Themes.buttonActiveGradient : Themes.buttonInactiveGradientV
-            Layout.preferredWidth: content.width + 8
+            Layout.preferredWidth: content.width
             Layout.preferredHeight: content.height
 
             // Behavior on color {
@@ -112,7 +111,7 @@ RowLayout {
                     }
 
                     delegate: Item {
-                        property bool showText: modelData.type === "text" && modelData.value.length > 0
+                        property bool showText: modelData.type === "text"
                         property bool showIcon: modelData.type === "icon"
                         property int symbolSize: 18 // 18
                         property int spacerSize: 3
@@ -141,7 +140,7 @@ RowLayout {
                                 text: modelData.value
                                 dim: !rootBlock.isActive
                                 // paddingg: 0
-                                rightPadding: 4
+                                rightPadding: 3
                                 // color: parent.color.hsvLightness > 0.8 ? "#222222" : "#eeeeee"
                                 // pointSize: 13
                             }
@@ -157,11 +156,11 @@ RowLayout {
                                 implicitHeight: inside.implicitHeight
                                 IconImage {
                                     id: inside
-                                    anchors.centerIn: parent
+                                    // anchors.centerIn: parent
                                     source: modelData.source
                                     implicitSize: symbolSize
                                     opacity: modelData.active ? 1 : 0.7
-                                    mipmap: true
+                                    // mipmap: true
                                 }
                                 DropShadow {
                                     anchors.fill: parent

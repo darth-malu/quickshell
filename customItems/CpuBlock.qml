@@ -30,7 +30,7 @@ RowLayout {
         }
 
         content: RowLayout {
-            // spacing: 16
+            spacing: 0
             BarText {
                 id: cpuText
                 renderNative: true
