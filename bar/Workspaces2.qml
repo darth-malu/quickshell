@@ -39,44 +39,63 @@ RowLayout {
         }
 
         BarBlock {
+            id: rootBlock
             property HyprlandWorkspace ws: modelData
             property bool isActive: Hyprland.focusedMonitor?.activeWorkspace?.id === ws.id
             property bool isOpen: monitor.activeWorkspace?.id === ws.id
             property bool hasClients: ws.name.length > 2
 
+            property color glassTint: isActive ? Qt.rgba(1, 1, 1, 0.25) : Qt.rgba(1, 1, 1, 0.1)
+            property color glassBorder: isActive ? Qt.rgba(1, 1, 1, 0.2) : Qt.rgba(1, 1, 1, 0.18)
+
             dim: true
             underline: isActive ? true : false
             underlineColor: "#D295BF"
-            border.color: Themes.buttonBorderColor
+            // border.color: Themes.buttonBorderColor
+            // border.color: Qt.rgba(1, 1, 1, 0.2)
+            border.color: isActive ? glassBorder : "transparent"
+            color: glassTint
+
+            // color: Qt.rgba(1, 1, 1, 0.1) // White with 10% opacity
+            // layer.enabled: true
+
             radius: height / 2
             gradient: isActive || isOpen ? Themes.buttonActiveGradient : Themes.buttonInactiveGradientV
             Layout.preferredWidth: content.width + 8
             Layout.preferredHeight: content.height
-            topRightRadius: height / 2
-            bottomRightRadius: height / 2
 
-            Rectangle {
-                visible: !isActive && !isOpen
-                gradient: Themes.buttonInactiveGradientH
-                implicitWidth: parent.width
-                implicitHeight: parent.height
-                radius: parent.radius
-                z: -1
-            }
+            // Behavior on color {
+            //     ColorAnimation {
+            //         duration: 200
+            //     }
+            // }
+            // Behavior on border.color {
+            //     ColorAnimation {
+            //         duration: 200
+            //     }
+            // }
 
-            Rectangle {
-                visible: Themes.buttonBorderShadow
-                implicitWidth: parent.width - 1
-                implicitHeight: parent.height - 1
-                radius: parent.radius
-                color: "transparent" // Transparent fill
-                border.color: parent.isActive || parent.isOpen ? "transparent" : "black" // Inner border color
-                border.width: 1 // Inner border width
+            // Rectangle {
+            //     visible: !isActive && !isOpen
+            //     gradient: Themes.buttonInactiveGradientH
+            //     implicitWidth: parent.width
+            //     implicitHeight: parent.height
+            //     radius: parent.radius
+            //     z: -1
+            // }
 
-                x: 1
-                y: 1
-                z: -1
-            }
+            // Rectangle {
+            //     visible: Themes.buttonBorderShadow
+            //     implicitWidth: parent.width - 1
+            //     implicitHeight: parent.height - 1
+            //     radius: parent.radius
+            //     color: "transparent"
+            //     border.color: parent.isActive || parent.isOpen ? "transparent" : "black" // Inner border color
+            //     border.width: 1 // Inner border width
+            //     x: 1
+            //     y: 1
+            //     z: -1
+            // }
 
             onClicked: function () {
                 Hyprland.dispatch(`workspace ${ws.id}`);
@@ -95,7 +114,7 @@ RowLayout {
                     delegate: Item {
                         property bool showText: modelData.type === "text" && modelData.value.length > 0
                         property bool showIcon: modelData.type === "icon"
-                        property int symbolSize: 19 // 18
+                        property int symbolSize: 18 // 18
                         property int spacerSize: 3
 
                         implicitWidth: {
@@ -120,8 +139,10 @@ RowLayout {
                             active: modelData.type === "text"
                             sourceComponent: BarText {
                                 text: modelData.value
-                                dim: !isActive
-                                paddingg: 0
+                                dim: !rootBlock.isActive
+                                // paddingg: 0
+                                rightPadding: 4
+                                // color: parent.color.hsvLightness > 0.8 ? "#222222" : "#eeeeee"
                                 // pointSize: 13
                             }
                         }
@@ -161,7 +182,7 @@ RowLayout {
                                     BarText {
                                         text: modelData.mult
                                         pointSize: 11
-                                        dim: !isActive
+                                        dim: !rootBlock.isActive
                                         style: Text.Outline
                                         styleColor: "black"
                                     }

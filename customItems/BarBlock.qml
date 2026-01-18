@@ -78,6 +78,6 @@ Rectangle {
                 return root.underlineColor;
             return "transparent";
         }
-        anchors.top: parent.top
+        anchors.bottom: parent.bottom
     }
 }
