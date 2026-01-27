@@ -10,17 +10,18 @@ Singleton {
 
     property color bar_bg: 'transparent'
 
-    readonly property string quick_medium: {
-        pixelSize: 12;
-        bold: true;
-        family: "quicksand medium";
-    }
+    readonly property font quick_medium: Qt.font({
+        family: "Quicksand Medium",
+        // pixelSize: 12,
+        bold: false
+    })
 
-    readonly property string lato: {
-        pixelSize: 7;
-        bold: true;
-        family: "lato";
-    }
+    readonly property font lato: Qt.font({
+        pixelSize: 7,
+        bold: true,
+        family: "lato"
+    })
+
     // TODO: loook into declaring font items
 
     // WORKSPACE -> Colors
@@ -35,17 +36,17 @@ Singleton {
     property string buttonBorderColor: "#99000000"
     property bool buttonBorderShadow: false
     property Gradient buttonInactiveGradientV: Gradient {
-        // GradientStop {
-        //     position: 0.0
-        //     color: "#55FFFFFF"
-        // }
+        GradientStop {
+            position: 0.0
+            color: Qt.rgba(1, 1, 1, 0.04)
+        }
         GradientStop {
             position: 0.5
-            color: "#22FFFFFF"
+            color: Qt.rgba(1, 1, 1, 0.10)
         }
         GradientStop {
             position: 1.0
-            color: "black"
+            color: Qt.rgba(1, 1, 1, 0.07)
         }
     }
 
@@ -63,15 +64,15 @@ Singleton {
     property Gradient buttonActiveGradient: Gradient {
         GradientStop {
             position: 0.0
-            color: "#99000000"
+            color: "#55000000"//Qt.rgba(1, 1, 1, 0.25)//"#99000000"
         }
         GradientStop {
             position: 0.3
-            color: "#55000000"
+            color: "#55000000"//"#55000000", Qt.rgba(1, 1, 1, 0.25)
         }
         GradientStop {
             position: 1.0
-            color: "#55000000"
+            color: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.85)
         }
     }
 }

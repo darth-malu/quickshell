@@ -1,5 +1,4 @@
 import QtQuick
-// import qs.services
 import qs.themes
 import qs.customItems
 import Quickshell.Hyprland
@@ -45,21 +44,19 @@ RowLayout {
             property bool isOpen: monitor.activeWorkspace?.id === ws.id
             property bool hasClients: ws.name.length > 2
 
-            property color glassTint: isActive ? Qt.rgba(1, 1, 1, 0.25) : Qt.rgba(1, 1, 1, 0.1)
+            property color glassTint: isActive ? (hasClients ? Qt.rgba(1, 1, 1, 0.25) : "transparent") : Qt.rgba(1, 1, 1, 0.1)
             property color glassBorder: (isActive && hasClients) ? Qt.rgba(1, 1, 1, 0.2) : "transparent"
 
             dim: false
-            underline: isActive ? true : false
-            underlineColor: "#D295BF"
-            // border.color: Themes.buttonBorderColor
-            // border.color: Qt.rgba(1, 1, 1, 0.2)
+            // underline: isActive ? true : false
+            // underlineColor: "#D295BF"
             border.color: glassBorder
             color: glassTint
 
             // layer.enabled: true
 
             radius: height / 2
-            gradient: isActive || isOpen ? Themes.buttonActiveGradient : Themes.buttonInactiveGradientV
+            gradient: (isActive || isOpen) && hasClients ? Themes.buttonActiveGradient : Themes.buttonInactiveGradientV
             Layout.preferredWidth: content.width
             Layout.preferredHeight: content.height
 
@@ -142,6 +139,8 @@ RowLayout {
                                 // paddingg: 0
                                 rightPadding: 3
                                 // color: parent.color.hsvLightness > 0.8 ? "#222222" : "#eeeeee"
+                                color: dim ? "grey" : "#00FFF0" //5DFDCB, 23C9FF,#9CFFFA, 9400FF, 9CFF2E,00FFAB, 06FF00
+
                                 // pointSize: 13
                             }
                         }
@@ -150,7 +149,6 @@ RowLayout {
                             id: theicon
                             anchors.centerIn: parent
                             active: modelData.type === "icon"
-
                             sourceComponent: Item {
                                 implicitWidth: inside.implicitWidth
                                 implicitHeight: inside.implicitHeight
@@ -159,7 +157,7 @@ RowLayout {
                                     // anchors.centerIn: parent
                                     source: modelData.source
                                     implicitSize: symbolSize
-                                    opacity: modelData.active ? 1 : 0.7
+                                    opacity: ws.active ? 1 : 0.7
                                     // mipmap: true
                                 }
                                 DropShadow {
@@ -167,19 +165,19 @@ RowLayout {
                                     verticalOffset: 1
                                     horizontalOffset: 1
                                     radius: 8.0
-                                    color: "#000000"
+                                    color: "#000000"//"#000000"
                                     source: inside
-                                    opacity: modelData.active ? 1 : 0.7
+                                    opacity: ws.active ? 1 : 0.2
                                 }
                                 Rectangle {
-                                    visible: modelData.mult > 1
+                                    visible: ws.mult > 1
                                     width: 10
                                     height: width
                                     radius: width / 2
                                     color: "black"
                                     opacity: 0.8
                                     BarText {
-                                        text: modelData.mult
+                                        text: ws.mult
                                         pointSize: 11
                                         dim: !rootBlock.isActive
                                         style: Text.Outline
@@ -256,35 +254,38 @@ RowLayout {
     property var symbolImgMap: {
         "": "extra-scale-vim",
         "": "extra-firefox_flat",
-        "": "extra-scale-terminal",
+        "": "extra-scale-TTY2",
         "󰇥": "extra-yazi",
         "": "extra-chrome7",
         "󰽉": "extra-libreoffice_draw",
         "󰷈": "extra-libreoffice_writer",
         "": "extra-libreoffice_calc",
         "󰈩": "extra-libreoffice_impress",
-        "B": "extra-qbittorrent",
-        "🪛": "extra-btop",
-        "📂": "extra-fileEx3",
+        "B": "extra-scale-qbittorrent",
+        "🪛": "extra-sys5",
+        "📂": "extra-scale-FILES2",
         "💬": "extra-wozzap2",
-        "󰭹": "extra-signal-simple",
-        "": "extra-zathura",
-        "": "extra-spotify",
+        "": "extra-dna",
+        "": "extra-scale-spotify-SVG",
         "": "extra-ironman",
         "l": "extra-Lutris_Logo-svg",
-        "": "extra-steam_blue",
+        "😀": "extra-scale-lact",
+        "😆": "extra-battlenet",
+        "󰓓": "extra-steam_blue",
         "": "extra-scale-bluetooth",
         "": "extra-scale-gimp",
         // "󰄄": "extra-scale-obs",
         "": "extra-scale-photos",
         "m": "extra-mpv2",
-        "": "extra-emacs2",
-        "f": "extra-yt",
+        "": "extra-scale-emacs_SVG",
+        "D": "extra-Dota",
+        "Q": "extra-qutebrowser-svg",
+        "f": "extra-yt2",
         // "󰻎": "extra-system-explorer-outline",
-        "󱍼": "extra-scale-vlc",
+        // "󱍼": "extra-scale-vlc",
         "": "com.usebottles.bottles",
         "": "Zoom",
         "󰊻": "teams-for-linux",
-        "": "extra-discord"
+        "": "extra-scale-DISCORD"
     }
 }
