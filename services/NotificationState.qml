@@ -116,6 +116,7 @@ Singleton {
         onNotification: notif => {
             notif.tracked = true;
 
+            // TODO make is so if same ID it wont repeat
             if (!allNotifs.includes(notif))
                 root.onNewNotif(notif);
 

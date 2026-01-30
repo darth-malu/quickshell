@@ -271,6 +271,7 @@ RowLayout {
         "l": "extra-Lutris_Logo-svg",
         "😀": "extra-scale-lact",
         "😆": "extra-battlenet",
+        "": "extra-dolphin",
         "󰓓": "extra-steam_blue",
         "": "extra-scale-bluetooth",
         "": "extra-scale-gimp",
