@@ -265,7 +265,7 @@ RowLayout {
         "🪛": "extra-sys5",
         "📂": "extra-scale-FILES2",
         "💬": "extra-wozzap2",
-        "": "extra-dna",
+        "": "extra-pdf-svg",
         "": "extra-scale-spotify-SVG",
         "": "extra-ironman",
         "l": "extra-Lutris_Logo-svg",
@@ -276,7 +276,7 @@ RowLayout {
         "": "extra-scale-bluetooth",
         "": "extra-scale-gimp",
         // "󰄄": "extra-scale-obs",
-        "": "extra-scale-photos",
+        "": "extra-photos",
         "m": "extra-mpv2",
         "": "extra-scale-emacs_SVG",
         "D": "extra-Dota",
@@ -285,8 +285,11 @@ RowLayout {
         // "󰻎": "extra-system-explorer-outline",
         // "󱍼": "extra-scale-vlc",
         "": "com.usebottles.bottles",
-        "": "Zoom",
-        "󰊻": "teams-for-linux",
+        // "": "Zoom",
+        "🎁": "extra-wps-presentation",
+        "📃": "extra-wps-spreadsheet",
+        "📜": "extra-wps-office",
+        // "󰊻": "teams-for-linux",
         "": "extra-scale-DISCORD"
     }
 }

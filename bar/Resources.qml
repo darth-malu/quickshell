@@ -15,7 +15,9 @@ Loader {
 
         spacing: 7
 
-        PipewireBlock {}
+        PipewireBlock {
+            onClicked: NetworkState.netspeedVisible = !NetworkState.netspeedVisible
+        }
 
         DiskBlock {}
 
