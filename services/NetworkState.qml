@@ -8,7 +8,7 @@ Singleton {
 
     property real upload
     property real download
-    property bool netspeedVisible: true
+    property bool netspeedVisible: false
 
     Process {
         id: uploadProc
