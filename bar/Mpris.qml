@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import Quickshell.Widgets
 import qs.services
 import qs.customItems
+import qs.themes
 
 Loader {
     id: mprisLoader
@@ -95,12 +96,8 @@ Loader {
                     var str = MprisState.player?.trackTitle || "";
                     return str.length > strLength ? str.slice(0, strLength) + '..' : str;
                 }
-                color: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.98)
-                font {
-                    pixelSize: mprisRoot.mprisFont
-                    family: 'Quicksand medium'
-                    bold: mprisRoot.mprisBold
-                }
+                color: Themes.mprisTextColor
+                font: Themes.quick_medium
             }
 
             BarText {

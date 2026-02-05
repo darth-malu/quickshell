@@ -1,18 +1,17 @@
 import QtQuick
 import qs.services
+import qs.themes
+import Qt5Compat.GraphicalEffects
 
 Text {
     id: myText
-    readonly property real chop: 95
+    readonly property int chop: 95
     text: {
         var str = ActiveWindowState.currentWindow;
         return str.length > chop ? str.slice(0, chop) + '..' : str;
     }
-    color: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1) //#8390FA
+    color: Themes.windowTextColor
     leftPadding: 15
-    font {
-        family: 'quicksand'
-        bold: true
-        pointSize: 10
-    }
+    font: Themes.windowTextFont
+    renderType: Text.NativeRendering
 }

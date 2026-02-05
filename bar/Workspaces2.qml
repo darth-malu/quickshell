@@ -44,14 +44,15 @@ RowLayout {
             property bool isOpen: monitor.activeWorkspace?.id === ws.id
             property bool hasClients: ws.name.length > 2
 
-            property color glassTint: isActive ? (hasClients ? Qt.rgba(1, 1, 1, 0.25) : "transparent") : Qt.rgba(1, 1, 1, 0.1)
-            property color glassBorder: (isActive && hasClients) ? Qt.rgba(1, 1, 1, 0.2) : "transparent"
+            property color workspaceBg: isActive ? (hasClients ? Themes.glassTintActiveHasClients : "transparent") : Themes.glassTintInactive
+
+            property color borderColor: (isActive && hasClients) ? Themes.glassTintActiveHasClients : "transparent"
 
             dim: false
             // underline: isActive ? true : false
             // underlineColor: "#D295BF"
-            border.color: glassBorder
-            color: glassTint
+            border.color: borderColor
+            color: workspaceBg
 
             // layer.enabled: true
 
@@ -136,10 +137,8 @@ RowLayout {
                             sourceComponent: BarText {
                                 text: modelData.value
                                 dim: !rootBlock.isActive
-                                // paddingg: 0
                                 rightPadding: 3
-                                // color: parent.color.hsvLightness > 0.8 ? "#222222" : "#eeeeee"
-                                color: dim ? "grey" : "#00FFF0" //5DFDCB, 23C9FF,#9CFFFA, 9400FF, 9CFF2E,00FFAB, 06FF00
+                                color: dim ? Themes.inActiveWorkspaceTextColor : Themes.activeWorkspaceTextColor //B8B8FF, 5DFDCB, 23C9FF,#9CFFFA, 9400FF, 9CFF2E,00FFAB, 06FF00
 
                                 // pointSize: 13
                             }
@@ -165,16 +164,17 @@ RowLayout {
                                     verticalOffset: 1
                                     horizontalOffset: 1
                                     radius: 8.0
-                                    color: "#000000"//"#000000"
+                                    color: Themes.dropShadow
                                     source: inside
                                     opacity: ws.active ? 1 : 0.2
                                 }
                                 Rectangle {
+                                    // TODO see if changes needed here
                                     visible: ws.mult > 1
                                     width: 10
                                     height: width
                                     radius: width / 2
-                                    color: "black"
+                                    // color: Themes.dropShadow
                                     opacity: 0.8
                                     BarText {
                                         text: ws.mult

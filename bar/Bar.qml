@@ -27,9 +27,8 @@ ShellRoot {
             screen: modelData   // ALl currently connected screens, updates as connected screens change. Reusing a window on every screen This creates an instance of your window once on every screen. As screens are added or removed your window will be created or destroyed on those screens.
 
             aboveWindows: false // true::
-            color: Themes.bar_bg
+            color: Themes.barBg
             implicitHeight: 22//20
-
             margins.right: 6
             margins.left: 6
 
