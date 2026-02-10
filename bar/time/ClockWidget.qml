@@ -1,8 +1,9 @@
 import qs.customItems
+import Quickshell.Widgets
 
-BarBlock {
+WrapperMouseArea {
     id: masaa
-    content: BarText {
+    BarText {
         symbolText: Time.time
         font {
             pixelSize: 14

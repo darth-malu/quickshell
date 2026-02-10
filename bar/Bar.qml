@@ -56,9 +56,11 @@ ShellRoot {
                 RowLayout {
                     id: leftBlock
                     spacing: 0.4
-                    // Layout.alignment: Qt.AlignRight
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignLeft
                     // Workspaces {}
                     Workspaces2 {}
+                    // implicitWidth: Math.min(implicitWidth, (centerBlock.x - mapToItem(parent, 0, 0).x) - 20)
                     ActiveWindow {}
                 }
 
@@ -66,6 +68,7 @@ ShellRoot {
                     id: centerBlock
                     // Layout.alignment: Qt.AlignVCenter | QtAlignHCenter
                     anchors.centerIn: parent
+                    // Layout.fillWidth: true
                 }
 
                 RowLayout {
@@ -76,7 +79,14 @@ ShellRoot {
                     Netspeed_darth {}
                     Resources {}
                     ClockWidget {
-                        onClicked: ResourcesState.resourcesVisible = !ResourcesState.resourcesVisible
+                        acceptedButtons: Qt.RightButton | Qt.LeftButton | Qt.MiddleButton | Qt.ForwardButton | Qt.BackButton
+                        onClicked: mouse => {
+                            mouse.accepted = true;
+                            if (mouse.button == Qt.LeftButton)
+                                ResourcesState.resourcesVisible = !ResourcesState.resourcesVisible;
+                            else if (mouse.button == Qt.RightButton)
+                                NetworkState.netspeedVisible = !NetworkState.netspeedVisible;
+                        }
                     }
                     Battery {}
                     SystemTray {}

@@ -34,11 +34,8 @@ Loader {
             onTriggered: mprisRoot.showVolume = false
         }
 
-        onContainsMouseChanged: {
-            if (!containsMouse)
-                hideVolumeTimer.restart();
-            else
-                hideVolumeTimer.stop();
+        onExited: {
+            hideVolumeTimer.restart();
         }
 
         onClicked: mouse => {

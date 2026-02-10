@@ -26,6 +26,7 @@ BarBlock {
             volume = Math.max(0, Math.min(volume, 100)); // Clamp 0% - 100% even with continued scrolling
             Pipewire.defaultAudioSink.audio.volume = volume / 100;
         }
+        onClicked: NetworkState.netspeedVisible = !NetworkState.netspeedVisible
     }
 
     content: BarText {
