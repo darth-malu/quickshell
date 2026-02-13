@@ -1,10 +1,12 @@
 import QtQuick
 import Quickshell.Services.Pipewire
 import qs.customItems
+import qs.themes
+import QtQuick.Layouts
 import qs.services
 
 BarBlock {
-    id: text
+    id: root
     visible: PipewireState.pipewireReady
 
     //underline: true
@@ -12,32 +14,74 @@ BarBlock {
     property string textFont: 'quicksand'
     readonly property bool textBold: true
     readonly property color volumeColor: "#ccccccff"
-    readonly property PwNode defaultOut: PipewireState.outputSink
-    /* readonly property PwNode defaultIn: PipewireState.inputSink */
+    readonly property PwNode outputSink: PipewireState.outputSink
+    readonly property PwNode inputSink: PipewireState.inputSink
 
-    MouseArea {
-        anchors.fill: parent
-        onWheel: event => {
-            if (!text.defaultOut?.audio)
-                return;
-            const step = 4;
-            let volume = text.defaultOut.audio.volume * 100;
-            volume += event.angleDelta.y > 0 ? step : -step;
-            volume = Math.max(0, Math.min(volume, 100)); // Clamp 0% - 100% even with continued scrolling
-            Pipewire.defaultAudioSink.audio.volume = volume / 100;
+    content: RowLayout {
+        BarText {
+            id: outputSink
+            symbolText: `🔈 ${PipewireState.outputVolume}` /*󰓃*/
+            color: root.volumeColor
+            renderNative: true
+            font {
+                pixelSize: 12
+                bold: true
+                family: root.textFont
+            }
+            MouseArea {
+                anchors.fill: parent
+                acceptedButtons: Qt.LeftButton | Qt.RightButton | PointerDevice.Mouse | PointerDevice.TouchPad
+                onWheel: event => {
+                    if (!root.outputSink?.audio)
+                        return;
+                    const step = 4;
+                    let volume = root.outputSink.audio.volume * 100;
+                    volume += event.angleDelta.y > 0 ? step : -step;
+                    volume = Math.max(0, Math.min(volume, 100)); // Clamp 0% - 100% even with continued scrolling
+                    Pipewire.defaultAudioSink.audio.volume = volume / 100;
+                }
+                onClicked: mouse => {
+                    // mouse.accepted = true;
+                    if (mouse.button == Qt.LeftButton)
+                        NetworkState.netspeedVisible = !NetworkState.netspeedVisible;
+                    else if (mouse.button == Qt.RightButton) {
+                        Pipewire.defaultAudioSink.audio.muted = !Pipewire.defaultAudioSink.audio.muted;
+                    }
+                }
+            }
         }
-        onClicked: NetworkState.netspeedVisible = !NetworkState.netspeedVisible
-    }
+        BarText {
+            id: inputSink
+            symbolText: `🎙️ ${PipewireState.inputVolume} `
+            color: root.volumeColor
+            visible: PipewireState.isCrusherWireless
+            renderNative: true
+            font: Themes.quicksand
 
-    content: BarText {
-        id: volumeOut
-        symbolText: `🔈 ${PipewireState.volume}` /*󰓃*/
-        color: text.volumeColor
-        renderNative: true
-        font {
-            pixelSize: 12
-            bold: true
-            family: text.textFont
+            MouseArea {
+                anchors.fill: parent
+
+                acceptedButtons: Qt.LeftButton | Qt.RightButton | PointerDevice.Mouse | PointerDevice.TouchPad
+
+                onWheel: event => {
+                    if (!root.inputSink?.audio)
+                        return;
+                    const step = 4;
+                    let volume = root.inputSink.audio.volume * 100;
+                    volume += event.angleDelta.y > 0 ? step : -step;
+                    volume = Math.max(0, Math.min(volume, 100)); // Clamp 0% - 100% even with continued scrolling
+                    Pipewire.defaultAudioSource.audio.volume = volume / 100;
+                }
+
+                onClicked: mouse => {
+                    // mouse.accepted = true;
+                    if (mouse.button == Qt.LeftButton)
+                        NetworkState.netspeedVisible = !NetworkState.netspeedVisible;
+                    else if (mouse.button == Qt.RightButton) {
+                        Pipewire.defaultAudioSource.audio.muted = !Pipewire.defaultAudioSource.audio.muted;
+                    }
+                }
+            }
         }
     }
 }

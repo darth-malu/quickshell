@@ -20,17 +20,20 @@ ShellRoot {
         PanelWindow {
             id: barr
             WlrLayershell.namespace: "tildeBar"
+            required property var modelData
             visible: root.enableBar
 
             // the screen from the screens list will be injected into this property
-            required property var modelData
+            // required property var modelData
             screen: modelData   // ALl currently connected screens, updates as connected screens change. Reusing a window on every screen This creates an instance of your window once on every screen. As screens are added or removed your window will be created or destroyed on those screens.
 
             aboveWindows: false // true::
             color: Themes.barBg
             implicitHeight: 22//20
-            margins.right: 6
-            margins.left: 6
+            margins {
+                right: 6
+                left: 6
+            }
 
             anchors {
                 top: true
@@ -56,10 +59,10 @@ ShellRoot {
                 RowLayout {
                     id: leftBlock
                     spacing: 0.4
-                    Layout.fillWidth: true
+                    // Layout.fillWidth: true
                     Layout.alignment: Qt.AlignLeft
                     // Workspaces {}
-                    Workspaces2 {}
+                    Workspaces {}
                     // implicitWidth: Math.min(implicitWidth, (centerBlock.x - mapToItem(parent, 0, 0).x) - 20)
                     ActiveWindow {}
                 }
@@ -68,6 +71,7 @@ ShellRoot {
                     id: centerBlock
                     // Layout.alignment: Qt.AlignVCenter | QtAlignHCenter
                     anchors.centerIn: parent
+                    host: barr
                     // Layout.fillWidth: true
                 }
 

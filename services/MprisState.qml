@@ -9,6 +9,7 @@ Singleton {
     id: root
 
     property MprisPlayer player: null
+
     property MprisPlayer lastPlayer: null
 
     property bool mprisVisible: true
@@ -18,24 +19,17 @@ Singleton {
     property var players: new Set()
 
     function updatePlayer() {
-        let leader = null;
-        // Filter out mpv from the previous selection
-        let backup = (lastPlayer && lastPlayer.identity !== "mpv" && lastPlayer.desktopEntry !== "mpv") ? lastPlayer : null;
+        let backup, leader = null;
+
+        // let backup = (lastPlayer?.identity !== "mpv" && lastPlayer.desktopEntry !== "mpv") ? lastPlayer : null; // TODO see if needed
+
         for (let player of Mpris.players.values) {
+            const ignored = ["mpv", "whatsapp", "chromium"];
+            const isIgnored = ignored.some(app => player.identity.includes(app) || player.desktopEntry.includes(app));
 
-            //if (player.identity === "mpv" || player.desktopEntry === "mpv") continue;
-
-            const ignored = ["mpv", "whatsapp", "chromium", "*Whatsapp*"];
-
-            // TODO...investigate...how to better ignore
-            // for (let ig of ignored) {
-            //     console.log`Ingored player: ${ig} ${player?.identity} ${player.desktopEntry}`;
-            // }
-
-            if (ignored.includes(player?.identity) || ignored.includes(player?.desktopEntry))
+            if (isIgnored)
                 continue;
-
-            if (player.isPlaying) {
+            else if (player.isPlaying) {
                 backup = player;
                 if (player?.trackArtist && player.trackArtist !== "")
                     leader = player;
@@ -43,6 +37,7 @@ Singleton {
         }
 
         player = leader != null ? leader : backup;
+    // console.log(`The current player is: ${player.identity}`);
     }
 
     function handlePlayerChanged(player: MprisPlayer) {
@@ -64,7 +59,7 @@ Singleton {
     }
 
     Instantiator {
-        model: Mpris.players
+        model: Mpris.players    // ObjectModel: <MprisPlayer>
 
         Connections {
             required property MprisPlayer modelData

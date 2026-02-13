@@ -19,6 +19,12 @@ Singleton {
         bold: true
     })
 
+    readonly property font lato: Qt.font({
+        pixelSize: 13,
+        family: 'lato',
+        bold: true
+    })
+
     readonly property color windowTextColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1) //#8390FA
 
     readonly property font windowTextFont: ({
@@ -33,7 +39,7 @@ Singleton {
 
     readonly property color activeWorkspaceColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
 
-    readonly property color activeWorkspaceTextColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
+    readonly property color activeWorkspaceTextColor: "#A020F0" //Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
 
     readonly property color glassTintActiveHasClients: Qt.rgba(1, 1, 1, 0.25)
 
@@ -45,7 +51,10 @@ Singleton {
 
     readonly property color dropShadow: "#000000"
 
+    readonly property color toxicGreen: "#88FF00"
+
     readonly property color mprisTextColor: "#FAAB8DED"
+    readonly property color mprisVolumeColor: "#ff79c6"
 
     property string buttonBorderColor: "#99000000"
 

@@ -4,18 +4,19 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Services.Pipewire
-import qs.customItems
+import qs.themes
 
 Scope {
     id: root
     property bool shouldShowOsd: false
     property var defaultSink: Pipewire.defaultAudioSink
+    property var defaultSource: Pipewire.defaultAudioSource
     property var ifAudioNode: defaultSink?.audio // extra info if node sends/receives audio, if non-null node manages audio
     property var currentVolume: ifAudioNode?.volume
 
     // Bind the pipewire node so its properties eg.volume will be tracked
     PwObjectTracker {
-        objects: [root.defaultSink]
+        objects: [root.defaultSink, root.defaultSource]
     }
 
     Connections {
@@ -42,20 +43,15 @@ Scope {
             margins.right: screen.width / 95
             exclusiveZone: 0
 
-            implicitWidth: 16
-            implicitHeight: 200
+            implicitWidth: 12
+            implicitHeight: 160
             color: "transparent"
 
             // An empty click mask prevents the window from blocking mouse events.
             mask: Region {}
 
             ColumnLayout {
-                anchors {
-                    fill: parent
-                    //leftMargin: 1
-                    //rightMargin: 8
-                    verticalCenter: parent.verticalCenter
-                }
+                anchors.fill: parent
 
                 /* IconImage { */
                 /*   implicitSize: 16 */
@@ -66,7 +62,7 @@ Scope {
                 Rectangle {
                     id: outerRectangle
                     Layout.fillWidth: true // Stretches to fill all left-over space
-                    implicitHeight: 200
+                    implicitHeight: parent.height
                     radius: width / 2
                     color: "#80000000"
 
@@ -91,11 +87,7 @@ Scope {
                                 rightMargin: 5
                                 centerIn: parent
                             }
-                            font {
-                                pixelSize: 11
-                                family: 'Quicksand medium'
-                                bold: true
-                            }
+                            font: Themes.quicksand
                         }
                     }
                 }

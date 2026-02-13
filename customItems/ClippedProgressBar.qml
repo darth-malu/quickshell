@@ -4,7 +4,6 @@ import Qt5Compat.GraphicalEffects
 
 ProgressBar {
     id: root
-    // property bool vertical: false
     property real valueBarWidth: 27
     property real valueBarHeight: 14
     property color highlightColor: "#685496" //Filled part
@@ -15,11 +14,6 @@ ProgressBar {
     default property Item textMask: Item {
         width: valueBarWidth
         height: valueBarHeight
-        // BarText {
-        //     anchors.centerIn: parent
-        //     font: root.font
-        //     text: root.text
-        // }
     }
 
     text: Math.round(value * 100) // provide value which is used for text calculations

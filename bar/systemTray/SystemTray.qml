@@ -44,6 +44,7 @@ RowLayout {
             }
 
             QsMenuAnchor {
+                // FIXME: Make The flickering stop
                 id: menuAnchor
                 menu: modelData.menu
 
