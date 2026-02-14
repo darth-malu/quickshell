@@ -33,7 +33,7 @@ Loader {
                 window: host
                 rect {
                     x: host.width / 2 - width / 2
-                    y: host.height //35
+                    y: 35
                 }
             }
             visible: showPopup
@@ -94,7 +94,7 @@ Loader {
                                 BarText {
                                     id: title_popup
                                     renderNative: true
-                                    text: modelData?.trackTitle ?? "❌"
+                                    text: modelData.trackTitle || "❌"
                                     color: Themes.mprisTextColor
                                     font: Themes.quick_medium
                                     elide: Text.elideRight

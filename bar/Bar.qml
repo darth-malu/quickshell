@@ -46,7 +46,7 @@ ShellRoot {
                 anchors.fill: parent
 
                 MouseArea {
-                    anchors.fill: parent // TODO: layout.alignment instead
+                    anchors.fill: parent
                     onWheel: wheel => {
                         if (wheel.angleDelta.y > 0) {
                             Hyprland.dispatch("workspace m-1");
@@ -61,9 +61,7 @@ ShellRoot {
                     spacing: 0.4
                     // Layout.fillWidth: true
                     Layout.alignment: Qt.AlignLeft
-                    // Workspaces {}
                     Workspaces {}
-                    // implicitWidth: Math.min(implicitWidth, (centerBlock.x - mapToItem(parent, 0, 0).x) - 20)
                     ActiveWindow {}
                 }
 

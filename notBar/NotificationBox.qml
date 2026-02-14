@@ -34,7 +34,7 @@ WrapperMouseArea {
     property int indexPopup: -1
     property int indexAll: -1
 
-    property real iconSize: ifMusic ? 100 : 50
+    property real iconSize: ifMusic ? 90 : 50
 
     property real iconRadius: iconSize / 5 // 12??
 
