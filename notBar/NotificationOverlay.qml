@@ -26,6 +26,10 @@ PanelWindow {
         right: true
     }
 
+    margins {
+        right: 2
+    }
+
     ColumnLayout {
         id: notifs
 

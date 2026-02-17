@@ -4,62 +4,77 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick
 
+import Quickshell.Wayland
+
 PanelWindow {
     id: launcher
-    implicitWidth: 350
-    implicitHeight: 450
+    implicitWidth: 550
+    implicitHeight: 350
     color: "transparent"
     focusable: true
-
+    exclusionMode: ExclusionMode.Ignore
+    WlrLayershell.layer: WlrLayer.Overlay
+    onVisibleChanged: {
+        if (visible) {
+            search.forceActiveFocus();
+        }
+    }
     WrapperRectangle {
         id: wrap
         color: "#1e1e2e"
-        implicitWidth: 300
-        implicitHeight: 300
+        radius: 6
         anchors.fill: parent
 
-        Keys.onEscapePressed: launcher.visible = false
+        Keys.onEscapePressed: Qt.quit()
         focus: true
 
-        ColumnLayout {
+        child: ColumnLayout {
             anchors.fill: parent
             anchors.margins: 10
-            spacing: 6
+            spacing: 10
 
             TextField {
                 id: search
 
-                Layout.preferredWidth: 300
-                Layout.preferredHeight: 30
+                Layout.fillWidth: true
+                Layout.bottomMargin: 2
 
-                placeholderText: ""
-                Keys.onEscapePressed: launcher.visible = false
+                // placeholderText: ""
                 // enabled: true
-                // focus: true
+                focus: true
                 hoverEnabled: true
-                // activeFocusOnPress: true
-                color: 'white'
+                color: search.enabled ? 'white' : 'transparent'
+                background: Rectangle {
+                    color: 'transparent'
+                    implicitHeight: 10
+                    implicitWidth: 200
+                    radius: 8
+                }
             }
 
             ListView {
-                Layout.preferredWidth: 300
-                Layout.preferredHeight: 500
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                // keyNavigationEnabled: true
+                // Layout.preferredHeight: 500
 
-                model: DesktopEntries.applications.values.filter(a => a.name.includes(search.text))
+                model: DesktopEntries.applications.values.filter(a => a.name.toLowerCase().includes(search.text))
+                highlight: Rectangle {
+                    color: "lightsteelblue"
+                    radius: 5
+                }
 
                 delegate: Text {
                     required property DesktopEntry modelData
                     text: modelData.name
                     color: 'white'
+                    padding: 4
                     MouseArea {
                         anchors.fill: parent
                         hoverEnabled: true
                         onClicked: {
-                            // launch the app
                             modelData.execute();
-                            // TODO:
-                            // Make ESC close the launcher
-                            // Replicate my Rofi UI
+                            Qt.quit();
                         }
                     }
                 }
