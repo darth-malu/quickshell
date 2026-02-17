@@ -32,6 +32,7 @@ WrapperMouseArea {
     property bool hasAppIcon: !(n.image == "" && n.appIcon != "") // negate ... no image + appIcon present = image + appIcon absent
 
     property int indexPopup: -1
+
     property int indexAll: -1
 
     property real iconSize: ifMusic ? 90 : 50
@@ -71,8 +72,14 @@ WrapperMouseArea {
         id: outerBox
         implicitWidth: Math.max(120, mainLayout.implicitWidth + 10)
         implicitHeight: mainLayout.implicitHeight
-        radius: rootMouseArea.iconRadius
+        radius: 8
         color: Colors.bgBlur
+
+        // color: Qt.rgba(0.1, 0.04, 0.18, 0.8) // The "Glass" Color - Dark with a purple tint and transparency
+        border {
+            width: 1
+            color: Qt.rgba(0.627, 0.125, 0.941, 0.78) // Qt.rgba(0.63, 0.13, 0.94, 0.5) //"#A020F0" Qt.rgba(0.63, 0.13, 0.94, 0.3)
+        }
 
         RowLayout {
             id: mainLayout

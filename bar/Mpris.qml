@@ -39,9 +39,10 @@ Loader {
             visible: showPopup
             // color: '#0D0814'
             color: 'transparent'
-            implicitWidth: Math.min(500, parentRect.implicitWidth + 10)
+            implicitWidth: Math.min(600, parentRect.implicitWidth + 10)
+            implicitHeight: parentRect.implicitHeight + 20
 
-            Rectangle {
+            WrapperRectangle {
                 id: parentRect
                 radius: 6
                 // color: 'black'
@@ -54,55 +55,7 @@ Loader {
                     color: "#A020F0" // Qt.rgba(0.63, 0.13, 0.94, 0.3)
                 }
 
-                ColumnLayout {
-                    id: playersContainer
-                    anchors.fill: parent
-
-                    Repeater {
-                        id: playerRepeater
-                        model: Mpris.players
-                        Layout.fillWidth: true
-                        delegate: MouseArea {
-                            required property var modelData
-                            hoverEnabled: true
-                            Layout.fillWidth: true
-                            implicitHeight: innerRow.implicitHeight
-                            implicitWidth: innerRow.implicitWidth
-                            onPressed: () => {
-                                modelData.raise();
-                            }
-                            RowLayout {
-                                id: innerRow
-                                // Layout.margins: 10
-                                spacing: 8
-
-                                Rectangle {
-                                    Layout.leftMargin: 1
-                                    implicitWidth: 3
-                                    implicitHeight: player_popup.implicitHeight - 3
-                                    radius: 2
-                                    color: modelData.playbackState === MprisPlaybackState.Playing ? "#88FF00" : "transparent"
-                                }
-
-                                BarText {
-                                    id: player_popup
-                                    text: modelData.identity
-                                    color: modelData.playbackState === MprisPlaybackState.Playing ? Themes.toxicGreen : "#B8C1C9"
-                                    elide: Text.elideRight
-                                }
-
-                                BarText {
-                                    id: title_popup
-                                    renderNative: true
-                                    text: modelData.trackTitle || "❌"
-                                    color: Themes.mprisTextColor
-                                    font: Themes.quick_medium
-                                    elide: Text.elideRight
-                                }
-                            }
-                        }
-                    }
-                }
+                MprisPopup {}
             }
         }
 
@@ -138,16 +91,15 @@ Loader {
                 return;
 
             if (MprisState.player?.volumeSupported) {
-                
-              let vol = MprisState.player.volume * 100; // Convert current volume (0.0–1.0) to percent
+                let vol = MprisState.player.volume * 100; // Convert current volume (0.0–1.0) to percent
 
-              vol += event.angleDelta.y > 0 ? 4 : -4; // Scroll up increases, down decreases
+                vol += event.angleDelta.y > 0 ? 4 : -4; // Scroll up increases, down decreases
 
-              vol = Math.max(0, Math.min(vol, 100)); // Clamp between 0% and 100%
+                vol = Math.max(0, Math.min(vol, 100)); // Clamp between 0% and 100%
 
-              MprisState.player.volume = vol / 100; // Apply back to player
+                MprisState.player.volume = vol / 100; // Apply back to player
 
-              mprisRoot.showVolume = true;
+                mprisRoot.showVolume = true;
             }
         }
 

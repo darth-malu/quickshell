@@ -138,7 +138,7 @@ RowLayout {
                                 text: modelData.value
                                 dim: !rootBlock.isActive
                                 rightPadding: 3
-                                color: dim ? Themes.inActiveWorkspaceTextColor : "#3BF4FB" //, C2CAE8, 3BF4FB, B8B8FF, 5DFDCB, 23C9FF,#9CFFFA, 9400FF, 9CFF2E,00FFAB, 06FF00
+                                color: dim ? Themes.inActiveWorkspaceTextColor : "#00CAFF"
                             }
                         }
 

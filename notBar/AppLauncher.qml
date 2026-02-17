@@ -2,60 +2,68 @@ import Quickshell
 import Quickshell.Widgets
 import QtQuick.Layouts
 import QtQuick.Controls
-import QtQuick 
+import QtQuick
 
 PanelWindow {
-        id: launcher
-        implicitWidth: 350
-        implicitHeight:350
-        color: "transparent"
-        focusable: true
+    id: launcher
+    implicitWidth: 350
+    implicitHeight: 450
+    color: "transparent"
+    focusable: true
 
-        WrapperRectangle {
-            id: wrap
-            color: white
+    WrapperRectangle {
+        id: wrap
+        color: "#1e1e2e"
+        implicitWidth: 300
+        implicitHeight: 300
+        anchors.fill: parent
 
-            implicitWidth: 300
-            implicitHeight:300
-            
-            ColumnLayout {
-                anchors.fill: parent
-                spacing: 6
+        Keys.onEscapePressed: launcher.visible = false
+        focus: true
 
-                TextField {
-                    id: search
+        ColumnLayout {
+            anchors.fill: parent
+            anchors.margins: 10
+            spacing: 6
 
-                    Layout.preferredWidth: 300
-                    Layout.preferredHeight: 30
+            TextField {
+                id: search
 
-                    placeholderText: "Type to search"
+                Layout.preferredWidth: 300
+                Layout.preferredHeight: 30
 
-                    enabled: true
-                    focus: true
-                    activeFocusOnPress: true
-                }
-                ListView {
-                    Layout.preferredWidth: 300
-                    Layout.preferredHeight: 500
+                placeholderText: ""
+                Keys.onEscapePressed: launcher.visible = false
+                // enabled: true
+                // focus: true
+                hoverEnabled: true
+                // activeFocusOnPress: true
+                color: 'white'
+            }
 
-                    model: DesktopEntries.applications.values.filter(a => a.name.includes(search.text))
+            ListView {
+                Layout.preferredWidth: 300
+                Layout.preferredHeight: 500
 
-                    delegate: Text {
-                        required property DesktopEntry modelData
-                        text: modelData.name
-                        MouseArea {
-                            anchors.fill: parent
-                            hoverEnabled: true
-                            onClicked: {
-                                // launch the app
-                                modelData.execute()
-                                // TODO:
-                                // Make ESC close the launcher
-                                // Replicate my Rofi UI
-                            }
+                model: DesktopEntries.applications.values.filter(a => a.name.includes(search.text))
+
+                delegate: Text {
+                    required property DesktopEntry modelData
+                    text: modelData.name
+                    color: 'white'
+                    MouseArea {
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        onClicked: {
+                            // launch the app
+                            modelData.execute();
+                            // TODO:
+                            // Make ESC close the launcher
+                            // Replicate my Rofi UI
                         }
                     }
                 }
             }
         }
     }
+}

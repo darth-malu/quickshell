@@ -39,7 +39,7 @@ Singleton {
 
     readonly property color activeWorkspaceColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
 
-    readonly property color activeWorkspaceTextColor: "#A020F0" //Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
+    readonly property color activeWorkspaceTextColor: "#28ec00"// "#3BF4FB" //, C2CAE8, 3BF4FB, B8B8FF, 5DFDCB, 23C9FF,#9CFFFA, 9400FF, 9CFF2E,00FFAB, 06FF00//Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
 
     readonly property color glassTintActiveHasClients: Qt.rgba(1, 1, 1, 0.25)
 
@@ -54,7 +54,16 @@ Singleton {
     readonly property color toxicGreen: "#88FF00"
 
     readonly property color mprisTextColor: "#FAAB8DED"
+
     readonly property color mprisVolumeColor: "#ff79c6"
+
+    // Calendar
+    readonly property color calendarHeader: '#cad3f5'
+    readonly property color calendarDayRow: '#ff79c6'
+    readonly property color calendarInactiveMonth: "#585b70"
+    readonly property color calendarActiveMonth: '#cad3f5'
+    readonly property color calendarToday: "#80FF72"
+    readonly property color clockColor: '#ff79c6'
 
     property string buttonBorderColor: "#99000000"
 

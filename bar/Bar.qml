@@ -81,14 +81,7 @@ ShellRoot {
                     Netspeed_darth {}
                     Resources {}
                     ClockWidget {
-                        acceptedButtons: Qt.RightButton | Qt.LeftButton | Qt.MiddleButton | Qt.ForwardButton | Qt.BackButton
-                        onClicked: mouse => {
-                            mouse.accepted = true;
-                            if (mouse.button == Qt.LeftButton)
-                                ResourcesState.resourcesVisible = !ResourcesState.resourcesVisible;
-                            else if (mouse.button == Qt.RightButton)
-                                NetworkState.netspeedVisible = !NetworkState.netspeedVisible;
-                        }
+                        host: barr
                     }
                     Battery {}
                     SystemTray {}

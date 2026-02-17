@@ -1,57 +1,53 @@
-import Quickshell
 import QtQuick.Layouts
-import qs.customItems
 import QtQuick
+import qs.customItems
+import qs.themes
+import Quickshell.Services.Mpris
 
-PopupWindow {
-    id: popup
-    anchor {
-        window: host
-        rect {
-            x: mprisLoader.x - 100
-            y: 35
-        }
-    }
-    visible: showPopup
-    color: 'transparent'
-    implicitWidth: child.width
+ColumnLayout {
+    id: playersContainer
+    anchors.fill: parent
 
-    Rectangle {
-        id: parentRect
-        radius: 6
-        color: 'white'
-        anchors.fill: parent
-        implicitWidth: playersContainer.width
+    Repeater {
+        id: playerRepeater
+        model: Mpris.players
+        Layout.fillWidth: true
+        delegate: MouseArea {
+            required property var modelData
+            hoverEnabled: true
+            Layout.fillWidth: true
+            implicitHeight: innerRow.implicitHeight
+            implicitWidth: innerRow.implicitWidth
+            onPressed: () => {
+                modelData.raise();
+            }
+            RowLayout {
+                id: innerRow
+                // Layout.margins: 10
+                spacing: 8
 
-        ColumnLayout {
-            id: playersContainer
-            anchors.fill: parent
+                Rectangle {
+                    Layout.leftMargin: 1
+                    implicitWidth: 3
+                    implicitHeight: player_popup.implicitHeight - 3
+                    radius: 2
+                    color: modelData.playbackState === MprisPlaybackState.Playing ? "#88FF00" : "transparent"
+                }
 
-            Repeater {
-                id: playerRepeater
-                model: Mpris.players
-                delegate: RowLayout {
-                    id: innerRow
-                    Layout.margins: 10
-                    spacing: 2
+                BarText {
+                    id: player_popup
+                    text: modelData.identity
+                    color: modelData.playbackState === MprisPlaybackState.Playing ? Themes.toxicGreen : "#B8C1C9"
+                    elide: Text.elideRight
+                }
 
-                    BarText {
-                        id: player_popup
-                        text: modelData.identity
-                        color: 'red'
-                    }
-
-                    BarText {
-                        id: title_popup
-                        renderNative: true
-                        text: {
-                            let strLength = 50;
-                            var str = modelData?.trackTitle ?? "";
-                            return str.length > strLength ? str.slice(0, strLength) + '..' : str;
-                        }
-                        color: Themes.mprisTextColor
-                        font: Themes.quick_medium
-                    }
+                BarText {
+                    id: title_popup
+                    renderNative: true
+                    text: modelData.trackTitle || "❌"
+                    color: Themes.mprisTextColor
+                    font: Themes.quick_medium
+                    elide: Text.elideRight
                 }
             }
         }
