@@ -34,10 +34,11 @@ Singleton {
                 if (player?.trackArtist && player.trackArtist !== "")
                     leader = player;
             }
+            console.log(`The current player is: ${player.identity}`);
         }
 
         player = leader != null ? leader : backup;
-    // console.log(`The current player is: ${player.identity}`);
+        console.log(`The current player is: ${player.identity}`);
     }
 
     function handlePlayerChanged(player: MprisPlayer) {

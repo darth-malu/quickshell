@@ -269,7 +269,7 @@ RowLayout {
         "": "extra-inkscape-svg",
         "": "extra-mpv2",
         "": "extra-scale-qbittorrent",
-        "": "extra-scale-TTY2",
+        "": "kitty",
         "🎁": "extra-wps-presentation",
         "📂": "org.gnome.Nautilus",
         "📃": "extra-wps-spreadsheet",
