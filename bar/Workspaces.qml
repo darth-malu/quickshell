@@ -66,11 +66,11 @@ RowLayout {
             //         duration: 200
             //     }
             // }
-            // Behavior on border.color {
-            //     ColorAnimation {
-            //         duration: 200
-            //     }
-            // }
+            Behavior on border.color {
+                ColorAnimation {
+                    duration: 200
+                }
+            }
 
             // Rectangle {
             //     visible: !isActive && !isOpen
@@ -259,8 +259,7 @@ RowLayout {
         "": "extra-pdf-svg",
         "": "extra-ironman",
         "": "com.usebottles.bottles",
-        "": "extra-scale-spotify-SVG",
-        "": "extra-libreoffice_calc",
+        "": "spotify-client",
         "": "discord",
         "": "extra-wozzap2",
         "": "extra-chrome7",
@@ -277,7 +276,7 @@ RowLayout {
         "😀": "extra-scale-lact",
         "😆": "extra-battlenet",
         "🪛": "extra-sys5",
-        "󰇥": "extra-yazi",
+        "󰇥": "yazi",
         "󰈩": "extra-libreoffice_impress",
         "󰓓": "steam",
         "󰡈": "extra-freetube",
