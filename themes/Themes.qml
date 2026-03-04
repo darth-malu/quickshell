@@ -7,6 +7,8 @@ Singleton {
 
     property color barBg: 'transparent'
 
+    property bool borderShadow: false
+
     readonly property font quick_medium: Qt.font({
         family: "Quicksand Medium",
         pixelSize: 13,
@@ -33,21 +35,27 @@ Singleton {
             bold: true
         })
 
-    readonly property color activeWorkspaceIdColor: "#5c0099"
+    // readonly property color activeWorkspaceIdColor: "#5c0099"
 
-    readonly property color inactiveTextColor: Qt.rgba(0.67, 0.55, 0.93, 0.88)
+    // readonly property color inactiveTextColor: Qt.rgba(0.67, 0.55, 0.93, 0.88)
 
-    readonly property color activeWorkspaceColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
+    // readonly property color activeWorkspaceColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
 
-    readonly property color activeWorkspaceTextColor: "#28ec00"// "#3BF4FB" //, C2CAE8, 3BF4FB, B8B8FF, 5DFDCB, 23C9FF,#9CFFFA, 9400FF, 9CFF2E,00FFAB, 06FF00//Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
+    readonly property color activeTextColor: "#C4E4FF" //#bd93f9" //"#00CAFF"// "#3BF4FB" //, C2CAE8, 3BF4FB, B8B8FF, 5DFDCB, 23C9FF,#9CFFFA, 9400FF, 9CFF2E,00FFAB, 06FF00//Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
 
-    readonly property color glassTintActiveHasClients: Qt.rgba(1, 1, 1, 0.25)
+    // readonly property color glassTintActiveHasClients: Qt.rgba(1, 1, 1, 0.25)
 
-    readonly property color glassTintInactive: Qt.rgba(1, 1, 1, 0.1)
+    // readonly property color borderActive: Qt.rgba(1, 1, 1, 0.25)
 
-    readonly property color currentMonitorNotActiveColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
+    readonly property color activeHasClientsBorder: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.65)//Qt.rgba(1, 1, 1, 0.25) //"#99000000"
 
-    readonly property color inActiveWorkspaceTextColor: Qt.color("grey")
+    readonly property color activeBg: "#282a36" // "#2d353b"//Qt.rgba(1, 1, 1, 0.1)
+
+    readonly property color inactiveBg: "#2d353b"//Qt.rgba(1, 1, 1, 0.1)
+
+    readonly property color inactiveTextColor: Qt.color("grey")
+
+    // readonly property color currentMonitorNotActiveColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1)
 
     readonly property color dropShadow: "#000000"
 
@@ -65,45 +73,42 @@ Singleton {
     readonly property color calendarToday: "#80FF72"
     readonly property color clockColor: '#ff79c6'
 
-    property string buttonBorderColor: "#99000000"
-
-    property bool buttonBorderShadow: false
-
-    property Gradient buttonInactiveGradientV: Gradient {
+    // Soft organic inactive state (Everforest 'Background Soft')
+    property Gradient inactiveGradientV: Gradient {
         GradientStop {
             position: 0.0
-            color: Qt.rgba(1, 1, 1, 0.04)
+            color: Qt.rgba(51 / 255, 59 / 255, 66 / 255, 0.4)
         }
         GradientStop {
-            position: 0.5
-            color: Qt.rgba(1, 1, 1, 0.10)
+            position: 0.7
+            color: Qt.rgba(51 / 255, 59 / 255, 66 / 255, 0.9) // Deep charcoal body
         }
         GradientStop {
             position: 1.0
-            color: Qt.rgba(1, 1, 1, 0.07)
+            color: Qt.rgba(45 / 255, 53 / 255, 59 / 255, 0.6)
         }
     }
 
-    property Gradient buttonInactiveGradientH: Gradient {
+    property Gradient inactiveGradientH: Gradient {
         orientation: Gradient.Horizontal
         GradientStop {
             position: 0.0
-            color: "black"
+            color: "#2d353b"
         }
         GradientStop {
-            position: 0.1
-            color: "#00000000"
+            position: 0.4
+            color: "transparent"
         }
     }
 
-    property Gradient buttonActiveGradient: Gradient {
+    property Gradient activeGradient: Gradient {
         GradientStop {
             position: 0.0
-            color: "#55000000"//Qt.rgba(1, 1, 1, 0.25)//"#99000000"
+            color: "#282a36"//Qt.rgba(167 / 255, 192 / 255, 128 / 255, 0.2) // Subtle green tint at top
         }
         GradientStop {
-            position: 0.3
-            color: "#55000000"//"#55000000", Qt.rgba(1, 1, 1, 0.25)
+            position: 0.7
+            color: Qt.rgba(51 / 255, 59 / 255, 66 / 255, 0.9) // Deep charcoal body
         }
         GradientStop {
             position: 1.0

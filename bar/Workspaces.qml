@@ -8,7 +8,7 @@ import Quickshell
 import Qt5Compat.GraphicalEffects
 
 RowLayout {
-    spacing: 2
+    spacing: 3
     property HyprlandMonitor monitor: Hyprland.monitorFor(screen)
 
     Repeater {
@@ -39,60 +39,71 @@ RowLayout {
 
         BarBlock {
             id: rootBlock
+
             property HyprlandWorkspace ws: modelData
+
             property bool isActive: Hyprland.focusedMonitor?.activeWorkspace?.id === ws.id
+
             property bool isOpen: monitor.activeWorkspace?.id === ws.id
+
             property bool hasClients: ws.name.length > 2
 
-            property color workspaceBg: isActive ? (hasClients ? Themes.glassTintActiveHasClients : "transparent") : Themes.glassTintInactive
+            property color workspaceBg: isActive ? (hasClients ? Themes.activeBg : "transparent") : Themes.inactiveBg
 
-            property color borderColor: (isActive && hasClients) ? Themes.glassTintActiveHasClients : "transparent"
+            property color borderColor: (isActive && hasClients) ? Themes.activeHasClientsBorder : "transparent"
 
             dim: false
             // underline: isActive ? true : false
             // underlineColor: "#D295BF"
             border.color: borderColor
+
             color: workspaceBg
 
             // layer.enabled: true
 
             radius: height / 2
-            gradient: (isActive || isOpen) && hasClients ? Themes.buttonActiveGradient : Themes.buttonInactiveGradientV
+
+            gradient: (isActive || isOpen) && hasClients ? Themes.activeGradient : Themes.inactiveGradientV
+
             Layout.preferredWidth: content.width
+
             Layout.preferredHeight: content.height
+
+            // Behavior on border.color {
+            //     ColorAnimation {
+            //         duration: 120
+            //     }
+            // }
 
             // Behavior on color {
             //     ColorAnimation {
-            //         duration: 200
+            //         duration: 100
             //     }
             // }
-            Behavior on border.color {
-                ColorAnimation {
-                    duration: 200
-                }
+
+            Rectangle {
+                id: inactiveGradientH
+                visible: !isActive && !isOpen
+                gradient: Themes.inactiveGradientH
+                implicitWidth: parent.width
+                implicitHeight: parent.height
+                radius: parent.radius
+                z: -1
             }
 
-            // Rectangle {
-            //     visible: !isActive && !isOpen
-            //     gradient: Themes.buttonInactiveGradientH
-            //     implicitWidth: parent.width
-            //     implicitHeight: parent.height
-            //     radius: parent.radius
-            //     z: -1
-            // }
-
-            // Rectangle {
-            //     visible: Themes.buttonBorderShadow
-            //     implicitWidth: parent.width - 1
-            //     implicitHeight: parent.height - 1
-            //     radius: parent.radius
-            //     color: "transparent"
-            //     border.color: parent.isActive || parent.isOpen ? "transparent" : "black" // Inner border color
-            //     border.width: 1 // Inner border width
-            //     x: 1
-            //     y: 1
-            //     z: -1
-            // }
+            Rectangle {
+                id: shadowThemes
+                visible: Themes.borderShadow
+                implicitWidth: parent.width - 1
+                implicitHeight: parent.height - 1
+                radius: parent.radius
+                color: "red"
+                border.color: parent.isActive || parent.isOpen ? "red" : "white" // Inner border color
+                border.width: 1 // Inner border width
+                x: 1
+                y: 1
+                z: -1
+            }
 
             onClicked: function () {
                 Hyprland.dispatch(`workspace ${ws.id}`);
@@ -137,8 +148,8 @@ RowLayout {
                             sourceComponent: BarText {
                                 text: modelData.value
                                 dim: !rootBlock.isActive
-                                rightPadding: 3
-                                color: dim ? Themes.inActiveWorkspaceTextColor : "#00CAFF"
+                                rightPadding: 5
+                                color: dim ? Themes.inactiveTextColor : Themes.activeTextColor
                             }
                         }
 
@@ -172,7 +183,7 @@ RowLayout {
                                     width: 10
                                     height: width
                                     radius: width / 2
-                                    // color: Themes.dropShadow
+                                    color: Themes.dropShadow
                                     opacity: 0.8
                                     BarText {
                                         text: ws.mult

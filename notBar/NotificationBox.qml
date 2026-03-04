@@ -107,6 +107,7 @@ WrapperMouseArea {
                 }
 
                 ClippingWrapperRectangle {
+                    id: appIconRect
                     visible: rootMouseArea.hasAppIcon
                     radius: 2
                     color: "transparent"
@@ -265,7 +266,7 @@ WrapperMouseArea {
                         anchors.centerIn: parent
                         implicitHeight: parent.implicitHeight - 4
                         implicitWidth: parent.implicitHeight - 4
-                        // asynchronous: true
+                        asynchronous: true
                     }
                 }
             }
