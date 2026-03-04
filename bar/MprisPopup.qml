@@ -23,26 +23,27 @@ ColumnLayout {
             }
             RowLayout {
                 id: innerRow
-                // Layout.margins: 10
                 spacing: 8
 
                 Rectangle {
+                    id: activeIndicator
+                    visible: true
                     Layout.leftMargin: 1
                     implicitWidth: 3
-                    implicitHeight: player_popup.implicitHeight - 3
+                    implicitHeight: players.implicitHeight - 3
                     radius: 2
-                    color: modelData.playbackState === MprisPlaybackState.Playing ? "#88FF00" : "transparent"
+                    color: modelData.playbackState === MprisPlaybackState.Playing ? Themes.mprisIndicatorColor : "transparent"
                 }
 
                 BarText {
-                    id: player_popup
+                    id: players
                     text: modelData.identity
                     color: modelData.playbackState === MprisPlaybackState.Playing ? Themes.toxicGreen : "#B8C1C9"
                     elide: Text.elideRight
                 }
 
                 BarText {
-                    id: title_popup
+                    id: playersMediaPlaying
                     renderNative: true
                     text: modelData.trackTitle || "❌"
                     color: Themes.mprisTextColor

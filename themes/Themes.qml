@@ -9,32 +9,6 @@ Singleton {
 
     property bool borderShadow: false
 
-    readonly property font quick_medium: Qt.font({
-        family: "Quicksand Medium",
-        pixelSize: 13,
-        bold: false
-    })
-
-    readonly property font quicksand: Qt.font({
-        family: "quicksand",
-        pixelSize: 12,
-        bold: true
-    })
-
-    readonly property font lato: Qt.font({
-        pixelSize: 13,
-        family: 'lato',
-        bold: true
-    })
-
-    readonly property color windowTextColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1) //#8390FA
-
-    readonly property font windowTextFont: ({
-            family: "Quicksand Medium",
-            pixelSize: 13,
-            bold: true
-        })
-
     // readonly property color activeWorkspaceIdColor: "#5c0099"
 
     // readonly property color inactiveTextColor: Qt.rgba(0.67, 0.55, 0.93, 0.88)
@@ -61,9 +35,15 @@ Singleton {
 
     readonly property color toxicGreen: "#88FF00"
 
+    // MPRIS
     readonly property color mprisTextColor: "#FAAB8DED"
 
     readonly property color mprisVolumeColor: "#ff79c6"
+
+    readonly property color mprisIndicatorColor: "#88FF00"//"#ff79c6"
+
+    // App Launcher
+    readonly property color launcherBg: "#1e1e2e" //"#88FF00"  "#ff79c6"
 
     // Calendar
     readonly property color calendarHeader: '#cad3f5'
@@ -115,4 +95,49 @@ Singleton {
             color: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.85)
         }
     }
+
+    // From Colors.qml
+    property color bgBar: Qt.rgba(0, 0, 0, 0.21)
+    // property color bgBlur: Qt.rgba(0, 0, 0, 0.5)
+    property color bgBlur: Qt.rgba(0, 0, 0, 0.8)
+    /* property color blueText: "#900000FF" */
+    property color foreground: 'white'//Qt.rgba(171 / 255, 141 / 255, 237 / 255, 0.88)
+    //property list<color> monitorColors: ["#e06c75", "#e5c07b", "#98c379", "#61afef"]
+
+    property color surface: Qt.rgba(255, 255, 255, 0.15)
+    property color overlay: Qt.rgba(255, 255, 255, 0.7)
+
+    property color accent: "#e06c75"
+
+    property color buttonEnabled: accent
+    property color buttonEnabledHover: Qt.lighter(accent, 0.9)
+    property color buttonDisabled: surface
+    property color buttonDisabledHover: Qt.rgba(surface.r, surface.g, surface.b, surface.a + 0.1)
+
+    // Fonts
+    readonly property font quick_medium: Qt.font({
+        family: "Quicksand Medium",
+        pixelSize: 13,
+        bold: false
+    })
+
+    readonly property font quicksand: Qt.font({
+        family: "quicksand",
+        pixelSize: 12,
+        bold: true
+    })
+
+    readonly property font lato: Qt.font({
+        pixelSize: 13,
+        family: 'lato',
+        bold: true
+    })
+
+    readonly property color windowTextColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1) //#8390FA
+
+    readonly property font windowTextFont: ({
+            family: "Quicksand Medium",
+            pixelSize: 13,
+            bold: true
+        })
 }

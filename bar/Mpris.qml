@@ -39,11 +39,11 @@ Loader {
             visible: showPopup
             // color: '#0D0814'
             color: 'transparent'
-            implicitWidth: Math.min(600, parentRect.implicitWidth + 10)
-            implicitHeight: parentRect.implicitHeight + 20
+            implicitWidth: Math.min(600, mprisPopupRectangle.implicitWidth + 10)
+            implicitHeight: mprisPopupRectangle.implicitHeight + 20
 
             WrapperRectangle {
-                id: parentRect
+                id: mprisPopupRectangle
                 radius: 6
                 // color: 'black'
                 anchors.fill: parent

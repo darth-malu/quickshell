@@ -72,7 +72,7 @@ WrapperMouseArea {
         implicitWidth: Math.max(120, mainLayout.implicitWidth + 10)
         implicitHeight: mainLayout.implicitHeight
         radius: rootMouseArea.ifMusic ? 12 : 8
-        color: Colors.bgBlur
+        color: Themes.bgBlur
         border {
             width: rootMouseArea.ifMusic ? 0 : 1
             color: Qt.rgba(0.627, 0.125, 0.941, 0.78) // Qt.rgba(0.63, 0.13, 0.94, 0.5) //"#A020F0" Qt.rgba(0.63, 0.13, 0.94, 0.3)
@@ -186,7 +186,7 @@ WrapperMouseArea {
                             Rectangle {
                                 id: actionButton
                                 radius: 16
-                                color: actionButtonMA.containsMouse ? Colors.buttonDisabledHover : Colors.buttonDisabled
+                                color: actionButtonMA.containsMouse ? Themes.buttonDisabledHover : Themes.buttonDisabled
                                 implicitHeight: buttonText.implicitHeight
                                 Layout.fillWidth: true
                                 Text {
@@ -228,7 +228,7 @@ WrapperMouseArea {
 
                 Rectangle {
                     radius: implicitHeight / 2
-                    color: expandButton.containsMouse ? Colors.buttonDisabledHover : Colors.buttonDisabled
+                    color: expandButton.containsMouse ? Themes.buttonDisabledHover : Themes.buttonDisabled
                     implicitWidth: 16
                     implicitHeight: 16
 
@@ -257,7 +257,7 @@ WrapperMouseArea {
 
                 Rectangle {
                     radius: 16
-                    color: closeButton.containsMouse ? Colors.buttonDisabledHover : Colors.buttonDisabled
+                    color: closeButton.containsMouse ? Themes.buttonDisabledHover : Themes.buttonDisabled
                     implicitWidth: 16
                     implicitHeight: 16
 
