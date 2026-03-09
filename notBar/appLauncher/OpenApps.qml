@@ -143,9 +143,9 @@ PanelWindow {
                     iconUrl: Quickshell.iconPath(modelData?.icon, "image-missing")
                     function launch_app2unit() {
                         let command = modelData.command[0];
+                        Quickshell.execDetached(["notify-send", "-i", "process-stop-symbolic " + command]);
                         Quickshell.execDetached(["hyprctl", "dispatch", "--", "exec", "[workspace emptym] app2unit -s a " + command]);
-                        // Quickshell.execDetached(["notify-send", "-i", "process-stop-symbolic", comm]);
-                        // console.log("Command is", comm);
+                        // TODO add logic for terminal applications
                         Qt.quit();
                     // if (!commandArray || commandArray.length === 0) return;
 

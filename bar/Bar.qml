@@ -83,6 +83,7 @@ ShellRoot {
                     ClockWidget {
                         host: barr
                     }
+                    IdleInhibitorBtn {}
                     Battery {}
                     SystemTray {}
                 }

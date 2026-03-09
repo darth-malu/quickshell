@@ -294,7 +294,8 @@ RowLayout {
         "󰷈": "extra-libreoffice_writer",
         "󰽉": "extra-libreoffice_draw",
         "󱎓": "net.lutris.Lutris",
-        "󱢴": "extra-dolphin"
+        "󱢴": "extra-dolphin",
+        "S": "net.lutris.Lutris"
         // "": "Zoom",
         // "󰄄": "extra-scale-obs",
         // "󰊻": "teams-for-linux",
