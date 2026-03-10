@@ -14,7 +14,7 @@ Singleton {
 
     // readonly property bool isCrusherWireless: inputSink.name == "bluez_input.D0:8A:55:44:68:A2"
     readonly property bool isCrusherWireless: inputSink.description == "Crusher Wireless"
-    readonly property var inputVolume: Pipewire.ready ? inputSink.audio.muted ? "❌" : `${Math.floor(inputSink.audio.volume * 100)}` : ""
+    readonly property var inputVolume: Pipewire.ready ? isCrusherWireless ? (inputSink.audio.muted ? "❌" : `${Math.floor(inputSink.audio.volume * 100)}`) : "" : ""
 
     PwObjectTracker {
         objects: [root.outputSink, root.inputSink]
