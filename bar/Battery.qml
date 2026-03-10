@@ -63,7 +63,6 @@ RowLayout {
             trackColor: 'grey'
 
             Item {
-                // anchors.centerIn: parent
                 width: batteryProgress.valueBarWidth
                 height: batteryProgress.valueBarHeight
 
@@ -74,7 +73,7 @@ RowLayout {
                     MaterialSymbol {
                         id: boltIcon
                         Layout.alignment: Qt.AlignVCenter
-                        Layout.leftMargin: -2
+                        Layout.leftMargin: 1 //can be -ve eg -2
                         Layout.rightMargin: -2
                         fill: 1
                         text: "⚡"
@@ -85,7 +84,7 @@ RowLayout {
                     MaterialSymbol {
                         id: plugIcon
                         Layout.alignment: Qt.AlignVCenter
-                        Layout.leftMargin: -2
+                        Layout.leftMargin: 1
                         Layout.rightMargin: -2
                         fill: 1
                         text: "🔌"
@@ -97,6 +96,7 @@ RowLayout {
                         Layout.alignment: Qt.AlignVCenter
                         font: batteryProgress.font
                         text: root.isFull ? '⚡' : batteryProgress.text
+                        Layout.rightMargin: 2
                     }
                 }
             }
