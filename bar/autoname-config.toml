@@ -1,16 +1,9 @@
 version = "1.2.0"
 
-<<<<<<< HEAD
-# [format]
-# Deduplicate icons if enable.
-# A superscripted counter will be added.
-# dedup = false
-=======
 [format]
 # Deduplicate icons if enable.
 # A superscripted counter will be added.
 dedup = true
->>>>>>> 40ef576 (dateToday, integrated netspeed (loader))
 # dedup_inactive_fullscreen = false # dedup more
 # window delimiter
 # delim = " "
@@ -19,18 +12,6 @@ dedup = true
 # available formatter:
 # {counter_sup} - superscripted count of clients on the workspace, and simple {counter}, {delim}
 # {icon}, {client}
-<<<<<<< HEAD
-# workspace formatter
-# workspace = "{id}:{delim}{clients}" # {id}, {delim} and {clients} are supported
-# workspace_empty = "{id}" # {id}, {delim} and {clients} are supported
-# client formatter
-# client = "{icon}"
-# client_active = "*{icon}*"
-
-# deduplicate client formatter
-# client_fullscreen = "[{icon}]"
-=======
-
 # workspace formatter
 # workspace = "{id}:{delim}{clients}" # {id}, {delim} and {clients} are supported
 # workspace_empty = "{id}" # {id}, {delim} and {clients} are supported
@@ -44,7 +25,6 @@ client_active = "{icon}"
 # deduplicate client formatter
 # client_fullscreen = "[{icon}]"
 client_fullscreen = "*{icon}*"
->>>>>>> 40ef576 (dateToday, integrated netspeed (loader))
 # client_dup = "{client}{counter_sup}"
 # client_dup_fullscreen = "[{icon}]{delim}{icon}{counter_unfocused}"
 # client_dup_active = "*{icon}*{delim}{icon}{counter_unfocused}"
@@ -53,20 +33,6 @@ client_fullscreen = "*{icon}*"
 # Add your icons mapping
 # use double quote the key and the value
 # take class name from 'hyprctl clients'
-<<<<<<< HEAD
-"DEFAULT" = " {class}: {title}"
-"(?i)Kitty" = "term"
-"[Ff]irefox" = "browser"
-"(?i)waydroid.*" = "droid"
-
-[class_active]
-DEFAULT = "*{icon}*"
-"(?i)ExampleOneTerm" = "<span foreground='red'>{icon}</span>"
-
-# [initial_class]
-# "DEFAULT" = " {class}: {title}"
-# "(?i)Kitty" = "term"
-=======
 # "DEFAULT" = " {class}: {title}"
 "DEFAULT" = ""
 "(?i)Kitty" = ""
@@ -76,7 +42,7 @@ DEFAULT = "*{icon}*"
 "(?i)Nautilus" = "📂"
 "[Ff]irefox" = ""
 "[fF]ree[tT]ube" = "󰡈"
-"chrom*" = ""
+"chrom.*" = ""
 "discord" = ""
 "zen" = "Z"
 "dolphin" = "󱢴"
@@ -113,20 +79,10 @@ DEFAULT = ""
 # "DEFAULT" = " {class}: {title}"
 # "(?i)Kitty" = "term"
 # "discord" = ""
->>>>>>> 40ef576 (dateToday, integrated netspeed (loader))
 
 # [initial_class_active]
 # "(?i)Kitty" = "*TERM*"
 
-<<<<<<< HEAD
-[title_in_class."(?i)kitty"]
-"(?i)neomutt" = "neomutt"
-# regex captures support is supported
-# "emerge: (.+?/.+?)-.*" = "{match1}"
-
-[title_in_class_active."(?i)firefox"]
-"(?i)twitch" = "<span color='purple'>{icon}</span>"
-=======
 # [title_in_class."(?i)kitty"]
 # "(?i)neomutt" = "neomutt"
 
@@ -142,7 +98,6 @@ DEFAULT = ""
 
 # [title_in_class_active."(?i)firefox"]
 # "(?i)twitch" = "<span color='purple'>{icon}</span>"
->>>>>>> 40ef576 (dateToday, integrated netspeed (loader))
 
 # [title_in_initial_class."(?i)kitty"]
 # "(?i)neomutt" = "neomutt"
@@ -167,11 +122,7 @@ DEFAULT = ""
 "" = "^$" # prevent displaying icon for empty class
 "(?i)fcitx" = ".*" # will match all title for fcitx
 "(?i)TestApp" = "" # will match all title for TestApp
-<<<<<<< HEAD
-aProgram = "^$" # will match null title for aProgram
-=======
 # aProgram = "^$" # will match null title for aProgram
->>>>>>> 40ef576 (dateToday, integrated netspeed (loader))
 "[Ss]team" = "^(Friends List.*)?$" # will match Steam friends list plus all popups (empty titles)
 
 [workspaces_name]
@@ -185,8 +136,4 @@ aProgram = "^$" # will match null title for aProgram
 7 = "seven"
 8 = "eight"
 9 = "nine"
-<<<<<<< HEAD
 10 = "ten"
-=======
-10 = "ten"
->>>>>>> 40ef576 (dateToday, integrated netspeed (loader))
