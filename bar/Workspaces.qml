@@ -273,7 +273,7 @@ RowLayout {
         "": "spotify-client",
         "": "discord",
         "": "extra-wozzap2",
-        "": "extra-chrome7",
+        "": "google-chrome",
         "": "extra-scale-bluetooth",
         "": "extra-scale-gimp",
         "": "extra-inkscape-svg",
@@ -284,7 +284,7 @@ RowLayout {
         "📂": "org.gnome.Nautilus",
         "📃": "extra-wps-spreadsheet",
         "📜": "extra-wps-office",
-        "😀": "extra-scale-lact",
+        "😀": "io.github.ilya_zlobintsev.LACT",
         "😆": "extra-battlenet",
         "🪛": "extra-sys5",
         "󰇥": "yazi",
@@ -295,7 +295,9 @@ RowLayout {
         "󰽉": "extra-libreoffice_draw",
         "󱎓": "net.lutris.Lutris",
         "󱢴": "extra-dolphin",
-        "S": "net.lutris.Lutris"
+        "S": "net.lutris.Lutris",
+        "Z": "zen",
+        "F": "foot"
         // "": "Zoom",
         // "󰄄": "extra-scale-obs",
         // "󰊻": "teams-for-linux",

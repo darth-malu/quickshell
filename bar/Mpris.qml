@@ -12,6 +12,8 @@ Loader {
 
     active: MprisState.player != null && MprisState.mprisVisible
 
+    visible: active
+
     required property var host
 
     sourceComponent: WrapperMouseArea {
@@ -81,9 +83,6 @@ Loader {
                 MprisState.player?.raise();
             else if (mouse.button == Qt.ForwardButton)
                 showPopup = !showPopup;
-        // MprisState.player?.next();
-        // else if (mouse.button == Qt.BackButton)
-        //     MprisState.player?.previous();
         }
 
         onWheel: event => {

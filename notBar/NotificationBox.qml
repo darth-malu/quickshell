@@ -108,7 +108,8 @@ WrapperMouseArea {
 
                 ClippingWrapperRectangle {
                     id: appIconRect
-                    visible: rootMouseArea.hasAppIcon
+                    // visible: rootMouseArea.hasAppIcon
+                    visible: false // FIXME: always absent
                     radius: 2
                     color: "transparent"
                     anchors {

@@ -144,13 +144,7 @@ PanelWindow {
                     function launch_app2unit() {
                         let command = modelData.command[0];
                         Quickshell.execDetached(["hyprctl", "dispatch", "--", "exec", "[workspace emptym] app2unit -s a " + command]);
-                        // Quickshell.execDetached(["notify-send", "-i", "process-stop-symbolic", comm]);
-                        // console.log("Command is", comm);
                         Qt.quit();
-                    // if (!commandArray || commandArray.length === 0) return;
-
-                    //         // Strip desktop entry macros like %u, %f, etc. if they exist
-                    //         let cleanCommand = commandArray[0].replace(/%[a-zA-Z]/g, "").trim();
                     }
                     onClicked: {
                         // modelData.execute();

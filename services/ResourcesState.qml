@@ -129,6 +129,7 @@ Singleton {
 
     Process {
         id: disk_usage
+        // TODO: notification on lowIdsk - persistent properties
         running: false
         command: ["sh", "-c", "(zfs get -H -o value avail darthPool 2>/dev/null) || (zfs get -H -o value avail darth-pool 2>/dev/null)"]
         stdout: SplitParser {

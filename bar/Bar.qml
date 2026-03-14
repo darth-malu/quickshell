@@ -78,7 +78,7 @@ ShellRoot {
                     Layout.alignment: Qt.AlignRight
                     spacing: 7 //10, 0.4::
 
-                    Netspeed_darth {}
+                    Netspeed {}
                     Resources {}
                     ClockWidget {
                         host: barr

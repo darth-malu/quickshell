@@ -3,11 +3,15 @@ import qs.themes
 import QtQuick
 import Quickshell.Widgets
 import qs.services
+import Quickshell.Io
+import Quickshell
 
 WrapperMouseArea {
     id: masaa
     property bool showPopup: false
     required property var host
+    readonly property string date: Time.dateYangu
+    readonly property string time: Time.time
 
     hoverEnabled: true
 
@@ -25,13 +29,21 @@ WrapperMouseArea {
 
     BarText {
         anchors.fill: parent
-        symbolText: Time.time
+        symbolText: masaa.time
         font {
             pixelSize: 14
             family: 'Quicksand medium'
             bold: true
         }
         baseColor: Themes.clockColor
+    }
+
+    IpcHandler {
+        target: "Time"
+
+        function currentTime() {
+            Quickshell.execDetached(["notify-send", "-i", "office-calendar-symbolic", "Today", masaa.date]);
+        }
     }
 
     ClockPopup {
