@@ -1,7 +1,6 @@
 pragma ComponentBehavior: Bound
 // allows using outer component ids root.currentVolume
 import QtQuick
-import QtQuick.Layouts
 import Quickshell
 import Quickshell.Services.Pipewire
 import qs.themes
@@ -33,7 +32,6 @@ Scope {
         interval: 1000
         onTriggered: root.shouldShowOsd = false
     }
-
     // PanelWindow.visible could be set instead of using a loader, but using a loader will reduce the memory overhead when the window isn't open.
     LazyLoader {
         active: root.shouldShowOsd
@@ -43,53 +41,59 @@ Scope {
             margins.right: screen.width / 95
             exclusiveZone: 0
 
-            implicitWidth: 12
-            implicitHeight: 160
+            implicitWidth: 20
+            implicitHeight: 170
             color: "transparent"
 
             // An empty click mask prevents the window from blocking mouse events.
             mask: Region {}
 
-            ColumnLayout {
-                anchors.fill: parent
+            Rectangle {
+                id: outerRectangle
+                implicitWidth: parent.width
+                implicitHeight: parent.height
+                radius: width / 2
+                color: "#80000000"
+                // clip: true
 
-                /* IconImage { */
-                /*   implicitSize: 16 */
-                /*   source: "root:assets/speaker/icons8-speaker-30-4.png" */
-                /*   asynchronous: true */
-                /* } */
+                // opacity: root.shouldShowOsd ? 1.0 : 0.0
+                // Behavior on opacity {
+                //     NumberAnimation {
+                //         duration: 200
+                //     }
+                // }
 
                 Rectangle {
-                    id: outerRectangle
-                    Layout.fillWidth: true // Stretches to fill all left-over space
-                    implicitHeight: parent.height
-                    radius: width / 2
-                    color: "#80000000"
-
-                    Rectangle {
-                        id: innerCurrentVolumeRectangle
-                        anchors {
-                            left: parent.left
-                            right: parent.right
-                            bottom: parent.bottom
-                        }
-                        implicitHeight: parent.height * (root.currentVolume ?? 0)
-                        radius: parent.radius
-                        color: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1.00) // '#bd93f9'
-
-                        Text {
-                            id: currentVolume
-                            text: Math.floor(root.currentVolume * 100)
-                            color: 'black'
-                            // renderType: Text.NativeRendering
-                            anchors {
-                                leftMargin: 5
-                                rightMargin: 5
-                                centerIn: parent
-                            }
-                            font: Themes.quicksand
-                        }
+                    id: innerCurrentVolumeRectangle
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        bottom: parent.bottom
+                        margins: 3
                     }
+                    implicitHeight: (parent.height - 6) * (root.currentVolume ?? 0)
+                    radius: parent.radius
+                    color: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1.00) // '#bd93f9'
+                }
+
+                Text {
+                    id: currentVolumeText
+                    visible: true
+                    text: Math.floor(root.currentVolume * 100)
+                    // Layout.alignment: Qt.AlignHCenter
+                    color: 'white'
+                    // renderType: Text.NativeRendering
+                    anchors {
+                        centerIn: parent
+                    }
+                    // style: Text.Outline
+                    // styleColor: "#40000000"
+                    leftPadding: 5
+                    rightPadding: 5
+                    // horizontalAlignment: Text.AlignHCenter
+                    // verticalAlignment: Text.AlignVCenter
+                    // anchors.fill: parent
+                    font: Themes.quicksand
                 }
             }
         }

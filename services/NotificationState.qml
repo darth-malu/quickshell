@@ -12,6 +12,8 @@ Singleton {
     property bool notifOverlayOpen: false
     property bool notifPanelOpen: false
 
+    property var lastNotif: null
+
     function togglePanel() {
         if (notifOverlayOpen && !notifPanelOpen)
             notifOverlayOpen = false;
@@ -20,13 +22,25 @@ Singleton {
     }
 
     function onNewNotif(notif) {
+        let isMusic = (notif.appName == 'mzichi' || notif.appName == 'ncmpcpp' || notif.appName == 'spotifY');
+
         allNotifs = [notif, ...allNotifs];
 
         if (notif.lastGeneration) // if notif was carried over from last reload
             return;
 
-        popupNotifs = [notif, ...popupNotifs];
+        if (isMusic) {
+            popupNotifs = [notif];
+        } else {
+            popupNotifs = [notif, ...popupNotifs];
+        }
 
+        if (!notifPanelOpen)
+            notifOverlayOpen = true;
+    }
+
+    function showLastNotif(notif) {
+        popupNotifs = [notif];
         if (!notifPanelOpen)
             notifOverlayOpen = true;
     }
@@ -115,13 +129,18 @@ Singleton {
         imageSupported: true
         onNotification: notif => {
             notif.tracked = true;
+            root.lastNotif = notif;
 
-            // TODO make is so if same ID it wont repeat
-            if (!allNotifs.includes(notif))
+            let isDuplicate = root.allNotifs.some(existingNotif => (existingNotif.desktopEntry === notif.summary));
+
+            if (!isDuplicate) {
                 root.onNewNotif(notif);
+            } else {
+                Quickshell.execDetached(["notify-send", "Duplicate Id blocked" + notif.id]);
+            }
 
             notif.closed.connect(() => {
-                notifDismissByNotif(notif);
+                root.notifDismissByNotif(notif);
             });
         }
     }

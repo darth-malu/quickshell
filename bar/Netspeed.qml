@@ -5,10 +5,8 @@ import Quickshell.Io
 import QtQuick.Layouts
 
 Loader {
-    // active:
     id: loaderBig
     active: NetworkState.netspeedVisible
-    // Layout.topMargin: 2
     visible: active
     sourceComponent: BarBlock {
         id: root
@@ -20,12 +18,11 @@ Loader {
         property int refreshInterval: 1000
         property string iface
 
-        property real rxPrev: 0
-        property real txPrev: 0
-
         // DARTH props
         property real rxRate
         property real txRate
+        property real rxPrev: 0
+        property real txPrev: 0
 
         Process {
             id: defaultInterface
@@ -81,7 +78,7 @@ Loader {
         }
 
         RowLayout {
-            spacing: 5
+            // spacing: 5
             BarText {
                 textFormat: Text.RichText
                 text: `${root.rxRate.toFixed(2)}`

@@ -59,18 +59,19 @@ ShellRoot {
                 RowLayout {
                     id: leftBlock
                     spacing: 0.4
-                    // Layout.fillWidth: true
+                    Layout.fillWidth: true
                     Layout.alignment: Qt.AlignLeft
                     Workspaces {}
                     ActiveWindow {}
                 }
 
-                Mpris {
+                MprisWidget {
                     id: centerBlock
                     // Layout.alignment: Qt.AlignVCenter | QtAlignHCenter
                     anchors.centerIn: parent
                     host: barr
                     // Layout.fillWidth: true
+                    MprisNotification {}
                 }
 
                 RowLayout {

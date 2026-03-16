@@ -22,11 +22,11 @@ WrapperMouseArea {
     IMAGE: icon associated with the notification eg. a profile picture in a messaging app
     appIcon: sending app's icon, if none provided .. the icon form an associated desktop entry will be retrieved. if none found = ""
      */
-    readonly property bool ifMusic: (n.appName == 'ncmpcpp' || n.appName == 'spotifY')
+    readonly property bool ifMusic: (n.appName == 'mzichi' || n.appName == 'ncmpcpp' || n.appName == 'spotifY')
 
     readonly property bool isImageIcon: n.image == "" && n.appIcon != ""
 
-    readonly property string image: isImageIcon ? n.appIcon : n.image // Return appIcon of application or image if image present.
+    readonly property string image: ifMusic ? (MprisState.player?.trackArtUrl) : isImageIcon ? n.appIcon : n.image // Return appIcon of application or image if image present.
 
     property bool hasAppIcon: !(n.image == "" && n.appIcon != "") // negate ... no image + appIcon present = image + appIcon absent
 
@@ -100,7 +100,8 @@ WrapperMouseArea {
                     // anchors.fill: parent
                     IconImage {
                         implicitSize: songArtContainer.height
-                        source: rootMouseArea.ifMusic ? (MprisState.player?.trackArtUrl) : NotificationState.getImage(rootMouseArea.image)
+                        // source: rootMouseArea.ifMusic ? (MprisState.player?.trackArtUrl) : NotificationState.getImage(rootMouseArea.image)
+                        source: NotificationState.getImage(rootMouseArea.image)
                         asynchronous: true
                         // mipmap: true // see smooth
                     }
@@ -109,7 +110,7 @@ WrapperMouseArea {
                 ClippingWrapperRectangle {
                     id: appIconRect
                     // visible: rootMouseArea.hasAppIcon
-                    visible: false // FIXME: always absent
+                    visible: false
                     radius: 2
                     color: "transparent"
                     anchors {

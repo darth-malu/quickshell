@@ -46,7 +46,8 @@ Loader {
                 id: mprisPopupRectangle
                 radius: 6
                 anchors.fill: parent
-                implicitWidth: playersContainer.implicitWidth
+                // implicitWidth: playersContainer.implicitWidth
+                implicitWidth: 150
 
                 color: Qt.rgba(0.1, 0.04, 0.18, 0.7) // The "Glass" Color - Dark with a purple tint and transparency
                 border {
@@ -76,9 +77,13 @@ Loader {
                 MprisState.player?.togglePlaying();
             else if (mouse.button == Qt.RightButton)
                 MprisState.player?.next();
-            else if (mouse.button == Qt.MiddleButton)
-                MprisState.player?.raise();
-            else if (mouse.button == Qt.ForwardButton)
+            else if (mouse.button == Qt.MiddleButton) {
+                if (MprisState.player?.identity === "Music Player Daemon")
+                    Quickshell.execDetached(["hyprctl", "dispatch", "togglespecialworkspace", "nc"]);
+                else {
+                    MprisState.player?.raise();
+                }
+            } else if (mouse.button == Qt.ForwardButton)
                 showPopup = !showPopup;
         }
 

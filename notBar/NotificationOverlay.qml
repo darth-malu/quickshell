@@ -26,9 +26,7 @@ PanelWindow {
         right: true
     }
 
-    margins {
-        right: 2
-    }
+    margins.right: 2
 
     ColumnLayout {
         id: notifs
@@ -55,7 +53,7 @@ PanelWindow {
                 Timer {
                     id: notificationTimeout
                     running: true
-                    interval: (notifBox.n.expireTimeout > 0 ? notifBox.n.expireTimeout : 4) * 1000
+                    interval: (notifBox.n.expireTimeout > 0 && notifBox.n.expireTimeout < 10 ? notifBox.n.expireTimeout : 4) * 1000
                     onTriggered: {
                         NotificationState.notifDismissByNotif(notifBox.n);
                     }
