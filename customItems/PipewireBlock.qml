@@ -37,7 +37,7 @@ BarBlock {
                     const step = 4;
                     let volume = root.outputSink.audio.volume * 100;
                     volume += event.angleDelta.y > 0 ? step : -step;
-                    volume = Math.max(0, Math.min(volume, 100)); // Clamp 0% - 100% even with continued scrolling
+                    volume = Math.max(0, Math.min(volume, 100));
                     Pipewire.defaultAudioSink.audio.volume = volume / 100;
                 }
                 onClicked: mouse => {

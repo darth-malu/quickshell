@@ -100,7 +100,12 @@ PanelWindow {
                 Layout.fillHeight: true
                 // clip: true
                 // boundsBehavior: Flickable.StopAtBounds // Optional: cleaner scrolling feel
-                model: DesktopEntries.applications.values.filter(a => a.name.toLowerCase().includes(search.text))
+                model: {
+                    if (search.text === "")
+                        return DesktopEntries.applications.values;
+                    const searchLower = search.text.toLowerCase();
+                    return DesktopEntries.applications.values.filter(app => app.name.toLowerCase().includes(searchLower));
+                }
                 readonly property color markerColor: Qt.rgba(63 / 255, 167 / 255, 197 / 255, 0.82)
                 highlight: Item {
                     // z: 8
@@ -140,16 +145,8 @@ PanelWindow {
                 delegate: CurrentItem {
                     id: currentItem
                     required property DesktopEntry modelData
+                    command: modelData.command[0]
                     iconUrl: Quickshell.iconPath(modelData?.icon, "image-missing")
-                    function launch_app2unit() {
-                        let command = modelData.command[0];
-                        Quickshell.execDetached(["hyprctl", "dispatch", "--", "exec", "[workspace emptym] app2unit -s a " + command]);
-                        Qt.quit();
-                    }
-                    onClicked: {
-                        // modelData.execute();
-                        launch_app2unit();
-                    }
                     app: Text {
                         id: modelText
                         text: modelData.name

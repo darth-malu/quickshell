@@ -28,7 +28,6 @@ WrapperMouseArea {
     }
 
     BarText {
-        anchors.fill: parent
         symbolText: masaa.time
         font {
             pixelSize: 14

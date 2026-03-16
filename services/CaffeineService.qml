@@ -1,5 +1,4 @@
 pragma Singleton
-
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
@@ -27,9 +26,15 @@ Singleton {
         window: PanelWindow {
             implicitWidth: 0
             implicitHeight: 0
+            anchors.right: true
+            anchors.bottom: true
             color: "transparent"
             mask: Region {}
         }
+    }
+
+    function toggle() {
+        enabled = !enabled;
     }
 
     IpcHandler {
@@ -40,7 +45,7 @@ Singleton {
         }
 
         function toggle(): void {
-            props.enabled = !props.enabled;
+            root.toggle();
         }
 
         function enable(): void {

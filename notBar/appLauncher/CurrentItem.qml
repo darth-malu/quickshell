@@ -1,13 +1,12 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Widgets
+import Quickshell
 
 Rectangle {
     id: root
     width: parent.width
     height: appName.childrenRect.height + 15
-    // height: 50
-    // margin: 10
     color: "transparent"
 
     // default property alias content: appName.data // data is the contents of an instance children list
@@ -21,11 +20,18 @@ Rectangle {
 
     signal clicked
 
+    property string command
+
+    function launch_app2unit() {
+        Quickshell.execDetached(["hyprctl", "dispatch", "--", "exec", `[workspace emptym] app2unit -s a ${command}`]);
+        Qt.quit();
+    }
+
     MouseArea {
         id: mouseArea
         anchors.fill: root
         hoverEnabled: true
-        onClicked: root.clicked()
+        onClicked: root.launch_app2unit()
         acceptedButtons: Qt.LeftButton | PointerDevice.Mouse | PointerDevice.TouchPad
     }
 

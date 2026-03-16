@@ -1,5 +1,4 @@
 import QtQuick
-import Quickshell.Services.Mpris
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
@@ -38,8 +37,7 @@ Loader {
                     y: 35
                 }
             }
-            visible: showPopup
-            // color: '#0D0814'
+            visible: mprisRoot.showPopup
             color: 'transparent'
             implicitWidth: Math.min(600, mprisPopupRectangle.implicitWidth + 10)
             implicitHeight: mprisPopupRectangle.implicitHeight + 20
@@ -47,7 +45,6 @@ Loader {
             WrapperRectangle {
                 id: mprisPopupRectangle
                 radius: 6
-                // color: 'black'
                 anchors.fill: parent
                 implicitWidth: playersContainer.implicitWidth
 
@@ -107,7 +104,6 @@ Loader {
 
             ClippingWrapperRectangle {
                 id: albumArt
-                // TODO Hover To view alburm art in bigger size
                 visible: MprisState.mprisArtVisible
                 radius: height / 2
                 implicitWidth: 24

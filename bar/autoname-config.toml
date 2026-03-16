@@ -52,7 +52,7 @@ client_fullscreen = "*{icon}*"
 "gimp" = ""
 "io.github.ilya_zlobintsev.LACT" = "😀"
 "mpv" = ""
-"^net.lutris.Lutris$" = "󱎓"
+".*Lutris" = "󱎓"
 "org.qbittorrent.qBittorrent" = ""
 "qutebrowser" = "Q"
 "spotify" = ""
@@ -92,7 +92,7 @@ DEFAULT = ""
 "(?i)btop" = "🪛"
 
 [title_in_class."(?i)steam_app_default"]
-"[bB]attle.net" = "😆"
+"[bB]attle.net" = "😆" 
 # regex captures support is supported
 # "emerge: (.+?/.+?)-.*" = "{match1}"
 
@@ -123,7 +123,7 @@ DEFAULT = ""
 "(?i)fcitx" = ".*" # will match all title for fcitx
 "(?i)TestApp" = "" # will match all title for TestApp
 # aProgram = "^$" # will match null title for aProgram
-"[Ss]team" = "^(Friends List.*)?$" # will match Steam friends list plus all popups (empty titles)
+# "[Ss]team" = "^(Friends List.*)?$" # will match Steam friends list plus all popups (empty titles)
 
 [workspaces_name]
 0 = "zero"

@@ -21,8 +21,6 @@ Singleton {
     function updatePlayer() {
         let backup, leader = null;
 
-        // let backup = (lastPlayer?.identity !== "mpv" && lastPlayer.desktopEntry !== "mpv") ? lastPlayer : null; // TODO see if needed
-
         for (let player of Mpris.players.values) {
             const ignored = ["mpv", "whatsapp", "chromium"];
             const isIgnored = ignored.some(app => player.identity.includes(app) || player.desktopEntry.includes(app));
@@ -31,14 +29,14 @@ Singleton {
                 continue;
             else if (player.isPlaying) {
                 backup = player;
-                if (player?.trackArtist && player.trackArtist !== "")
+                if (player?.trackArtist !== "")
                     leader = player;
             }
-            console.log(`The current player is: ${player.identity}`);
+            // console.log(`The current player is: ${player.identity}`);
         }
 
         player = leader != null ? leader : backup;
-        console.log(`The current player is: ${player.identity}`);
+    // console.log(`The current player is: ${player.identity}`);
     }
 
     function handlePlayerChanged(player: MprisPlayer) {

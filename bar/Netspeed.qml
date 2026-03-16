@@ -8,21 +8,17 @@ Loader {
     // active:
     id: loaderBig
     active: NetworkState.netspeedVisible
+    // Layout.topMargin: 2
     visible: active
-    sourceComponent: Rectangle {
+    sourceComponent: BarBlock {
         id: root
-
-        implicitHeight: 20
+        implicitHeight: childrenRect.height
         implicitWidth: childrenRect.width // Wraps rectangle around contents
-        Layout.topMargin: 4
 
         color: 'transparent'
 
         property int refreshInterval: 1000
         property string iface
-
-        property string rxColor: "#0080c0"
-        property string txColor: "#fa7070"
 
         property real rxPrev: 0
         property real txPrev: 0
@@ -88,14 +84,14 @@ Loader {
             spacing: 5
             BarText {
                 textFormat: Text.RichText
-                text: `${root.rxRate.toFixed(2)} ↘`
+                text: `${root.rxRate.toFixed(2)}`
                 font.pixelSize: 13
+                color: "#57C4E5"
             }
             BarText {
                 textFormat: Text.RichText
-                text: `${root.txRate.toFixed(2)} ↗`
+                text: `${root.txRate.toFixed(2)}`
                 font.pixelSize: 13
-                color: 'black'
             }
         }
     }
