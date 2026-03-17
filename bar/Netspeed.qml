@@ -60,6 +60,7 @@ Loader {
                             root.rxRate = ((rx - root.rxPrev) * 8) / 1000000;
                             root.txRate = ((tx - root.txPrev) * 8) / 1000000;
                         }
+
                         root.rxPrev = rx;
                         root.txPrev = tx;
                     }
@@ -89,6 +90,7 @@ Loader {
                 textFormat: Text.RichText
                 text: `${root.txRate.toFixed(2)}`
                 font.pixelSize: 13
+                color: 'pink'
             }
         }
     }
