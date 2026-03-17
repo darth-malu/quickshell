@@ -1,5 +1,5 @@
 import qs.services
-import qs.bar               
+import qs.bar
 import QtQuick
 import Quickshell.Io
 
@@ -45,7 +45,7 @@ Item {
         }
 
         function toggleMprisArt(): void {
-            MprisNotification.sendNotify();
+            MprisState.mprisArtVisible = !MprisState.mprisArtVisible;
         }
 
         function toggleMprisIcon(): void {

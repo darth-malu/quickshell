@@ -131,7 +131,7 @@ Singleton {
             notif.tracked = true;
             root.lastNotif = notif;
 
-            let isDuplicate = root.allNotifs.some(existingNotif => (existingNotif.desktopEntry === notif.summary));
+            let isDuplicate = root.allNotifs.some(existingNotif => (existingNotif.id === notif.id));
 
             if (!isDuplicate) {
                 root.onNewNotif(notif);
