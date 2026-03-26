@@ -47,7 +47,6 @@ Loader {
                 radius: 6
                 anchors.fill: parent
                 // implicitWidth: playersContainer.implicitWidth
-                implicitWidth: 150
 
                 color: Qt.rgba(0.1, 0.04, 0.18, 0.7) // The "Glass" Color - Dark with a purple tint and transparency
                 border {
@@ -113,10 +112,11 @@ Loader {
                 radius: height / 2
                 implicitWidth: 24
                 implicitHeight: 24
+                color: 'transparent' // If no aart...show nothing :SMILE
                 Image {
                     id: albumArtImage
                     anchors.fill: parent
-                    source: MprisState.player?.trackArtUrl ?? ""
+                    source: MprisState.player?.trackArtUrl
                     fillMode: Image.PreserveAspectFit
                     asynchronous: true
                 }
@@ -127,7 +127,7 @@ Loader {
                 renderNative: true
                 text: {
                     let strLength = 50;
-                    var str = MprisState.player?.trackTitle ?? "";
+                    var str = MprisState.player?.trackTitle;
                     return str.length > strLength ? str.slice(0, strLength) + '..' : str;
                 }
                 color: Themes.mprisTextColor

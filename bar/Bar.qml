@@ -65,13 +65,10 @@ ShellRoot {
                     ActiveWindow {}
                 }
 
-                MprisWidget {
+                Mpris {
                     id: centerBlock
-                    // Layout.alignment: Qt.AlignVCenter | QtAlignHCenter
                     anchors.centerIn: parent
                     host: barr
-                    // Layout.fillWidth: true
-                    MprisNotification {}
                 }
 
                 RowLayout {

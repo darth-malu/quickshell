@@ -17,7 +17,7 @@ ColumnLayout {
             hoverEnabled: true
             Layout.fillWidth: true
             implicitHeight: innerRow.implicitHeight
-            implicitWidth: innerRow.implicitWidth
+            implicitWidth: innerRow.width
             onPressed: () => {
                 modelData.raise();
             }

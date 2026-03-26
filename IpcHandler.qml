@@ -51,6 +51,10 @@ Item {
         function toggleMprisIcon(): void {
             MprisState.mprisArtVisible = !MprisState.mprisArtVisible;
         }
+
+        function songArt(): void {
+            MprisState.sendNotify();
+        }
     }
 
     IpcHandler {

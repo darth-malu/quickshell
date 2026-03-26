@@ -18,6 +18,31 @@ Singleton {
 
     property var players: new Set()
 
+    function sendNotify() {
+        let title = root.player.trackTitle || "Unknown Title";
+        let artist = root.player.trackArtist || "Unknown Artist";
+        let album = root.player.trackAlbum || "Unknown Album";
+        let art = root.player.trackArtUrl || "audio-x-generic";
+        let isMpd = root.player.identity === "Music Player Daemon";
+
+        if (isMpd) {
+            Quickshell.execDetached(["bash", "-c", `pos=$(awk '/#/ {print $2}' <(mpc)); notify-send -a ncmpcpp -i "${art}" "$(mpc --format "[[󰎍    %title% \n] [     %audioformat%   $pos\n    %artist%  \n    %album%]] | [%file%]" current)"`]);
+        } else {
+            Quickshell.execDetached(["notify-send", "-a", "mzichi", "-i", art, `󰎍    ${title}`, `    ${artist}\n    ${album}`]);
+        }
+    }
+
+    Connections {
+        target: root.player
+        function onPostTrackChanged() {
+            const ignored = ["mpv", "whatsapp", "chromium", 'Chrome'];
+            const isIgnored = ignored.some(app => root.player.identity.includes(app) || root.player.desktopEntry.includes(app));
+
+            if (!isIgnored && root.player)
+                root.sendNotify();
+        }
+    }
+
     function updatePlayer() {
         let backup, leader = null;
 
