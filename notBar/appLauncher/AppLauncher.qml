@@ -23,6 +23,22 @@ PanelWindow {
         }
     }
 
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        hoverEnabled: true
+        acceptedButtons: Qt.LeftButton | PointerDevice.Mouse | PointerDevice.TouchPad
+        onExited: {
+            if (!containsMouse)
+                Qt.quit();
+        }
+        propagateComposedEvents: true
+        // z: 1
+        // onContainsMouseChanged: {
+        //     if (!containsMouse && !search.hovered)
+        //         Qt.quit();
+        // }
+    }
     WrapperRectangle {
         id: wrap
         color: Qt.rgba(12 / 255, 44 / 255, 44 / 255, 0.9) // "#282a36" //"#1e1e2e"
@@ -31,16 +47,6 @@ PanelWindow {
         border {
             color: Qt.rgba(63 / 255, 167 / 255, 197 / 255, 0.42)
             width: 1
-        }
-        MouseArea {
-            id: mouseArea
-            anchors.fill: parent
-            hoverEnabled: true
-            acceptedButtons: Qt.LeftButton | PointerDevice.Mouse | PointerDevice.TouchPad
-            onContainsMouseChanged: {
-                if (!containsMouse)
-                    Qt.quit();
-            }
         }
 
         Keys.onEscapePressed: Qt.quit()
@@ -56,25 +62,21 @@ PanelWindow {
                 IconImage {
                     Layout.preferredWidth: 15
                     Layout.leftMargin: 10
-                    source: Quickshell.iconPath("system-search-symbolic", "search")
+                    source: Quickshell.iconPath("system-search-symbolic", "🔍")
                     implicitWidth: 18
                     implicitHeight: 18
                 }
 
                 TextField {
                     id: search
-
                     Layout.fillWidth: true
                     Layout.bottomMargin: 2
                     enabled: true
                     hoverEnabled: true
-                    maximumLength: 30
-                    color: search.enabled ? Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1) : 'transparent'
+                    maximumLength: 10
+                    color: search.enabled ? Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1) : 'red'
                     background: Rectangle {
                         color: 'transparent'
-                        implicitHeight: 10
-                        implicitWidth: 200
-                        radius: 4
                     }
                     Keys.onPressed: event => {
                         if (event.key === Qt.Key_Up || (event.key === Qt.Key_K && event.modifiers & Qt.ControlModifier)) {
@@ -106,40 +108,44 @@ PanelWindow {
                     const searchLower = search.text.toLowerCase();
                     return DesktopEntries.applications.values.filter(app => app.name.toLowerCase().includes(searchLower));
                 }
-                readonly property color markerColor: Qt.rgba(63 / 255, 167 / 255, 197 / 255, 0.82)
+
                 highlight: Item {
                     // z: 8
                     ClippingRectangle {
                         id: currentItemBg
                         anchors.fill: parent
                         color: Qt.rgba(72 / 255, 191 / 255, 227 / 255, 0.2)
-                        radius: 2
+                        readonly property color markerColor: Qt.rgba(63 / 255, 167 / 255, 197 / 255, 0.82)
+                        radius: 4
+
                         Rectangle {
                             id: markerLeft
+                            visible: true
                             anchors.left: parent.left
                             anchors.top: parent.top
                             anchors.bottom: parent.bottom
                             width: 2
-                            color: actualList.markerColor
+                            color: currentItemBg.markerColor
                             radius: 5
                         }
 
                         Rectangle {
                             id: markerRight
                             anchors.right: parent.right
+                            visible: true
                             anchors.top: parent.top
                             anchors.bottom: parent.bottom
                             width: 2
                             radius: 5
-                            color: actualList.markerColor
+                            color: currentItemBg.markerColor
                         }
                     }
-                    Behavior on y {
-                        SpringAnimation {
-                            spring: 3
-                            damping: 0.2
-                        }
-                    }
+                    // Behavior on y {
+                    //     SpringAnimation {
+                    //         spring: 3
+                    //         damping: 0.2
+                    //     }
+                    // }
                 }
 
                 delegate: CurrentItem {

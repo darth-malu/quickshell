@@ -11,7 +11,7 @@ BarBlock {
 
     //underline: true
     readonly property int textSize: 8
-    property string textFont: 'quicksand'
+    property string textFont: 'ZedMono Nerd Font'
     readonly property bool textBold: true
     readonly property color volumeColor: "#ccccccff"
     readonly property PwNode outputSink: PipewireState.outputSink
@@ -20,7 +20,7 @@ BarBlock {
     content: RowLayout {
         BarText {
             id: outputSink
-            symbolText: `🔈 ${PipewireState.outputVolume}` /*󰓃*/
+            symbolText: ` ${PipewireState.outputVolume}` /*󰓃*/
             color: root.volumeColor
             renderNative: true
             font {

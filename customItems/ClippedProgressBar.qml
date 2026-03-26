@@ -1,27 +1,26 @@
 import QtQuick
 import QtQuick.Controls
+
 import Qt5Compat.GraphicalEffects
 
 ProgressBar {
     id: root
-    property real valueBarWidth: 27
-    property real valueBarHeight: 14
-    property color highlightColor: "#685496" //Filled part
+    property int valueBarWidth: 23
+    property int valueBarHeight: 12
+    property color highlightColor: "yellow" //"#685496" //Filled part
     property color trackColor: "#F1D3F9" //empty part
     property alias radius: contentItem.radius
     property string text
 
-    default property Item textMask: Item {
-        width: valueBarWidth
-        height: valueBarHeight
-    }
+    default property Item textMask: Item {}
 
     text: Math.round(value * 100) // provide value which is used for text calculations
 
     font {
-        pixelSize: 12
-        family: "Quicksand"
-        weight: text.length > 2 ? Font.Medium : Font.DemiBold
+        pixelSize: 11
+        family: "VictorMono Nerd Font"
+        // weight: text.length > 2 ? Font.Medium : Font.DemiBold
+        weight: Font.Bold
     }
 
     background: Item {
@@ -32,21 +31,22 @@ ProgressBar {
     contentItem: Rectangle {
         id: contentItem
         anchors.fill: parent
-        radius: 9999
+        radius: 2
         color: root.trackColor
         visible: false
 
         Rectangle {
             id: progressFill
-            width: parent.width * root.visualPosition // TODO see hwo visualPosition works
-            height: parent.height
-            radius: 12
+            width: parent.width * root.visualPosition
+            // height: parent.height - 6
+            radius: contentItem.radius
             color: root.highlightColor
             anchors {
                 top: parent.top
                 bottom: parent.bottom
                 left: parent.left
                 right: undefined
+                // margins: 1
             }
         }
     }

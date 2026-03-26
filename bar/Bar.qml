@@ -81,11 +81,9 @@ ShellRoot {
                     ClockWidget {
                         host: barr
                     }
-                    Caffeine {}
                     Battery {}
-                    SystemTray {
-                        Layout.alignment: Qt.AlignVCenter
-                    }
+                    Caffeine {}
+                    SystemTray {}
                 }
             }
         }

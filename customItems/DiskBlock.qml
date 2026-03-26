@@ -25,9 +25,9 @@ BarBlock {
         font {
             pixelSize: 12
             bold: true
-            family: "quicksand"
+            family: "ZedMono Nerd Font"
         }
         baseColor: disk.diskColor
-        symbolText: `🗃️ ${disk.diskUsage}` //
+        symbolText: ` ${disk.diskUsage}` //🗃
     }
 }

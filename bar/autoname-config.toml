@@ -5,6 +5,7 @@ version = "1.2.0"
 # A superscripted counter will be added.
 dedup = true
 # dedup_inactive_fullscreen = false # dedup more
+
 # window delimiter
 # delim = " "
 # max_clients = 30 # you should not need this
@@ -16,6 +17,7 @@ dedup = true
 # workspace = "{id}:{delim}{clients}" # {id}, {delim} and {clients} are supported
 # workspace_empty = "{id}" # {id}, {delim} and {clients} are supported
 workspace = "{id} {delim} {clients}"
+# workspace_empty = "{delim}" # Empty Workspace - NO ID 
 
 # client formatter
 # client = "{icon}"
@@ -24,17 +26,17 @@ client_active = "{icon}"
 
 # deduplicate client formatter
 # client_fullscreen = "[{icon}]"
-client_fullscreen = "*{icon}*"
-# client_dup = "{client}{counter_sup}"
-# client_dup_fullscreen = "[{icon}]{delim}{icon}{counter_unfocused}"
-# client_dup_active = "*{icon}*{delim}{icon}{counter_unfocused}"
+client_fullscreen = "+{icon}"
+client_dup = "{client}{counter_sup}"
+client_dup_fullscreen = "[{icon}]{delim}{icon}{counter_unfocused}"
+client_dup_active = "*{icon}*{delim}{icon}{counter_unfocused}"
 
 [class]
 # Add your icons mapping
 # use double quote the key and the value
 # take class name from 'hyprctl clients'
 # "DEFAULT" = " {class}: {title}"
-"DEFAULT" = ""
+"DEFAULT" = ""
 "(?i)Kitty" = ""
 "(?i)heroic" = ""
 "(?i)steam$" = "󰓓"

@@ -13,16 +13,9 @@ Loader {
     sourceComponent: RowLayout {
         id: resourcesRow
 
-        spacing: 7
-
-        PipewireBlock {
-            onClicked: NetworkState.netspeedVisible = !NetworkState.netspeedVisible
-        }
-
+        PipewireBlock {}
         DiskBlock {}
-
         MemoryBlock {}
-
         CpuBlock {}
     }
 }

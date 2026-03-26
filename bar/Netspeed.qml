@@ -8,6 +8,7 @@ Loader {
     id: loaderBig
     active: NetworkState.netspeedVisible
     visible: active
+
     sourceComponent: BarBlock {
         id: root
         implicitHeight: childrenRect.height
@@ -33,8 +34,9 @@ Loader {
                 onRead: data => {
                     if (data.startsWith("default via")) {
                         let line = data.split(/\s/);
-                        root.iface = line[4];
-                        console.log(root.iface);
+                        let devIndex = line.indexOf("dev");
+                        if (devIndex !== -1)
+                            root.iface = line[devIndex + 1];
                     }
                 }
             }
@@ -47,8 +49,8 @@ Loader {
 
             stdout: SplitParser {
                 onRead: data => {
+                    data = data.trim();
                     if (data.startsWith(root.iface + ":")) {
-                        console.log("This executed");
                         const parts = data.split(/\s+/);
 
                         // current values
@@ -78,19 +80,18 @@ Loader {
             }
         }
 
-        RowLayout {
+        content: RowLayout {
             // spacing: 5
             BarText {
                 textFormat: Text.RichText
-                text: `${root.rxRate.toFixed(2)}`
+                text: root.rxRate === 0 ? "-" : root.rxRate.toFixed(2)
                 font.pixelSize: 13
                 color: "#57C4E5"
             }
             BarText {
                 textFormat: Text.RichText
-                text: `${root.txRate.toFixed(2)}`
+                text: root.txRate === 0 ? "-" : root.txRate.toFixed(2)
                 font.pixelSize: 13
-                color: 'pink'
             }
         }
     }

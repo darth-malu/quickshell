@@ -33,7 +33,7 @@ Singleton {
 
     property bool isFullyCharged: chargeState == UPowerDeviceState.FullyCharged
 
-    property bool isLow: available && (batPercentage <= 20 / 100)
+    property bool isLow: available && (batPercentage <= 18 / 100)
 
     property bool isCritical: available && (batPercentage <= 7 / 100)
 

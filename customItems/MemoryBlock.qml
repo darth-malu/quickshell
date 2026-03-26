@@ -14,9 +14,9 @@ BarBlock {
         font {
             pixelSize: 12
             bold: true
-            family: "quicksand"
+            family: "ZedMono Nerd Font"
         }
         baseColor: memory.memoryColor
-        symbolText: `🧠 ${memory.memoryPercent}` //
+        symbolText: `  ${memory.memoryPercent}`
     }
 }

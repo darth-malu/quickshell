@@ -9,9 +9,13 @@ import qs.themes
 Loader {
     id: mprisLoader
 
-    active: MprisState.player != null && MprisState.mprisVisible
+    active: MprisState.mprisVisible
 
     visible: active
+
+    // onVisibleChanged: {
+    //     MprisState.mprisVisible = !MprisState.mprisVisible;
+    // }
 
     required property var host
 
@@ -47,6 +51,7 @@ Loader {
                 radius: 6
                 anchors.fill: parent
                 // implicitWidth: playersContainer.implicitWidth
+                // implicitWidth: 150
 
                 color: Qt.rgba(0.1, 0.04, 0.18, 0.7) // The "Glass" Color - Dark with a purple tint and transparency
                 border {

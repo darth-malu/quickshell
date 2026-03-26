@@ -15,7 +15,7 @@ Text {
 
     color: dim ? "grey" : baseColor
     text: wrapSymbols(symbolText)
-    renderType: this.renderNative ?? Text.NativeRendering // FIXME: doubles clocwidget
+    renderType: this.renderNative ?? Text.NativeRendering
     textFormat: Text.RichText //PlainText, RichText
     leftPadding: root.paddingg
     rightPadding: root.paddingg
@@ -28,12 +28,12 @@ Text {
 
     Text {
         id: textcopy
-        // padding: root.padding
         visible: true
         text: parent.text
         textFormat: parent.textFormat
         color: parent.color
         font: parent.font
+        // padding: parent.padding
         leftPadding: root.paddingg
         rightPadding: root.paddingg
     }

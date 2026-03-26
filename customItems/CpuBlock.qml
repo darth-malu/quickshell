@@ -21,7 +21,7 @@ RowLayout {
 
         readonly property color cpuTempColor: this.cpuTemp > 80 ? "red" : this.cpuTemp > 60 ? "orange" : 'grey' // #EEFC57
 
-        readonly property string family: "quicksand"
+        readonly property string family: "ZedMono Nerd Font"
 
         // antialiasing: true
 
@@ -40,7 +40,7 @@ RowLayout {
                     family: cpu.family
                 }
                 color: cpu.cpuColor
-                symbolText: `🤖  ${cpu.cpuPercent}` // 
+                symbolText: `  ${cpu.cpuPercent}` // 
             }
             BarText {
                 id: cpuTemp

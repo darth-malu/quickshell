@@ -1,5 +1,4 @@
 import qs.services
-import qs.bar
 import QtQuick
 import Quickshell.Io
 
@@ -18,8 +17,9 @@ Item {
 
         function togglePlaying(): void {
             const player = MprisState.player;
-            if (player && player.canTogglePlaying)
+            if (player && player.canTogglePlaying) {
                 player.togglePlaying();
+            }
         }
 
         function previous(): void {
@@ -86,6 +86,13 @@ Item {
         target: 'bar'
         function toggleBar(): void {
             BarState.enableBar = !BarState.enableBar;
+        }
+    }
+
+    IpcHandler {
+        target: 'activate'
+        function toggle(): void {
+            MiscState.activateLinux = !MiscState.activateLinux;
         }
     }
 }

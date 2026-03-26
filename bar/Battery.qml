@@ -10,19 +10,19 @@ import Quickshell
 
 RowLayout {
     id: batteryBlock
-    spacing: 2
+    spacing: 6
     visible: BatteryState.available
 
     MouseArea {
         id: root
-
-        // visible: BatteryState.available
 
         implicitWidth: batteryProgress.implicitWidth
 
         implicitHeight: batteryProgress.implicitHeight
 
         readonly property bool isCharging: BatteryState.isCharging // stops at 100 even if still plugged
+
+        readonly property int capRadius: 999
 
         readonly property bool isLow: BatteryState.isLow
 
@@ -68,37 +68,49 @@ RowLayout {
 
                 RowLayout {
                     anchors.centerIn: parent
-                    spacing: 2
+                    spacing: 4
 
                     MaterialSymbol {
                         id: boltIcon
-                        Layout.alignment: Qt.AlignVCenter
                         Layout.leftMargin: 1 //can be -ve eg -2
-                        Layout.rightMargin: -2
-                        fill: 1
+                        Layout.rightMargin: -3
+                        // fill: 1
                         text: "⚡"
-                        iconSize: 10
+                        iconSize: 9
                         visible: root.isCharging
                     }
 
                     MaterialSymbol {
                         id: plugIcon
-                        Layout.alignment: Qt.AlignVCenter
                         Layout.leftMargin: 1
                         Layout.rightMargin: -2
-                        fill: 1
+                        // leftPadding: 3
+                        // fill: 1
                         text: "🔌"
-                        iconSize: 13
+                        iconSize: 8
                         visible: root.isPendingCharge
                     }
 
                     StyledText {
-                        Layout.alignment: Qt.AlignVCenter
+                        // Layout.alignment: Qt.AlignCenter
                         font: batteryProgress.font
                         text: root.isFull ? '⚡' : batteryProgress.text
-                        Layout.rightMargin: 2
                     }
                 }
+            }
+        }
+
+        Rectangle {
+            id: cap
+            implicitHeight: 5
+            implicitWidth: 1.5
+            color: batteryProgress.highlightColor
+            topRightRadius: root.capRadius
+            bottomRightRadius: root.capRadius
+            anchors {
+                verticalCenter: parent.verticalCenter
+                left: parent.right
+                leftMargin: 0.5
             }
         }
     }
@@ -106,12 +118,13 @@ RowLayout {
     BarBlock {
         id: perfomanceBlock
         visible: root.togglePerformanceMode
-        content: BarText {
+        hoveredBg: true
+        content: BarText {      // TODO: maybe make a component
+            id: perfs
+            paddingg: 0
             text: {
-                if (root.balancedMode) {
-                    console.log(`mode is: ${root.balancedMode}`);
+                if (root.balancedMode)
                     return '☯';
-                }
                 if (root.performanceMode)
                     return '⚡';
                 if (root.powerSaverMode)

@@ -22,12 +22,14 @@ Rectangle {
 
     property color underlineColor: 'orange'
 
+    property bool hoveredBg: true
+
     signal clicked
 
     property string hoveredBgColor: Qt.rgba(1, 1, 1, 0.15)//"#666666"
 
     color: {
-        if (mouseArea.containsMouse)
+        if (mouseArea.containsMouse && hoveredBg)
             return hoveredBgColor;
         return "transparent";
     }

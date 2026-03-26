@@ -47,7 +47,7 @@ Singleton {
         let backup, leader = null;
 
         for (let player of Mpris.players.values) {
-            const ignored = ["mpv", "whatsapp", "chromium"];
+            const ignored = ["mpv", "whatsapp", "chromium", "firefox"];
             const isIgnored = ignored.some(app => player.identity.includes(app) || player.desktopEntry.includes(app));
 
             if (isIgnored)
@@ -57,11 +57,8 @@ Singleton {
                 if (player?.trackArtist !== "")
                     leader = player;
             }
-            // console.log(`The current player is: ${player.identity}`);
         }
-
         player = leader != null ? leader : backup;
-    // console.log(`The current player is: ${player.identity}`);
     }
 
     function handlePlayerChanged(player: MprisPlayer) {
@@ -94,6 +91,11 @@ Singleton {
 
             function onPlaybackStateChanged() {
                 root.handlePlayerChanged(modelData);
+                if (modelData.isPlaying) {
+                    root.mprisVisible = true;
+                } else {
+                    root.mprisVisible = false;
+                }
             }
         }
     }

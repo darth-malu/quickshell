@@ -32,17 +32,18 @@ Scope {
         interval: 1000
         onTriggered: root.shouldShowOsd = false
     }
-    // PanelWindow.visible could be set instead of using a loader, but using a loader will reduce the memory overhead when the window isn't open.
+
     LazyLoader {
         active: root.shouldShowOsd
+        // PanelWindow.visible could be set instead of using a loader, but using a loader will reduce the memory overhead when the window isn't open.
         PanelWindow {
             // Since the panel's screen is unset, it will be picked by the compositor when the window is created. Most compositors pick the current active monitor.
             anchors.right: true
             margins.right: screen.width / 95
             exclusiveZone: 0
 
-            implicitWidth: 20
-            implicitHeight: 170
+            implicitWidth: 35
+            implicitHeight: 240
             color: "transparent"
 
             // An empty click mask prevents the window from blocking mouse events.
@@ -52,7 +53,7 @@ Scope {
                 id: outerRectangle
                 implicitWidth: parent.width
                 implicitHeight: parent.height
-                radius: width / 2
+                radius: 4
                 color: "#80000000"
                 // clip: true
 
@@ -80,19 +81,12 @@ Scope {
                     id: currentVolumeText
                     visible: true
                     text: Math.floor(root.currentVolume * 100)
-                    // Layout.alignment: Qt.AlignHCenter
-                    color: 'white'
-                    // renderType: Text.NativeRendering
+                    color: 'black'
                     anchors {
                         centerIn: parent
                     }
-                    // style: Text.Outline
-                    // styleColor: "#40000000"
-                    leftPadding: 5
-                    rightPadding: 5
-                    // horizontalAlignment: Text.AlignHCenter
-                    // verticalAlignment: Text.AlignVCenter
-                    // anchors.fill: parent
+                    // leftPadding: 15
+                    // rightPadding: 15
                     font: Themes.quicksand
                 }
             }

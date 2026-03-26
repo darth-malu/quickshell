@@ -12,13 +12,13 @@ Rectangle {
     // default property alias content: appName.data // data is the contents of an instance children list
     default property Item app
 
-    property string iconUrl
+    required property string iconUrl
 
     property bool isCurrentItem: (parent.currentItem == 0)
 
     property Item mouseArea: MouseArea
 
-    signal clicked
+    // signal clicked
 
     property string command
 
@@ -51,12 +51,6 @@ Rectangle {
             id: appName
             Layout.fillHeight: true // Centers text lol
             children: root.app
-            // onChildrenChanged: {
-            //     for (var i = 0; i < children.length; i++) {
-            //         children[i].anchors.verticalCenter = contentContainer.verticalCenter;
-            //         // children[i].x = 10; // Left padding
-            //     }
-            // }
         }
     }
 }

@@ -81,6 +81,12 @@ RowLayout {
             //     }
             // }
 
+            // Behavior on gradient {
+            //     ColorAnimation {
+            //         duration: 100
+            //     }
+            // }
+
             Rectangle {
                 id: inactiveGradientH
                 visible: !isActive && !isOpen
@@ -97,7 +103,7 @@ RowLayout {
                 implicitWidth: parent.width - 1
                 implicitHeight: parent.height - 1
                 radius: parent.radius
-                color: "red"
+                color: "indigo"
                 border.color: parent.isActive || parent.isOpen ? "red" : "white" // Inner border color
                 border.width: 1 // Inner border width
                 x: 1
@@ -290,7 +296,8 @@ RowLayout {
         "󰇥": "yazi",
         "󰈩": "extra-libreoffice_impress",
         "󰓓": "steam",
-        "󰡈": "extra-freetube",
+        // "󰡈": "extra-freetube",
+        "󰡈": "freetube",
         "󰷈": "extra-libreoffice_writer",
         "󰽉": "extra-libreoffice_draw",
         "󱎓": "net.lutris.Lutris",
