@@ -48,6 +48,7 @@ client_dup_active = "*{icon}*{delim}{icon}{counter_unfocused}"
 "discord" = ""
 "zen" = "Z"
 "dolphin" = "󱢴"
+"polychromatic" = "🐭"
 "dota" = "D"
 "emacs" = ""
 "et" = "📃"
@@ -58,6 +59,7 @@ client_dup_active = "*{icon}*{delim}{icon}{counter_unfocused}"
 "org.qbittorrent.qBittorrent" = ""
 "qutebrowser" = "Q"
 "spotify" = ""
+"spotube" = "s"
 "viewnior" = ""
 "wasistlos" = ""
 "wpp" = "🎁"
@@ -92,6 +94,10 @@ DEFAULT = ""
 "(?i)Yazi" = "󰇥"
 "(?i)vim" = ""
 "(?i)btop" = "🪛"
+
+
+[title_in_class."(?i)electron"]
+"WhatsApp Electron .*" = ""
 
 [title_in_class."(?i)steam_app_default"]
 "[bB]attle.net" = "😆" 

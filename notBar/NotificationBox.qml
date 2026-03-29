@@ -157,6 +157,7 @@ WrapperMouseArea {
                     Layout.maximumWidth: 500 // For absurdly long stuff
                     Layout.preferredWidth: implicitWidth
                     elide: Text.ElideRight
+                    // visible: text ? true : false
                     wrapMode: Text.Wrap
                     font.weight: Font.Medium
                     maximumLineCount: rootMouseArea.expanded ? 20 : (rootMouseArea.n.actions.length > 1 ? 1 : 2)
@@ -172,7 +173,7 @@ WrapperMouseArea {
 
                     Repeater {
                         id: actionRepeater
-                        model: rootMouseArea.n.actions.slice(1) // This returns array of all elements in root.n.actions after index [0] to end... TODO see why needed
+                        model: rootMouseArea.n.actions.slice(1) // This returns array of all elements in root.n.actions after index [0] to end
 
                         WrapperMouseArea {
                             id: actionButtonMA
