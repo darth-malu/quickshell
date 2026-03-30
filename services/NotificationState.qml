@@ -23,13 +23,14 @@ Singleton {
 
     function onNewNotif(notif) {
         let isMusic = (notif.appName == 'mzichi' || notif.appName == 'ncmpcpp' || notif.appName == 'spotifY');
+        let isSpotifyAd = notif.summary.startsWith("Listen to music");
 
         allNotifs = [notif, ...allNotifs];
 
         if (notif.lastGeneration) // if notif was carried over from last reload
             return;
 
-        if (isMusic) {
+        if (isMusic && !isSpotifyAd) {
             popupNotifs = [notif];
         } else {
             popupNotifs = [notif, ...popupNotifs];
@@ -131,14 +132,15 @@ Singleton {
             notif.tracked = true;
             root.lastNotif = notif;
 
-            let isDuplicate = root.allNotifs.some(existingNotif => (existingNotif.id === notif.id));
+            // let isDuplicate = root.allNotifs.some(existingNotif => (existingNotif.id === notif.id));
 
-            if (!isDuplicate) {
-                root.onNewNotif(notif);
-            } else {
-                Quickshell.execDetached(["notify-send", "Duplicate Id blocked" + notif.id]);
-            }
+            // if (!isDuplicate) {
+            //     root.onNewNotif(notif);
+            // } else {
+            //     Quickshell.execDetached(["notify-send", "Duplicate Id blocked" + notif.id]);
+            // }
 
+            root.onNewNotif(notif);
             notif.closed.connect(() => {
                 root.notifDismissByNotif(notif);
             });

@@ -25,6 +25,7 @@ Singleton {
         let art = root.player.trackArtUrl || "audio-x-generic";
         let isMpd = root.player.identity === "Music Player Daemon";
 
+        console.log(`Your current player: ${root.player?.identity}`);
         if (isMpd) {
             Quickshell.execDetached(["bash", "-c", `pos=$(awk '/#/ {print $2}' <(mpc)); notify-send -a ncmpcpp -i "${art}" "$(mpc --format "[[󰎍    %title% \n] [     %audioformat%   $pos\n    %artist%  \n    %album%]] | [%file%]" current)"`]);
         } else {
@@ -35,7 +36,8 @@ Singleton {
     Connections {
         target: root.player
         function onPostTrackChanged() {
-            const ignored = ["mpv", "whatsapp", "chromium", 'Chrome'];
+            const ignored = ["mpv", "whatsapp", "chromium", "firefox", "Mozilla zen", "undefined"];
+            console.log(`Your current player: ${root.player?.identity}`);
             const isIgnored = ignored.some(app => root.player.identity.includes(app) || root.player.desktopEntry.includes(app));
 
             if (!isIgnored && root.player)
@@ -47,8 +49,9 @@ Singleton {
         let backup, leader = null;
 
         for (let player of Mpris.players.values) {
-            const ignored = ["mpv", "whatsapp", "chromium", "firefox"];
+            const ignored = ["mpv", "whatsapp", "chromium", "firefox", "Mozilla zen", "undefined"];
             const isIgnored = ignored.some(app => player.identity.includes(app) || player.desktopEntry.includes(app));
+            console.log(`Your current player: ${root.player?.identity}`);
 
             if (isIgnored)
                 continue;

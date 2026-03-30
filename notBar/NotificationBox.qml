@@ -100,10 +100,8 @@ WrapperMouseArea {
                     // anchors.fill: parent
                     IconImage {
                         implicitSize: songArtContainer.height
-                        // source: rootMouseArea.ifMusic ? (MprisState.player?.trackArtUrl) : NotificationState.getImage(rootMouseArea.image)
                         source: NotificationState.getImage(rootMouseArea.image)
                         asynchronous: true
-                        // mipmap: true // see smooth
                     }
                 }
 

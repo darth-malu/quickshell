@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
@@ -12,10 +13,6 @@ Loader {
     active: MprisState.mprisVisible
 
     visible: active
-
-    // onVisibleChanged: {
-    //     MprisState.mprisVisible = !MprisState.mprisVisible;
-    // }
 
     required property var host
 
@@ -115,13 +112,13 @@ Loader {
                 id: albumArt
                 visible: MprisState.mprisArtVisible
                 radius: height / 2
-                implicitWidth: 24
-                implicitHeight: 24
-                color: 'transparent' // If no aart...show nothing :SMILE
+                implicitWidth: mprisLoader.host.height
+                implicitHeight: mprisLoader.host.height
+                color: 'transparent'
                 Image {
                     id: albumArtImage
                     anchors.fill: parent
-                    source: MprisState.player?.trackArtUrl
+                    source: MprisState.player.trackArtUrl
                     fillMode: Image.PreserveAspectFit
                     asynchronous: true
                 }

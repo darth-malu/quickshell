@@ -97,7 +97,7 @@ DEFAULT = ""
 
 
 [title_in_class."(?i)electron"]
-"WhatsApp Electron .*" = ""
+# "WhatsApp Electron .*" = ""
 
 [title_in_class."(?i)steam_app_default"]
 "[bB]attle.net" = "😆" 
@@ -110,8 +110,10 @@ DEFAULT = ""
 # [title_in_initial_class."(?i)kitty"]
 # "(?i)neomutt" = "neomutt"
 
-# [initial_title_in_class."(?i)kitty"]
+[initial_title_in_class."(?i)electron"]
 # "(?i)neomutt" = "neomutt"
+"[fF]ree[tT]ube" = "󰡈"
+"WhatsApp Electron" = ""
 
 # [initial_title_in_initial_class."(?i)kitty"]
 # "(?i)neomutt" = "neomutt"
