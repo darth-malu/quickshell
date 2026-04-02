@@ -24,7 +24,7 @@ Rectangle {
 
     property bool hoveredBg: true
 
-    signal clicked
+    signal clicked(var mouse)
 
     property string hoveredBgColor: Qt.rgba(1, 1, 1, 0.15)//"#666666"
 
@@ -63,8 +63,10 @@ Rectangle {
         id: mouseArea
         anchors.fill: root
         hoverEnabled: true
-        acceptedButtons: Qt.LeftButton | PointerDevice.Mouse | PointerDevice.TouchPad
-        onClicked: root.clicked()
+        // acceptedButtons: Qt.LeftButton | PointerDevice.Mouse | PointerDevice.TouchPad
+        acceptedButtons: Qt.RightButton | Qt.LeftButton | Qt.MiddleButton | Qt.ForwardButton | Qt.BackButton
+        // onClicked: root.clicked()
+        onClicked: mouse => root.clicked(mouse)
         // propagateComposedEvents: true
     }
 

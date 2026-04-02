@@ -296,8 +296,8 @@ RowLayout {
         "󰇥": "yazi",
         "󰈩": "extra-libreoffice_impress",
         "󰓓": "steam",
-        // "󰡈": "extra-freetube",
-        "󰡈": "freetube",
+        "󰡈": "extra-freetube",
+        // "󰡈": "freetube",
         "󰷈": "extra-libreoffice_writer",
         "󰽉": "extra-libreoffice_draw",
         "󱎓": "net.lutris.Lutris",
@@ -306,6 +306,7 @@ RowLayout {
         "Z": "zen",
         "🐭": "polychromatic",
         "": "extra-wozzap2",
+        "O": "org.openrgb.OpenRGB",
         // "": "extra-wozzap2",
         "F": "foot"
         // "": "Zoom",

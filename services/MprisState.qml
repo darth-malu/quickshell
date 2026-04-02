@@ -26,6 +26,10 @@ Singleton {
         let isMpd = root.player.identity === "Music Player Daemon";
 
         console.log(`Your current player: ${root.player?.identity}`);
+
+        if (title.startsWith('Listen to music,'))
+            return;
+
         if (isMpd) {
             Quickshell.execDetached(["bash", "-c", `pos=$(awk '/#/ {print $2}' <(mpc)); notify-send -a ncmpcpp -i "${art}" "$(mpc --format "[[󰎍    %title% \n] [     %audioformat%   $pos\n    %artist%  \n    %album%]] | [%file%]" current)"`]);
         } else {

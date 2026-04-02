@@ -6,9 +6,9 @@ import qs.themes
 
 Text {
     id: root
-    // anchors.verticalCenter: parent.verticalCenter
+    anchors.verticalCenter: parent.verticalCenter
     text: ""
-    font.pointSize: 9
+    font.pointSize: 8
     color: CaffeineService.enabled ? Themes.mprisIndicatorColor : Qt.rgba(1, 1, 1, 0.35)
     property bool caffeineOn: CaffeineService.enabled
     property Item mouseArea: mouseArea

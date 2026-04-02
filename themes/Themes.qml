@@ -115,7 +115,7 @@ Singleton {
     property color buttonDisabledHover: Qt.rgba(surface.r, surface.g, surface.b, surface.a + 0.1)
 
     // Fonts
-    readonly property font quick_medium: Qt.font({
+    readonly property font quicksand_medium: Qt.font({
         family: "Quicksand Medium",
         pixelSize: 13,
         bold: false
@@ -136,8 +136,8 @@ Singleton {
     readonly property color windowTextColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1) //#8390FA
 
     readonly property font windowTextFont: ({
-            family: "Quicksand Medium",
-            pixelSize: 13,
+            family: "Quicksand medium",
+            pixelSize: 12,
             bold: true
         })
 }

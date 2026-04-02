@@ -6,17 +6,17 @@ import qs.services
 import Quickshell.Io
 import Quickshell
 
-WrapperMouseArea {
-    id: masaa
-    property bool showPopup: false
+BarBlock {
+    id: root
     required property var host
+    property bool showPopup: false
     readonly property string date: Time.dateYangu
     readonly property string time: Time.time
-    anchors.verticalCenter: parent.verticalCenter
+    // anchors.verticalCenter: parent.verticalCenter
 
-    hoverEnabled: true
+    // hoverEnabled: true
 
-    acceptedButtons: Qt.RightButton | Qt.LeftButton | Qt.MiddleButton | Qt.ForwardButton | Qt.BackButton
+    // acceptedButtons: Qt.RightButton | Qt.LeftButton | Qt.MiddleButton | Qt.ForwardButton | Qt.BackButton
 
     onClicked: mouse => {
         mouse.accepted = true;
@@ -24,17 +24,19 @@ WrapperMouseArea {
             ResourcesState.resourcesVisible = !ResourcesState.resourcesVisible;
         else if (mouse.button == Qt.RightButton)
             NetworkState.netspeedVisible = !NetworkState.netspeedVisible;
-        else if (mouse.button == Qt.MiddleButton)
-            showPopup = !showPopup;
+    // else if (mouse.button == Qt.MiddleButton)
+    //     showPopup = !showPopup;
     }
 
-    BarText {
-        symbolText: masaa.time
+    content: BarText {
+        symbolText: root.time
         font {
-            pixelSize: 12
+            pixelSize: 13
             // family: 'ZedMono Nerd Font Propo'
             // family: 'Lekton Nerd Font'
-            family: 'DaddyTimeMono Nerd Font'
+            // family: 'DaddyTimeMono Nerd Font'
+            // family: "Mononoki Nerd Font"
+            family: 'quicksand light'
             bold: true
         }
         baseColor: Themes.clockColor

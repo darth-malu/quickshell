@@ -14,6 +14,10 @@ Loader {
 
     visible: active
 
+    // onVisibleChanged: {
+    //     MprisState.mprisVisible = !MprisState.mprisVisible;
+    // }
+
     required property var host
 
     sourceComponent: WrapperMouseArea {
@@ -133,7 +137,7 @@ Loader {
                     return str.length > strLength ? str.slice(0, strLength) + '..' : str;
                 }
                 color: Themes.mprisTextColor
-                font: Themes.quick_medium
+                font: Themes.quicksand_medium
             }
 
             BarText {

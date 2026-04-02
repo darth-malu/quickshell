@@ -23,14 +23,16 @@ Singleton {
 
     function onNewNotif(notif) {
         let isMusic = (notif.appName == 'mzichi' || notif.appName == 'ncmpcpp' || notif.appName == 'spotifY');
-        let isSpotifyAd = notif.summary.startsWith("Listen to music");
+        // let isSpotifyAd = notif.summary.startsWith("󰎍    Listen to music");
 
         allNotifs = [notif, ...allNotifs];
 
         if (notif.lastGeneration) // if notif was carried over from last reload
             return;
 
-        if (isMusic && !isSpotifyAd) {
+        // if (isSpotifyAd) return;
+
+        if (isMusic) {
             popupNotifs = [notif];
         } else {
             popupNotifs = [notif, ...popupNotifs];
