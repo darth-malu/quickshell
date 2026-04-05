@@ -24,8 +24,8 @@ BarBlock {
             ResourcesState.resourcesVisible = !ResourcesState.resourcesVisible;
         else if (mouse.button == Qt.RightButton)
             NetworkState.netspeedVisible = !NetworkState.netspeedVisible;
-    // else if (mouse.button == Qt.MiddleButton)
-    //     showPopup = !showPopup;
+        else if (mouse.button == Qt.MiddleButton)
+            showPopup = !showPopup;
     }
 
     content: BarText {
@@ -46,11 +46,11 @@ BarBlock {
         target: "Time"
 
         function currentTime() {
-            Quickshell.execDetached(["notify-send", "-i", "office-calendar-symbolic", "Today", masaa.date]);
+            Quickshell.execDetached(["notify-send", "-i", "office-calendar-symbolic", "Today", root.date]);
         }
     }
 
     ClockPopup {
-        hostt: masaa
+        hostt: root
     }
 }

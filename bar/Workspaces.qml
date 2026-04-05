@@ -308,7 +308,8 @@ RowLayout {
         "": "extra-wozzap2",
         "O": "org.openrgb.OpenRGB",
         // "": "extra-wozzap2",
-        "F": "foot"
+        "F": "foot",
+        "f": "steam_icon_250900"
         // "": "Zoom",
         // "󰄄": "extra-scale-obs",
         // "󰊻": "teams-for-linux",

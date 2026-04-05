@@ -34,7 +34,7 @@ RowLayout {
                 id: icon
                 anchors.verticalCenter: parent.verticalCenter
                 source: modelData.icon
-                implicitSize: 10
+                implicitSize: 11
                 asynchronous: true
             }
 

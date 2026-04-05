@@ -8,7 +8,7 @@ Text {
     id: root
     anchors.verticalCenter: parent.verticalCenter
     text: ""
-    font.pointSize: 8
+    font.pointSize: 9
     color: CaffeineService.enabled ? Themes.mprisIndicatorColor : Qt.rgba(1, 1, 1, 0.35)
     property bool caffeineOn: CaffeineService.enabled
     property Item mouseArea: mouseArea

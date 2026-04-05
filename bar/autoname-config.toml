@@ -96,6 +96,8 @@ DEFAULT = ""
 "(?i)vim" = ""
 "(?i)btop" = "🪛"
 
+[title_in_class."steam_app_[0-9]+"]
+"Binding of Isaac: .*" = "f"
 
 [title_in_class."(?i)electron"]
 # "WhatsApp Electron .*" = ""

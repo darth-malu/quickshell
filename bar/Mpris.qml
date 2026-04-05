@@ -36,7 +36,7 @@ Loader {
         PopupWindow {
             id: popup
             anchor {
-                window: host
+                window: mprisLoader.host
                 rect {
                     x: host.width / 2 - width / 2
                     y: 35
@@ -144,7 +144,7 @@ Loader {
                 id: volumePlayer
                 visible: mprisRoot.showVolume
                 text: Math.round(MprisState.player?.volume * 100) ?? ""
-                font: Themes.lato
+                font: title.font
                 color: Themes.mprisVolumeColor
             }
         }

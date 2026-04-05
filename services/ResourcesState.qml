@@ -32,6 +32,10 @@ Singleton {
         path: "file:///proc/stat"
     }
 
+    FileView {
+        id: gpuBusyPercent
+        path: "file:///sys/class/drm/card1/device/gpu_busy_percent"
+    }
     // FileView {
     //     id: cpuTempFile
     //     path: "file:///proc/stat"

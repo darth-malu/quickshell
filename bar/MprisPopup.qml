@@ -3,6 +3,7 @@ import QtQuick
 import qs.customItems
 import qs.themes
 import Quickshell.Services.Mpris
+import Quickshell
 
 ColumnLayout {
     id: playersContainer
@@ -19,7 +20,14 @@ ColumnLayout {
             implicitHeight: innerRow.implicitHeight
             implicitWidth: innerRow.width
             onPressed: () => {
-                modelData.raise();
+                let isMpd = modelData.identity === "Music Player Daemon";
+
+                if (isMpd) {
+                    Quickshell.execDetached(["hyprctl", "dispatch", "togglespecialworkspace", "nc"]);
+                } else {
+                    modelData.raise();
+                    // Qt.quit(); // Close only popup
+                }
             }
             RowLayout {
                 id: innerRow
@@ -47,8 +55,8 @@ ColumnLayout {
                     renderNative: true
                     text: modelData.trackTitle || "❌"
                     color: Themes.mprisTextColor
-                    font: Themes.quick_medium
-                    elide: Text.elideRight
+                    font: Themes.quicksand_medium
+                    elide: Text.ElideRight
                 }
             }
         }
