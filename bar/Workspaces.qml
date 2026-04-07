@@ -274,7 +274,8 @@ RowLayout {
         "": "extra-firefox_flat",
         "": "gvim",
         "": "extra-pdf-svg",
-        "": "extra-ironman",
+        // "": "extra-ironman",
+        "": "com.heroicgameslauncher.hgl",
         "": "com.usebottles.bottles",
         "": "spotify-client",
         "s": "spotube",
@@ -309,6 +310,7 @@ RowLayout {
         "O": "org.openrgb.OpenRGB",
         // "": "extra-wozzap2",
         "F": "foot",
+        "💬": "cinny",
         "f": "steam_icon_250900"
         // "": "Zoom",
         // "󰄄": "extra-scale-obs",
