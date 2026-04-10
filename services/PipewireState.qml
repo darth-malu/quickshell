@@ -9,6 +9,8 @@ Singleton {
     readonly property bool pipewireReady: Pipewire.ready
     readonly property PwNode outputSink: Pipewire.defaultAudioSink
     readonly property PwNode inputSink: Pipewire.defaultAudioSource
+    // readonly property PwNode crusherDefault:
+    // Pipewire.preferred
 
     readonly property var outputVolume: Pipewire.ready ? outputSink.audio.muted ? "❌" : `${Math.floor(outputSink.audio.volume * 100)}` : ""
 

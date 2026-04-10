@@ -3,12 +3,14 @@ import QtQuick
 import Quickshell.Wayland
 import qs.services
 import qs.themes
+import qs.customItems
 
-Text {
+BarText {
     id: root
     anchors.verticalCenter: parent.verticalCenter
     text: ""
-    font.pointSize: 9
+    // pointSize: 10
+    // symbolSize: 5
     color: CaffeineService.enabled ? Themes.mprisIndicatorColor : Qt.rgba(1, 1, 1, 0.35)
     property bool caffeineOn: CaffeineService.enabled
     property Item mouseArea: mouseArea

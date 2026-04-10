@@ -18,6 +18,8 @@ Singleton {
 
     property var players: new Set()
 
+    property list<string> ignored: ["mpv", "whatsapp", "Chrome", "chromium", "firefox", "Mozilla zen", "undefined"]
+
     function sendNotify() {
         let title = root.player.trackTitle || "Unknown Title";
         let artist = root.player.trackArtist || "Unknown Artist";
@@ -40,9 +42,8 @@ Singleton {
     Connections {
         target: root.player
         function onPostTrackChanged() {
-            const ignored = ["mpv", "whatsapp", "chromium", "firefox", "Mozilla zen", "undefined"];
             console.log(`Your current player: ${root.player?.identity}`);
-            const isIgnored = ignored.some(app => root.player.identity.includes(app) || root.player.desktopEntry.includes(app));
+            const isIgnored = root.ignored.some(app => root.player.identity.includes(app) || root.player.desktopEntry.includes(app));
 
             if (!isIgnored && root.player)
                 root.sendNotify();
@@ -53,8 +54,7 @@ Singleton {
         let backup, leader = null;
 
         for (let player of Mpris.players.values) {
-            const ignored = ["mpv", "whatsapp", "chromium", "firefox", "Mozilla zen", "undefined"];
-            const isIgnored = ignored.some(app => player.identity.includes(app) || player.desktopEntry.includes(app));
+            const isIgnored = root.ignored.some(app => player.identity.includes(app) || player.desktopEntry.includes(app));
             console.log(`Your current player: ${root.player?.identity}`);
 
             if (isIgnored)

@@ -12,6 +12,7 @@ BarBlock {
     property bool showPopup: false
     readonly property string date: Time.dateYangu
     readonly property string time: Time.time
+    hoveredBg: false
     // anchors.verticalCenter: parent.verticalCenter
 
     // hoverEnabled: true
@@ -30,6 +31,7 @@ BarBlock {
 
     content: BarText {
         symbolText: root.time
+        rightPadding: 0
         font {
             pixelSize: 13
             // family: 'ZedMono Nerd Font Propo'

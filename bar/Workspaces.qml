@@ -311,7 +311,10 @@ RowLayout {
         // "": "extra-wozzap2",
         "F": "foot",
         "💬": "cinny",
-        "f": "steam_icon_250900"
+        "🔈": "com.saivert.pwvucontrol",
+        "f": "steam_icon_250900",
+        "p": "steam_icon_1687950",
+        "h": "steam_icon_1145360"
         // "": "Zoom",
         // "󰄄": "extra-scale-obs",
         // "󰊻": "teams-for-linux",

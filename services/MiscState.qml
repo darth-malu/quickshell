@@ -3,5 +3,7 @@ import Quickshell
 
 Singleton {
     id: root
+
     property bool activateLinux: false
+    property bool toggleSysTray: false
 }

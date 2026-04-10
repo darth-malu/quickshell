@@ -2,6 +2,7 @@ import QtQuick.Layouts
 import qs.services
 import qs.customItems
 import QtQuick
+import qs.themes
 
 RowLayout {
     spacing: 0
@@ -51,6 +52,7 @@ RowLayout {
                 font {
                     pixelSize: 12
                     bold: true
+                    family: cpu.family
                 }
             }
         }

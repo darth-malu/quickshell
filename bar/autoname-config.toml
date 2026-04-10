@@ -48,6 +48,7 @@ client_dup_active = "*{icon}*{delim}{icon}{counter_unfocused}"
 "discord" = ""
 "zen" = "Z"
 "dolphin" = "󱢴"
+"com.saivert.pwvucontrol" = "🔈"
 "polychromatic" = "🐭"
 "dota" = "D"
 "emacs" = ""
@@ -99,6 +100,8 @@ DEFAULT = ""
 
 [title_in_class."steam_app_[0-9]+"]
 "Binding of Isaac: .*" = "f"
+"Persona" = "p"
+"Hades" = "h"
 
 [title_in_class."(?i)electron"]
 # "WhatsApp Electron .*" = ""

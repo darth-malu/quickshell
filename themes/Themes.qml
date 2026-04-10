@@ -135,6 +135,8 @@ Singleton {
 
     readonly property color windowTextColor: Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1) //#8390FA
 
+    readonly property color glassColor: Qt.rgba(1, 1, 1, 0.35)
+
     readonly property font windowTextFont: ({
             family: "Quicksand medium",
             pixelSize: 12,

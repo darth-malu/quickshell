@@ -95,4 +95,11 @@ Item {
             MiscState.activateLinux = !MiscState.activateLinux;
         }
     }
+
+    IpcHandler {
+        target: 'SysTray'
+        function toggle(): void {
+            MiscState.toggleSysTray = !MiscState.toggleSysTray;
+        }
+    }
 }

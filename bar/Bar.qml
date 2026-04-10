@@ -31,7 +31,7 @@ ShellRoot {
             color: Themes.barBg
             implicitHeight: 22//20
             margins {
-                right: 6
+                right: 10
                 left: 6
             }
 
@@ -81,8 +81,8 @@ ShellRoot {
                     ClockWidget {
                         host: barr
                     }
+                    Git {}
                     Battery {}
-                    Caffeine {}
                     SystemTray {}
                 }
             }

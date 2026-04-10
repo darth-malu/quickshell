@@ -82,13 +82,13 @@ Loader {
                 MprisState.player?.togglePlaying();
             else if (mouse.button == Qt.RightButton)
                 MprisState.player?.next();
-            else if (mouse.button == Qt.MiddleButton) {
+            else if (mouse.button == Qt.ForwardButton) {
                 if (MprisState.player?.identity === "Music Player Daemon")
                     Quickshell.execDetached(["hyprctl", "dispatch", "togglespecialworkspace", "nc"]);
                 else {
                     MprisState.player?.raise();
                 }
-            } else if (mouse.button == Qt.ForwardButton)
+            } else if (mouse.button == Qt.MiddleButton)
                 showPopup = !showPopup;
         }
 
