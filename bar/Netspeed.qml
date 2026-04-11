@@ -85,14 +85,15 @@ Loader {
             BarText {
                 textFormat: Text.RichText
                 text: root.rxRate === 0 ? "-" : root.rxRate.toFixed(2)
-                // font.pixelSize: 13
+                // font.pixelSize: 11
                 // font.family: 'ZedMono Nerd Font'
                 color: "#57C4E5"
             }
             BarText {
                 textFormat: Text.RichText
                 text: root.txRate === 0 ? "-" : root.txRate.toFixed(2)
-                // font.pixelSize: 13
+                // font.pixelSize: 11
+                // font.family: 'ZedMono Nerd Font'
             }
         }
     }

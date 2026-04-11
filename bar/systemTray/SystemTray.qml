@@ -12,22 +12,23 @@ import qs.services
 RowLayout {
     id: root
 
-    property bool toggleSysTray: MiscState.toggleSysTray
-
     anchors.verticalCenter: parent.verticalCenter
 
     Loader {
         visible: active
+        asynchronous: true
         active: MiscState.toggleSysTray
-        // active: true
 
         Layout.fillHeight: true // ENSURE THE LOADER TAKES UP SPACE- enable clicking inside it 😀
-        Layout.alignment: Qt.AlignVCenter // Ensure Loader is centered
-        Layout.topMargin: 3
+        Layout.topMargin: 4
         Layout.bottomMargin: 3
 
-        // TODO: implement WrapperBarBlock
-        sourceComponent: BarBlock {
+        sourceComponent: sysBlock
+    }
+
+    Component {
+        id: sysBlock
+        BarBlock {
             implicitWidth: tray.implicitWidth
             implicitHeight: tray.implicitHeight
 
@@ -36,6 +37,8 @@ RowLayout {
             RowLayout {
                 id: tray
                 anchors.fill: parent
+                anchors.leftMargin: 2
+                anchors.rightMargin: 2
 
                 Repeater {
                     model: SystemTray.items
@@ -108,7 +111,7 @@ RowLayout {
     }
 
     Caffeine {
-        visible: root.toggleSysTray
+        visible: MiscState.toggleSysTray
         pointSize: icon.implicitSize
     }
 
@@ -121,13 +124,13 @@ RowLayout {
             paddingg: 0
             pointSize: 12
             // Logic to Toggle to in or out
-            text: if (root.toggleSysTray)
+            text: if (MiscState.toggleSysTray)
                 ''
             else
                 ''
-            color: !root.toggleSysTray ? Themes.mprisIndicatorColor : Qt.rgba(1, 1, 1, 0.35)
+            color: !MiscState.toggleSysTray ? Themes.mprisIndicatorColor : Qt.rgba(1, 1, 1, 0.35)
         }
         hoveredBg: false
-        onClicked: root.toggleSysTray = !root.toggleSysTray
+        onClicked: MiscState.toggleSysTray = !MiscState.toggleSysTray
     }
 }

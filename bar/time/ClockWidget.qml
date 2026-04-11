@@ -10,8 +10,9 @@ BarBlock {
     id: root
     required property var host
     property bool showPopup: false
-    readonly property string date: Time.dateYangu
+    readonly property string date: Time.date
     readonly property string time: Time.time
+    readonly property string dateTime: Time.dateTime
     hoveredBg: false
     // anchors.verticalCenter: parent.verticalCenter
 
@@ -48,8 +49,12 @@ BarBlock {
     IpcHandler {
         target: "Time"
 
-        function currentTime() {
+        function currentDate() {
             Quickshell.execDetached(["notify-send", "-i", "office-calendar-symbolic", "Today", root.date]);
+        }
+
+        function currentDateTime() {
+            Quickshell.execDetached(["notify-send", "-i", "office-calendar-symbolic", "Today", root.dateTime]);
         }
     }
 
