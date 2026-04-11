@@ -38,7 +38,8 @@ BarBlock {
             // family: 'Lekton Nerd Font'
             // family: 'DaddyTimeMono Nerd Font'
             // family: "Mononoki Nerd Font"
-            family: 'quicksand light'
+            // family: 'quicksand light'
+            family: 'lato'
             bold: true
         }
         baseColor: Themes.clockColor
