@@ -47,6 +47,7 @@ BarBlock {
             onStreamFinished: {
                 // TODO: push after the commit stream is done and display notif if successful
                 Quickshell.execDetached(["sh", "-c", `for i in ${gitButton.gitLoc.join(" ")}; do git -C $i push; done; notify-send \"Pushing $i \""`]);
+                Quickshell.execDetached(["notify-send", "FAIL"]);
             }  // TODO: STDERR for notif
         }
     }
