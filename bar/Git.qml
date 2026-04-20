@@ -33,17 +33,18 @@ BarBlock {
 
     function commitOrPush(arg) {
         gitButton.gitLoc.forEach(location => {
+            let cleanPath = " " + location.split("/").pop();
             if (gitButton.isDirty) {
                 if (arg === "commit") {
                     let commit = `git -C "${location}" add . && git -C "${location}" commit -m "++AutoCommit++"`;
-                    Quickshell.execDetached(["sh", "-c", `${commit}  && notify-send "AutoCommited ${location}"`]);
+                    Quickshell.execDetached(["sh", "-c", `${commit}  && notify-send "AutoCommited ${cleanPath}"`]);
                 } else if (arg === "push") {
                     let push = `git -C "${location}" push`;
-                    Quickshell.execDetached(["sh", "-c", `${push}  && notify-send "Pushed: ${location}"`]);
+                    Quickshell.execDetached(["sh", "-c", `${push}  && notify-send "Pushed: ${cleanPath}"`]);
                 } else
                     return;
             } else
-                Quickshell.execDetached(["notify-send", `${location} !dirty...skipping`]);
+                Quickshell.execDetached(["notify-send", `${cleanPath} !dirty...skipping`]);
         });
     }
 
