@@ -37,14 +37,15 @@ BarBlock {
             if (gitButton.isDirty) {
                 if (arg === "commit") {
                     let commit = `git -C "${location}" add . && git -C "${location}" commit -m "++AutoCommit++"`;
-                    Quickshell.execDetached(["sh", "-c", `${commit}  && notify-send "AutoCommited ${cleanPath}"`]);
+                    Quickshell.execDetached(["sh", "-c", `${commit}  && notify-send "++ ${cleanPath}"`]);
+                }
+            } else {
+                if (arg === "push") {
+                    let push = `git -C "${location}" push`;
+                    Quickshell.execDetached(["sh", "-c", `${push}  && notify-send "Pushed: ${cleanPath}"`]);
                 }
             }
 
-            if (arg === "push") {
-                let push = `git -C "${location}" push`;
-                Quickshell.execDetached(["sh", "-c", `${push}  && notify-send "Pushed: ${cleanPath}"`]);
-            }
         // Quickshell.execDetached(["notify-send", `${cleanPath} !dirty...skipping`]);
         });
     }
