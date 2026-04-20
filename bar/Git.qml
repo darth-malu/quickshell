@@ -53,12 +53,17 @@ BarBlock {
                 Quickshell.execDetached(["sh", "-c", push]);
             }
         });
+        cooldownTimer.start();
+    }
 
-        // gitButton.isRunning = false;
-        Timer.singleShot(1000, () => {
+    Timer {
+        id: cooldownTimer
+        interval: 1000
+        repeat: false // Crucial: ensures it only runs once per trigger
+        onTriggered: {
             gitButton.isRunning = false;
             gitStatusProcess.running = true;
-        });
+        }
     }
 
     Process {
