@@ -58,6 +58,13 @@ BarBlock {
     // MAKE FUNCTION INSTEAD OF PROCESS...TRIGGER with gitStatus PROCESS...
     function pusherMan() {
         // TODO: ingest list of directories to commit & push
+
+        // forEach gitLocations...do: {git commit, git push}
+
+        gitButton.gitLoc.forEach(location => {
+            Quickshell.execDetached(["notify-send", `Found: ${location}`]);
+        });
+
         Quickshell.execDetached(["notify-send", "Pusher Man works"]);
     }
 
