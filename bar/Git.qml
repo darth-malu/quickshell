@@ -55,6 +55,12 @@ BarBlock {
         }
     }
 
+    // MAKE FUNCTION INSTEAD OF PROCESS...TRIGGER with gitStatus PROCESS...
+    function pusherMan() {
+        // TODO: ingest list of directories to commit & push
+        Quickshell.execDetached(["notify-send", "Pusher Man works"]);
+    }
+
     Timer {
         id: commitTimer
         interval: 500
@@ -63,6 +69,7 @@ BarBlock {
 
         onTriggered: {
             gitCommit.running = true;
+            gitButton.pusherMan();
         }
     }
 
