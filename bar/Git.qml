@@ -1,16 +1,7 @@
 import QtQuick
 import QtQml
 import Quickshell.Io
-// import Quickshell.Io
 import qs.customItems
-
-// import Quickshell
-
-/* Requirements
-+ Different Colors depending on if the work tree is clean or dirty
-+ Easy Click to update my dots.
-+
-*/
 
 BarBlock {
     id: gitButton
@@ -27,22 +18,24 @@ BarBlock {
 
     property bool isDirty: false
 
-    // Component.onCompleted: {
-    //     Quickshell.execDetached(["notify-send", `This works...your list is..: ${gitLoc.join(" ")}`]);
-    // }
-
     content: BarText {
         text: ""
         pointSize: 14
-        color: gitButton.isDirty ? 'pink' : 'black'
+        color: gitButton.isDirty ? 'pink' : 'grey'
     }
 
     Process {
         id: gitStatus
-        command: ["sh", "-c", `for i in ${gitButton.gitLoc.join(" ")}; do git -C "$i" status --porcelain; done; echo "CHECK_COMPLETE"`]
+        command: ["sh", "-c", `
+        for i in ${gitButton.gitLoc.join(" ")}; do
+            res=$(git -C "$i" status --porcelain)
+            if [ -z "$res" ]; then echo "REPO_CLEAN"; else echo "$res"; fi
+        done
+        echo "CHECK_COMPLETE"
+        `]
+
         running: false
 
-        // Temporary state for the current run
         property bool foundDirty: false
 
         stdout: SplitParser {
