@@ -54,7 +54,7 @@ BarBlock {
 
         // gitButton.isRunning = false;
         Timer.singleShot(1000, () => {
-            isRunning = false;
+            gitButton.isRunning = false;
             gitStatusProcess.running = true;
         });
     }
