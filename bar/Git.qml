@@ -14,11 +14,11 @@ import Quickshell
 BarBlock {
     id: gitButton
 
-    property list<string> preConf: ["doom", "quickshell"]
+    property var preConf: ["doom", "quickshell"]
 
-    property list<string> prePath: ["Shibuya", "Development", "Documents/IMPORTANT/Org"]
+    property var prePath: ["Shibuya", "Development", "Documents/IMPORTANT/Org"]
 
-    property list<string> gitLoc: {
+    property var gitLoc: {
         let conf = preConf.map(conf => `/home/malu/.config/${conf}`);
         let path = prePath.map(path => `/home/malu/${path}`);
         return [...conf, ...path];
@@ -36,13 +36,11 @@ BarBlock {
         color: gitButton.isDirty ? 'pink' : 'black'
     }
 
-    // if work tree is clean ... transparent...otherwise hot pink
-
     Process {
         id: gitStatus
         // command: ["sh", "-c", `for i in ${gitButton.gitLoc}git -C $HOME/Shibuya status --porcelain`]
-        command: ["sh", "-c", `for i in ${gitButton.gitLoc.join(" ")};do
-              git -C $i status -s --porcelain
+        command: ["sh", "-c", `for i in ${gitButton.gitLoc.join(" ")}; do
+              git -C "$i" status -s --porcelain
             done`]
         running: false
 
