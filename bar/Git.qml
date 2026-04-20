@@ -36,16 +36,19 @@ BarBlock {
 
         running: false
 
-        property bool foundDirty: false
+        property bool foundDirtyInCurrentRun: false
 
         stdout: SplitParser {
             onRead: data => {
                 let output = data.trim();
                 if (output === "CHECK_COMPLETE") {
-                    gitButton.isDirty = gitStatus.foundDirty;
-                    gitStatus.foundDirty = false;
-                } else
-                    gitStatus.foundDirty = true;
+                    // End of the whole check: update the button and reset
+                    gitButton.isDirty = gitStatus.foundDirtyInCurrentRun;
+                    gitStatus.foundDirtyInCurrentRun = false;
+                } else if (output !== "REPO_CLEAN" && output.length > 0) {
+                    // If it's not our clean marker and not empty, it's a real git change
+                    gitStatus.foundDirtyInCurrentRun = true;
+                }
             }
         }
     }
