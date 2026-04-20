@@ -5,22 +5,12 @@ import Quickshell
 import qs.customItems
 import qs.themes
 
-/* Requirements
-+ Different Colors depending on if the work tree is clean or dirty
-+ Easy Click to update my dots.
-+
-*/
-
 BarBlock {
     id: gitButton
 
-    property var preConf: ["doom", "quickshell"]
-
-    property var prePath: ["Shibuya", "Documents/IMPORTANT/Org"]
-
     property var gitLoc: {
-        let conf = preConf.map(conf => `/home/malu/.config/${conf}`);
-        let path = prePath.map(path => `/home/malu/${path}`);
+        let conf = ["doom", "quickshell"].map(conf => `/home/malu/.config/${conf}`);
+        let path = ["Shibuya", "Documents/IMPORTANT/Org"].map(path => `/home/malu/${path}`);
         return [...conf, ...path];
     }
 
@@ -28,10 +18,7 @@ BarBlock {
 
     property bool isCommited: false
 
-    onClicked: {
-        Quickshell.execDetached(["notify-send", "Click works"]);
-        commitTimer.start();
-    }
+    onClicked: pusherMan()
 
     content: BarText {
         text: ""               // 
@@ -39,61 +26,26 @@ BarBlock {
         color: gitButton.isDirty ? Themes.clockColor : 'grey'
     }
 
-    Process {
-        id: gitCommit
-        command: ["sh", "-c", `for i in ${gitButton.gitLoc.join(" ")}; do git -C $i commit -a -m '++AutoCommit++'; done`]
-        // TODO: make it check gitStatus process is triggered first
-        // TODO: Make a push after the commet
-        // TODO: right click to push, left click to commit
-        running: false
-        stdout: StdioCollector {
-            onStreamFinished: {
-                // TODO: push after the commit stream is done and display notif if successful
-                Quickshell.execDetached(["sh", "-c", `for i in ${gitButton.gitLoc.join(" ")}; do git -C $i push; done; notify-send \"Pushing $i \""`]);
-                Quickshell.execDetached(["notify-send", "FAIL"]);
-            }  // TODO: STDERR for notif
-        }
-    }
-
-    // MAKE FUNCTION INSTEAD OF PROCESS...TRIGGER with gitStatus PROCESS...
     function pusherMan() {
-        // TODO: ingest list of directories to commit & push
-
-        // forEach gitLocations...do: {git commit, git push}
-
         gitButton.gitLoc.forEach(location => {
-            // TODO: make this one command with $? control flow
-            Quickshell.execDetached(["notify-send", `Auto-Commiting: ${location}`]);
-            Quickshell.execDetached(["git", "commit", "-C", `${location}`, "commit", "-a", "-m", "++AutoCommit++"]);
-        // Quickshell.execDetached(["git", "push", "-C", `${location}`, "push"]);
+            let gitCmd = `git -C "${location}" add . && git -C "${location}" commit -m "++AutoCommit++" && git -C "${location}" push`;
+
+            if (gitButton.isDirty) {
+                Quickshell.execDetached(["sh", "-c", `${gitCmd}  && notify-send "AutoCommited ${location}"`]);
+            } else {
+                Quickshell.execDetached(["notify-send", `${location} !dirty...skipping`]);
+            }
         });
-
-        Quickshell.execDetached(["notify-send", "Pusher Man works"]);
-    }
-
-    Timer {
-        id: commitTimer
-        interval: 500
-        repeat: false
-        running: false
-
-        onTriggered: {
-            gitCommit.running = true;
-            gitButton.pusherMan();
-        }
     }
 
     Process {
         id: gitStatus
-        command: ["sh", "-c", `for i in ${gitButton.gitLoc.join(" ")}; do
-              git -C "$i" status -s --porcelain
-            done`]
+        command: ["sh", "-c", gitButton.gitLoc.map(loc => `git -C "${loc}" status -s`).join(" && ")]
         running: false
 
         stdout: SplitParser {
             onRead: data => {
-                let output = data.trim();
-                if (output.length > 0)
+                if (data.trim().length > 0)
                     gitButton.isDirty = true;
             }
         }
@@ -103,6 +55,7 @@ BarBlock {
         interval: 10000
         running: true
         repeat: true
+        triggeredOnStart: true
         onTriggered: {
             gitButton.isDirty = false;
             gitStatus.running = true;
