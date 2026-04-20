@@ -28,7 +28,10 @@ BarBlock {
 
     property bool isCommited: false
 
-    onClicked: commitTimer.start()
+    onClicked: {
+        Quickshell.execDetached(["notify-send", "Click works"]);
+        commitTimer.start();
+    }
 
     content: BarText {
         text: ""               // 
