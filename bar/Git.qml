@@ -62,7 +62,10 @@ BarBlock {
         // forEach gitLocations...do: {git commit, git push}
 
         gitButton.gitLoc.forEach(location => {
-            Quickshell.execDetached(["notify-send", `Found: ${location}`]);
+            // TODO: make this one command with $? control flow
+            Quickshell.execDetached(["notify-send", `Auto-Commiting: ${location}`]);
+            Quickshell.execDetached(["git", "commit", "-C", `${location}`, "commit", "-a", "-m", "++AutoCommit++"]);
+        // Quickshell.execDetached(["git", "push", "-C", `${location}`, "push"]);
         });
 
         Quickshell.execDetached(["notify-send", "Pusher Man works"]);
