@@ -1,7 +1,7 @@
 import QtQuick
 import QtQml
 import Quickshell.Io
-// import Quickshell.Io
+import Quickshell
 import qs.customItems
 import qs.themes
 
@@ -30,6 +30,10 @@ BarBlock {
     //     Quickshell.execDetached(["notify-send", `This works...your list is..: ${gitLoc.join(" ")}`]);
     // }
 
+    onClicked: {
+        Quickshell.execDetached(["notify-send", "Git Status 😀"]);
+    }
+
     content: BarText {
         text: ""
         pointSize: 14
@@ -48,14 +52,12 @@ BarBlock {
                 let output = data.trim();
                 if (output.length > 0)
                     gitButton.isDirty = true;
-                else
-                    gitButton.isDirty = false;
             }
         }
     }
 
     Timer {
-        interval: 5000
+        interval: 15000
         running: true
         repeat: true
         onTriggered: {
