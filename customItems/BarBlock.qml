@@ -63,9 +63,7 @@ Rectangle {
         id: mouseArea
         anchors.fill: root
         hoverEnabled: true
-        // acceptedButtons: Qt.LeftButton | PointerDevice.Mouse | PointerDevice.TouchPad
         acceptedButtons: Qt.RightButton | Qt.LeftButton | Qt.MiddleButton | Qt.ForwardButton | Qt.BackButton
-        // onClicked: root.clicked()
         onClicked: mouse => root.clicked(mouse)
         // propagateComposedEvents: true
     }

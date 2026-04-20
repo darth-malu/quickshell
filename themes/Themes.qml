@@ -121,6 +121,12 @@ Singleton {
         bold: false
     })
 
+    readonly property font zedMono: Qt.font({
+        family: "ZedMono Nerd Font",
+        pixelSize: 12,
+        bold: true
+    })
+
     readonly property font quicksand: Qt.font({
         family: "quicksand",
         pixelSize: 12,
@@ -130,6 +136,12 @@ Singleton {
     readonly property font lato: Qt.font({
         pixelSize: 13,
         family: 'lato',
+        bold: true
+    })
+
+    readonly property font monofur: Qt.font({
+        pixelSize: 15,
+        family: 'Monofur Nerd Font',
         bold: true
     })
 

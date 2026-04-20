@@ -39,7 +39,7 @@ PanelWindow {
         //         Qt.quit();
         // }
     }
-    WrapperRectangle {
+    Rectangle {
         id: wrap
         color: Qt.rgba(12 / 255, 44 / 255, 44 / 255, 0.9) // "#282a36" //"#1e1e2e"
         radius: 6
@@ -48,10 +48,11 @@ PanelWindow {
             color: Qt.rgba(63 / 255, 167 / 255, 197 / 255, 0.42)
             width: 1
         }
+        // TODO async load of apps etc
 
         Keys.onEscapePressed: Qt.quit()
 
-        child: ColumnLayout {
+        ColumnLayout {
             anchors.fill: parent
             anchors.margins: 10
             spacing: 10

@@ -1,7 +1,7 @@
 import qs.themes
+import QtMultimedia
 import QtQuick
 import qs.customItems
-import Quickshell.Widgets
 import qs.services
 import Quickshell.Io
 import Quickshell
@@ -14,35 +14,34 @@ BarBlock {
     readonly property string time: Time.time
     readonly property string dateTime: Time.dateTime
     hoveredBg: false
+    // color: 'red'
+
     // anchors.verticalCenter: parent.verticalCenter
 
     // hoverEnabled: true
-
-    // acceptedButtons: Qt.RightButton | Qt.LeftButton | Qt.MiddleButton | Qt.ForwardButton | Qt.BackButton
+    SoundEffect {
+        id: beep
+        source: Qt.resolvedUrl("game_ready.wav")
+    }
 
     onClicked: mouse => {
-        mouse.accepted = true;
-        if (mouse.button == Qt.LeftButton)
+        // mouse.accepted = true;
+        if (mouse.button === Qt.LeftButton) {
             ResourcesState.resourcesVisible = !ResourcesState.resourcesVisible;
-        else if (mouse.button == Qt.RightButton)
+            beep.play();
+        } else if (mouse.button === Qt.RightButton)
             NetworkState.netspeedVisible = !NetworkState.netspeedVisible;
-        else if (mouse.button == Qt.MiddleButton)
+        else if (mouse.button === Qt.MiddleButton)
             showPopup = !showPopup;
     }
 
     content: BarText {
         symbolText: root.time
-        rightPadding: 0
-        font {
-            pixelSize: 13
-            // family: 'ZedMono Nerd Font Propo'
-            // family: 'Lekton Nerd Font'
-            // family: 'DaddyTimeMono Nerd Font'
-            // family: "Mononoki Nerd Font"
-            // family: 'quicksand light'
-            family: 'lato'
-            bold: true
-        }
+        paddingg: 0
+        // bottomPadding: 2
+        // verticalAlignment: Text.AlignVCenter
+        font: Themes.monofur
+        bottomPadding: 2
         baseColor: Themes.clockColor
     }
 

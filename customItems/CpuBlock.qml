@@ -35,11 +35,7 @@ RowLayout {
             BarText {
                 id: cpuText
                 renderNative: true
-                font {
-                    pixelSize: 12
-                    bold: true
-                    family: cpu.family
-                }
+                font: Themes.zedMono
                 color: cpu.cpuColor
                 symbolText: `  ${cpu.cpuPercent}` // 
             }

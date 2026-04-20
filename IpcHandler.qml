@@ -1,6 +1,7 @@
 import qs.services
 import QtQuick
 import Quickshell.Io
+import Quickshell
 
 Item {
     id: root
@@ -54,6 +55,13 @@ Item {
 
         function songArt(): void {
             MprisState.sendNotify();
+        }
+    }
+
+    IpcHandler {
+        target: 'pipewire'
+        function mute(): void {
+            PipewireState.inputSink.audio.muted = !PipewireState.inputSink.audio.muted; // NOTE works but mute status not bound
         }
     }
 

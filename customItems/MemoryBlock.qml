@@ -1,5 +1,6 @@
 import QtQuick
 import qs.services
+import qs.themes
 
 BarBlock {
     id: memory
@@ -11,11 +12,7 @@ BarBlock {
     content: BarText {
         id: memoryText
         renderNative: true
-        font {
-            pixelSize: 12
-            bold: true
-            family: "ZedMono Nerd Font"
-        }
+        font: Themes.zedMono
         baseColor: memory.memoryColor
         symbolText: `  ${memory.memoryPercent}`
     }

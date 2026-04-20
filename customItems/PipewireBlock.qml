@@ -14,39 +14,35 @@ BarBlock {
     property string textFont: 'ZedMono Nerd Font'
     readonly property bool textBold: true
     readonly property color volumeColor: "#ccccccff"
-    readonly property PwNode outputSink: PipewireState.outputSink
-    readonly property PwNode inputSink: PipewireState.inputSink
 
+    onClicked: mouse => {
+        // When handling this signal, changing the accepted property of the mouse parameter has no effect, unless the propagateComposedEvents property is true.
+        if (mouse.button == Qt.LeftButton)
+            NetworkState.netspeedVisible = !NetworkState.netspeedVisible;
+        else if (mouse.button == Qt.RightButton) {
+            Pipewire.defaultAudioSink.audio.muted = !Pipewire.defaultAudioSink.audio.muted;
+        }
+    }
     content: RowLayout {
         BarText {
             id: outputSink
             symbolText: ` ${PipewireState.outputVolume}` /*󰓃*/
             color: root.volumeColor
             renderNative: true
-            font {
-                pixelSize: 12
-                bold: true
-                family: root.textFont
-            }
+            font: Themes.zedMono
             MouseArea {
                 anchors.fill: parent
                 acceptedButtons: Qt.LeftButton | Qt.RightButton | PointerDevice.Mouse | PointerDevice.TouchPad
                 onWheel: event => {
-                    if (!root.outputSink?.audio)
+                    if (!PipewireState.outputSink?.audio)
                         return;
                     const step = 4;
-                    let volume = root.outputSink.audio.volume * 100;
+                    let volume = PipewireState.outputSink.audio.volume * 100;
                     volume += event.angleDelta.y > 0 ? step : -step;
                     volume = Math.max(0, Math.min(volume, 100));
-                    Pipewire.defaultAudioSink.audio.volume = volume / 100;
-                }
-                onClicked: mouse => {
-                    // mouse.accepted = true;
-                    if (mouse.button == Qt.LeftButton)
-                        NetworkState.netspeedVisible = !NetworkState.netspeedVisible;
-                    else if (mouse.button == Qt.RightButton) {
-                        Pipewire.defaultAudioSink.audio.muted = !Pipewire.defaultAudioSink.audio.muted;
-                    }
+                    // Pipewire.defaultAudioSink.audio.volume = volume / 100;
+                    if (!PipewireState.outputSink.audio.muted)
+                        PipewireState.outputSink.audio.volume = volume / 100;
                 }
             }
         }
@@ -64,10 +60,10 @@ BarBlock {
                 acceptedButtons: Qt.LeftButton | Qt.RightButton | PointerDevice.Mouse | PointerDevice.TouchPad
 
                 onWheel: event => {
-                    if (!root.inputSink?.audio)
+                    if (!PipewireState.inputSink?.audio)
                         return;
                     const step = 4;
-                    let volume = root.inputSink.audio.volume * 100;
+                    let volume = PipewireState.inputSink.audio.volume * 100;
                     volume += event.angleDelta.y > 0 ? step : -step;
                     volume = Math.max(0, Math.min(volume, 100)); // Clamp 0% - 100% even with continued scrolling
                     Pipewire.defaultAudioSource.audio.volume = volume / 100;

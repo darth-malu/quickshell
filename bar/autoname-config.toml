@@ -56,6 +56,7 @@ client_dup_active = "*{icon}*{delim}{icon}{counter_unfocused}"
 "polychromatic" = "🐭"
 "dota" = "D"
 "emacs" = ""
+"org.kde.kasts" = "󰺹"
 "cinny" = "💬"
 "et" = "📃"
 "gimp" = ""
@@ -105,6 +106,9 @@ DEFAULT = "" # "*{icon}*"
 "(?i)Yazi" = "󰇥"
 "(?i)vim" = ""
 "(?i)btop" = "🪛"
+
+[title_in_class."chrome.*"]
+"Mastodon .*" = "M"
 
 [title_in_class."steam_app_[0-9]+"]
 "Binding of Isaac: .*" = "f"
