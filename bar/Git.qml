@@ -18,6 +18,7 @@ BarBlock {
     }
 
     property bool isDirty: false
+
     property bool isRunning: false // New: Track if a command is active
 
     property bool isCommited: false
