@@ -26,9 +26,9 @@ BarBlock {
 
     property bool isDirty: false
 
-    Component.onCompleted: {
-        Quickshell.execDetached(["notify-send", `This works...your list is..: ${gitLoc.join(" ")}`]);
-    }
+    // Component.onCompleted: {
+    //     Quickshell.execDetached(["notify-send", `This works...your list is..: ${gitLoc.join(" ")}`]);
+    // }
 
     content: BarText {
         text: ""
@@ -49,11 +49,8 @@ BarBlock {
                 let output = data.trim();
                 if (output.length > 0) {
                     gitButton.isDirty = true;
-                    console.log("Caught: ", output.slice(0, 3));
                 } else {
                     gitButton.isDirty = false;
-                    console.log("Caught: ", output.slice(0, 3));
-                    console.log("NOTT");
                 }
             }
         }
@@ -63,6 +60,9 @@ BarBlock {
         interval: 5000
         running: true
         repeat: true
-        onTriggered: gitStatus.running = true
+        onTriggered: {
+            gitButton.isDirty = false;
+            gitStatus.running = true;
+        }
     }
 }
