@@ -9,12 +9,14 @@ BarBlock {
     id: gitButton
 
     property var gitLoc: {
-        let conf = ["doom", "quickshell"].map(conf => `/home/malu/.config/${conf}`);
-        let path = ["Shibuya", "Documents/IMPORTANT/Org"].map(path => `/home/malu/${path}`);
+        const home = "/home/malu";
+        const conf = ["doom", "quickshell"].map(conf => `${home}/.config/${conf}`);
+        const path = ["Shibuya", "Documents/IMPORTANT/Org"].map(path => `${home}/${path}`);
         return [...conf, ...path];
     }
 
     property bool isDirty: false
+    property bool isRunning: false // New: Track if a command is active
 
     property bool isCommited: false
 
@@ -28,30 +30,37 @@ BarBlock {
     content: BarText {
         text: ""               // 
         pointSize: 13
-        color: gitButton.isDirty ? Themes.clockColor : 'grey'
+        color: {
+            if (gitButton.isRunning)
+                return 'cyan';
+            return gitButton.isDirty ? Themes.clockColor : 'grey';
+        }
     }
 
     function commitOrPush(arg) {
+        gitButton.isRunning = true;
+
         gitButton.gitLoc.forEach(location => {
+            let checkCmd = `[ -n "$(git -C "${location}" status --porcelain)" ]`;
             let cleanPath = " " + location.split("/").pop();
-            if (gitButton.isDirty) {
-                if (arg === "commit") {
-                    let commit = `git -C "${location}" add . && git -C "${location}" commit -m "++AutoCommit++"`;
-                    Quickshell.execDetached(["sh", "-c", `${commit}  && notify-send "++ ${cleanPath}"`]);
-                } else if (arg === "push") {
-                    Quickshell.execDetached(["sh", "-c", `notify-send "Commit changes in ${cleanPath} to proceed"`]);
-                }
-            } else {
-                if (arg === "push") {
-                    let push = `git -C "${location}" push`;
-                    Quickshell.execDetached(["sh", "-c", `${push}  && notify-send "Pushed: ${cleanPath}"`]);
-                }
+            if (arg === "commit") {
+                let commit = `${checkCmd} && git -C "${location}" add . && git -C "${location}" commit -m "++AutoCommit++" && notify-send "Git" "Commited ${cleanPath}" || true`;
+                Quickshell.execDetached(["sh", "-c", commit]);
+            } else if (arg === "push") {
+                let push = `git -C "${location}" push`;
+                Quickshell.execDetached(["sh", "-c", push]);
             }
+        });
+
+        // gitButton.isRunning = false;
+        Timer.singleShot(1000, () => {
+            isRunning = false;
+            gitStatusProcess.running = true;
         });
     }
 
     Process {
-        id: gitStatus
+        id: gitStatusProcess
         command: ["sh", "-c", gitButton.gitLoc.map(loc => `git -C "${loc}" status -s`).join(" && ")]
         running: false
 
@@ -69,8 +78,10 @@ BarBlock {
         repeat: true
         triggeredOnStart: true
         onTriggered: {
-            gitButton.isDirty = false;
-            gitStatus.running = true;
+            if (!gitButton.isRunning) {
+                gitButton.isDirty = false;
+                gitStatusProcess.running = true;
+            }
         }
     }
 }
