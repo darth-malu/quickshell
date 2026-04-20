@@ -22,7 +22,7 @@ BarBlock {
         if (mouse.button === Qt.LeftButton)
             commitOrPush("commit");
         else if (mouse.button === Qt.RightButton)
-            gitButton.isDirty ? commitOrPush("push") : commitOrPush();
+            commitOrPush("push");
     }
 
     content: BarText {
@@ -38,6 +38,8 @@ BarBlock {
                 if (arg === "commit") {
                     let commit = `git -C "${location}" add . && git -C "${location}" commit -m "++AutoCommit++"`;
                     Quickshell.execDetached(["sh", "-c", `${commit}  && notify-send "++ ${cleanPath}"`]);
+                } else if (arg === "push") {
+                    Quickshell.execDetached(["sh", "-c", `notify-send "Commit changes in ${cleanPath} to proceed"`]);
                 }
             } else {
                 if (arg === "push") {
@@ -45,8 +47,6 @@ BarBlock {
                     Quickshell.execDetached(["sh", "-c", `${push}  && notify-send "Pushed: ${cleanPath}"`]);
                 }
             }
-
-        // Quickshell.execDetached(["notify-send", `${cleanPath} !dirty...skipping`]);
         });
     }
 
