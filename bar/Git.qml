@@ -26,18 +26,40 @@ BarBlock {
 
     property bool isDirty: false
 
-    // Component.onCompleted: {
-    //     Quickshell.execDetached(["notify-send", `This works...your list is..: ${gitLoc.join(" ")}`]);
-    // }
+    property bool isCommited: false
 
-    onClicked: {
-        Quickshell.execDetached(["notify-send", "Git Status 😀"]);
-    }
+    onClicked: commitTimer.start()
 
     content: BarText {
-        text: ""
-        pointSize: 14
+        text: ""               // 
+        pointSize: 13
         color: gitButton.isDirty ? Themes.clockColor : 'grey'
+    }
+
+    Process {
+        id: gitCommit
+        command: ["sh", "-c", `for i in ${gitButton.gitLoc.join(" ")}; do git -C $i commit -a -m '++AutoCommit++'; done`]
+        // TODO: make it check gitStatus process is triggered first
+        // TODO: Make a push after the commet
+        // TODO: right click to push, left click to commit
+        running: false
+        stdout: StdioCollector {
+            onStreamFinished: {
+                // TODO: push after the commit stream is done and display notif if successful
+                Quickshell.execDetached(["sh", "-c", `for i in ${gitButton.gitLoc.join(" ")}; do git -C $i push; done; notify-send \"Pushing $i \""`]);
+            }  // TODO: STDERR for notif
+        }
+    }
+
+    Timer {
+        id: commitTimer
+        interval: 500
+        repeat: false
+        running: false
+
+        onTriggered: {
+            gitCommit.running = true;
+        }
     }
 
     Process {
@@ -57,7 +79,7 @@ BarBlock {
     }
 
     Timer {
-        interval: 15000
+        interval: 10000
         running: true
         repeat: true
         onTriggered: {
