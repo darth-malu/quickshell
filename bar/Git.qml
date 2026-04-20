@@ -3,7 +3,8 @@ import QtQml
 import Quickshell.Io
 // import Quickshell.Io
 import qs.customItems
-import Quickshell
+
+// import Quickshell
 
 /* Requirements
 + Different Colors depending on if the work tree is clean or dirty
@@ -38,20 +39,20 @@ BarBlock {
 
     Process {
         id: gitStatus
-        // command: ["sh", "-c", `for i in ${gitButton.gitLoc}git -C $HOME/Shibuya status --porcelain`]
-        command: ["sh", "-c", `for i in ${gitButton.gitLoc.join(" ")}; do
-              git -C "$i" status -s --porcelain
-            done`]
+        command: ["sh", "-c", `for i in ${gitButton.gitLoc.join(" ")}; do git -C "$i" status --porcelain; done; echo "CHECK_COMPLETE"`]
         running: false
+
+        // Temporary state for the current run
+        property bool foundDirty: false
 
         stdout: SplitParser {
             onRead: data => {
                 let output = data.trim();
-                if (output.length > 0) {
-                    gitButton.isDirty = true;
-                } else {
-                    gitButton.isDirty = false;
-                }
+                if (output === "CHECK_COMPLETE") {
+                    gitButton.isDirty = gitStatus.foundDirty;
+                    gitStatus.foundDirty = false;
+                } else
+                    gitStatus.foundDirty = true;
             }
         }
     }
@@ -61,7 +62,6 @@ BarBlock {
         running: true
         repeat: true
         onTriggered: {
-            gitButton.isDirty = false;
             gitStatus.running = true;
         }
     }
