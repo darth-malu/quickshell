@@ -42,7 +42,7 @@ Singleton {
     Connections {
         target: root.player
         function onPostTrackChanged() {
-            console.log(`Your current player: ${root.player?.identity}`);
+            // console.log(`Your current player: ${root.player?.identity}`);
             const isIgnored = root.ignored.some(app => root.player.identity.includes(app) || root.player.desktopEntry.includes(app));
 
             if (!isIgnored && root.player)
@@ -55,7 +55,7 @@ Singleton {
 
         for (let player of Mpris.players.values) {
             const isIgnored = root.ignored.some(app => player.identity.includes(app) || player.desktopEntry.includes(app));
-            console.log(`Your current player: ${root.player?.identity}`);
+            // console.log(`Your current player: ${root.player?.identity}`);
 
             if (isIgnored)
                 continue;
