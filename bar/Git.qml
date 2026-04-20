@@ -18,7 +18,12 @@ BarBlock {
 
     property bool isCommited: false
 
-    onClicked: pusherMan()
+    onClicked: mouse => {
+        if (mouse.button === Qt.LeftButton)
+            commitOrPush("commit");
+        else if (mouse.button === Qt.RightButton)
+            gitButton.isDirty ? commitOrPush("push") : commitOrPush();
+    }
 
     content: BarText {
         text: ""               // 
@@ -26,15 +31,19 @@ BarBlock {
         color: gitButton.isDirty ? Themes.clockColor : 'grey'
     }
 
-    function pusherMan() {
+    function commitOrPush(arg) {
         gitButton.gitLoc.forEach(location => {
-            let gitCmd = `git -C "${location}" add . && git -C "${location}" commit -m "++AutoCommit++" && git -C "${location}" push`;
-
             if (gitButton.isDirty) {
-                Quickshell.execDetached(["sh", "-c", `${gitCmd}  && notify-send "AutoCommited ${location}"`]);
-            } else {
+                if (arg === "commit") {
+                    let commit = `git -C "${location}" add . && git -C "${location}" commit -m "++AutoCommit++"`;
+                    Quickshell.execDetached(["sh", "-c", `${commit}  && notify-send "AutoCommited ${location}"`]);
+                } else if (arg === "push") {
+                    let push = `git -C "${location}" push`;
+                    Quickshell.execDetached(["sh", "-c", `${push}  && notify-send "Pushed: ${location}"`]);
+                } else
+                    return;
+            } else
                 Quickshell.execDetached(["notify-send", `${location} !dirty...skipping`]);
-            }
         });
     }
 
