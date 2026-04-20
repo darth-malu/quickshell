@@ -8,7 +8,7 @@ BarBlock {
 
     property var preConf: ["doom", "quickshell"]
 
-    property var prePath: ["Shibuya", "Development", "Documents/IMPORTANT/Org"]
+    property var prePath: ["Shibuya", "Documents/IMPORTANT/Org"]
 
     property var gitLoc: {
         let conf = preConf.map(conf => `/home/malu/.config/${conf}`);
