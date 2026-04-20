@@ -3,7 +3,7 @@ import QtQml
 import Quickshell.Io
 // import Quickshell.Io
 import qs.customItems
-import Quickshell
+import qs.themes
 
 /* Requirements
 + Different Colors depending on if the work tree is clean or dirty
@@ -33,12 +33,11 @@ BarBlock {
     content: BarText {
         text: ""
         pointSize: 14
-        color: gitButton.isDirty ? 'pink' : 'black'
+        color: gitButton.isDirty ? Themes.clockColor : 'grey'
     }
 
     Process {
         id: gitStatus
-        // command: ["sh", "-c", `for i in ${gitButton.gitLoc}git -C $HOME/Shibuya status --porcelain`]
         command: ["sh", "-c", `for i in ${gitButton.gitLoc.join(" ")}; do
               git -C "$i" status -s --porcelain
             done`]
