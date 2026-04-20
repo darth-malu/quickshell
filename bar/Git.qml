@@ -8,6 +8,8 @@ import qs.themes
 BarBlock {
     id: gitButton
 
+    // visible: isDirty
+
     property var gitLoc: {
         const home = "/home/malu";
         const conf = ["doom", "quickshell"].map(conf => `${home}/.config/${conf}`);
@@ -49,7 +51,7 @@ BarBlock {
                 let commit = `${checkCmd} && git -C "${location}" add . && git -C "${location}" commit -m "++AutoCommit++" && notify-send "Git" "Commited ${cleanPath}" || true`;
                 Quickshell.execDetached(["sh", "-c", commit]);
             } else if (arg === "push") {
-                let push = `git -C "${location}" push`;
+                let push = `git -C "${location}" push && notify-send "Git" "Pushed ${cleanPath}"`;
                 Quickshell.execDetached(["sh", "-c", push]);
             }
         });
