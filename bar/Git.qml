@@ -21,6 +21,8 @@ BarBlock {
     property bool isCommited: false
 
     onClicked: mouse => {
+        if (isRunning)
+            return; // Ignore clicks while a sync is in progress
         if (mouse.button === Qt.LeftButton)
             commitOrPush("commit");
         else if (mouse.button === Qt.RightButton)
@@ -61,7 +63,7 @@ BarBlock {
 
     Process {
         id: gitStatusProcess
-        command: ["sh", "-c", gitButton.gitLoc.map(loc => `git -C "${loc}" status -s`).join(" && ")]
+        command: ["sh", "-c", gitButton.gitLoc.map(loc => `git -C "${loc}" status --porcelain`).join("; ")]
         running: false
 
         stdout: SplitParser {
