@@ -1,7 +1,15 @@
 import QtQuick
 import QtQml
 import Quickshell.Io
+// import Quickshell.Io
 import qs.customItems
+import Quickshell
+
+/* Requirements
++ Different Colors depending on if the work tree is clean or dirty
++ Easy Click to update my dots.
++
+*/
 
 BarBlock {
     id: gitButton
@@ -18,37 +26,31 @@ BarBlock {
 
     property bool isDirty: false
 
+    // Component.onCompleted: {
+    //     Quickshell.execDetached(["notify-send", `This works...your list is..: ${gitLoc.join(" ")}`]);
+    // }
+
     content: BarText {
         text: ""
         pointSize: 14
-        color: gitButton.isDirty ? 'pink' : 'grey'
+        color: gitButton.isDirty ? 'pink' : 'black'
     }
 
     Process {
         id: gitStatus
-        command: ["sh", "-c", `
-        for i in ${gitButton.gitLoc.join(" ")}; do
-            res=$(git -C "$i" status --porcelain)
-            if [ -z "$res" ]; then echo "REPO_CLEAN"; else echo "$res"; fi
-        done
-        echo "CHECK_COMPLETE"
-        `]
-
+        // command: ["sh", "-c", `for i in ${gitButton.gitLoc}git -C $HOME/Shibuya status --porcelain`]
+        command: ["sh", "-c", `for i in ${gitButton.gitLoc.join(" ")}; do
+              git -C "$i" status -s --porcelain
+            done`]
         running: false
-
-        property bool foundDirtyInCurrentRun: false
 
         stdout: SplitParser {
             onRead: data => {
                 let output = data.trim();
-                if (output === "CHECK_COMPLETE") {
-                    // End of the whole check: update the button and reset
-                    gitButton.isDirty = gitStatus.foundDirtyInCurrentRun;
-                    gitStatus.foundDirtyInCurrentRun = false;
-                } else if (output !== "REPO_CLEAN" && output.length > 0) {
-                    // If it's not our clean marker and not empty, it's a real git change
-                    gitStatus.foundDirtyInCurrentRun = true;
-                }
+                if (output.length > 0)
+                    gitButton.isDirty = true;
+                else
+                    gitButton.isDirty = false;
             }
         }
     }
@@ -58,6 +60,7 @@ BarBlock {
         running: true
         repeat: true
         onTriggered: {
+            gitButton.isDirty = false;
             gitStatus.running = true;
         }
     }
