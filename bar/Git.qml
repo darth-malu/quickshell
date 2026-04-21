@@ -12,9 +12,9 @@ BarBlock {
 
     property var gitLoc: {
         const home = "/home/malu";
-        const conf = ["doom", "quickshell"].map(conf => `${home}/.config/${conf}`);
-        const path = ["Shibuya", "Documents/IMPORTANT/Org"].map(path => `${home}/${path}`);
-        return [...conf, ...path];
+        const configDir = ["doom", "quickshell"].map(conf => `${home}/.config/${conf}`);
+        const homeDir = ["Shibuya", "Development", "Documents/IMPORTANT/Org"].map(path => `${home}/${path}`);
+        return [...configDir, ...homeDir];
     }
 
     property bool isDirty: false
