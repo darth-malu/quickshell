@@ -83,7 +83,7 @@ BarBlock {
     }
 
     Timer {
-        interval: 10000
+        interval: 600000
         running: true
         repeat: true
         triggeredOnStart: true
