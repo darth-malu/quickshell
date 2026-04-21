@@ -62,7 +62,8 @@ BarBlock {
     Timer {
         id: cooldownTimer
         interval: 1000
-        repeat: false // Crucial: ensures it only runs once per trigger
+        repeat: false
+        running: false
         onTriggered: {
             gitButton.isRunning = false;
             gitStatusProcess.running = true;
