@@ -283,7 +283,7 @@ RowLayout {
         "": "google-chrome",
         "": "extra-scale-bluetooth",
         "": "extra-scale-gimp",
-        "": "extra-inkscape-svg",
+        "": "org.inkscape.Inkscape",
         "": "extra-mpv2",
         "": "extra-scale-qbittorrent",
         "": "kitty",
