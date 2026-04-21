@@ -40,7 +40,7 @@ BarBlock {
         color: {
             if (gitButton.isRunning)
                 return 'cyan';
-            return gitButton.isUntracked ? "yellow" : gitButton.isDirty ? "magenta" : 'grey';
+            return gitButton.isUntracked ? "yellow" : gitButton.isDirty ? "fuchsia" : 'grey';
         }
     }
 
@@ -59,6 +59,7 @@ BarBlock {
             if (arg === "commit") {
                 let commit = `${checkCmd} && git -C "${location}" add . && git -C "${location}" commit -m "++AutoCommit++" && notify-send -i "${icon}" "Git" "Commited ${cleanPath}" || true`;
                 Quickshell.execDetached(["sh", "-c", commit]);
+                // TODO add logic
             } else if (arg === "push") {
                 let push = `git -C "${location}" push && notify-send -i "${icon}" "Git" "Pushed: ${cleanPath}" || true`;
                 Quickshell.execDetached(["sh", "-c", push]);
