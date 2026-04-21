@@ -19,6 +19,8 @@ BarBlock {
 
     property bool isDirty: false
 
+    property bool isUntracked: false
+
     property bool isRunning: false // New: Track if a command is active
 
     property bool isCommited: false
@@ -38,7 +40,7 @@ BarBlock {
         color: {
             if (gitButton.isRunning)
                 return 'cyan';
-            return gitButton.isDirty ? Themes.clockColor : 'grey';
+            return gitButton.isUntracked ? "yellow" : gitButton.isDirty ? "magenta" : 'grey';
         }
     }
 
@@ -48,11 +50,17 @@ BarBlock {
         gitButton.gitLoc.forEach(location => {
             let checkCmd = `[ -n "$(git -C "${location}" status --porcelain)" ]`;
             let cleanPath = " " + location.split("/").pop();
+
+            let iconDir = "/home/malu/.config/quickshell/assets";
+            let icon = gitButton.isDirty ? `${iconDir}/gitRed.png` : `${iconDir}/gitBlack.png`;
+
+            let notifyCmd = `notify-send -i "${icon}" "Git" "Processing ${cleanPath}"`;
+
             if (arg === "commit") {
-                let commit = `${checkCmd} && git -C "${location}" add . && git -C "${location}" commit -m "++AutoCommit++" && notify-send "Git" "Commited ${cleanPath}" || true`;
+                let commit = `${checkCmd} && git -C "${location}" add . && git -C "${location}" commit -m "++AutoCommit++" && notify-send -i "${icon}" "Git" "Commited ${cleanPath}" || true`;
                 Quickshell.execDetached(["sh", "-c", commit]);
             } else if (arg === "push") {
-                let push = `git -C "${location}" push && notify-send "Git" "Pushed ${cleanPath}"`;
+                let push = `git -C "${location}" push && notify-send -i "${icon}" "Git" "Pushed: ${cleanPath}" || true`;
                 Quickshell.execDetached(["sh", "-c", push]);
             }
         });
@@ -68,6 +76,7 @@ BarBlock {
             gitButton.isRunning = false;
             gitStatusProcess.running = true;
             gitButton.isDirty = false;
+            gitButton.isUntracked = false;
         }
     }
 
@@ -78,20 +87,27 @@ BarBlock {
 
         stdout: SplitParser {
             onRead: data => {
-                if (data.trim().length > 0)
-                    gitButton.isDirty = true;
+                data = data.trim();
+                // Quickshell.execDetached(["notify-send", data]);
+                if (data.trim().length > 0) {
+                    if (data.startsWith("?"))
+                        gitButton.isUntracked = true;
+                    else
+                        gitButton.isDirty = true;
+                }
             }
         }
     }
 
     Timer {
-        interval: 600000
+        interval: 30000
         running: true
         repeat: true
         triggeredOnStart: true
         onTriggered: {
             if (!gitButton.isRunning) {
                 gitButton.isDirty = false;
+                gitButton.isUntracked = false;
                 gitStatusProcess.running = true;
             }
         }

@@ -29,7 +29,7 @@ Loader {
 
         property bool showVolume: false
 
-        property bool showPlayer: MprisState.player?.isPlaying
+        property bool showPlaying: MprisState.player?.isPlaying
 
         property bool showPopup: false
 
@@ -110,7 +110,7 @@ Loader {
         }
 
         RowLayout {
-            visible: mprisRoot.showPlayer
+            visible: mprisRoot.showPlaying
 
             ClippingWrapperRectangle {
                 id: albumArt
