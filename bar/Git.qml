@@ -66,6 +66,7 @@ BarBlock {
         onTriggered: {
             gitButton.isRunning = false;
             gitStatusProcess.running = true;
+            gitButton.isDirty = false;
         }
     }
 
