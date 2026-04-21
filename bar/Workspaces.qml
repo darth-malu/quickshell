@@ -309,7 +309,6 @@ RowLayout {
         "🐭": "polychromatic",
         "": "extra-wozzap2",
         "O": "org.openrgb.OpenRGB",
-        // "": "extra-wozzap2",
         "F": "foot",
         "M": "chrome-ikigfogfljecogfmdkeiipdcamdbibjl-Default",
         "o": "com.obsproject.Studio",
