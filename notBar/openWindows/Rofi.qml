@@ -15,7 +15,7 @@ PanelWindow {
     focusable: true
     exclusionMode: ExclusionMode.Ignore
 
-    default property Item inputList     // TODO see if ListView type works directly...inherits from flickable
+    default property Item content     // TODO see if ListView type works directly...inherits from flickable
 
     // WlrLayershell.keyboardFocus: WlrLayerShell.OnDemand
     // WlrLayershell.layer: WlrLayer.Overlay
@@ -89,12 +89,18 @@ PanelWindow {
                 }
             }
 
-            // TODO: make item insertion point for the different listViews
             Item {
-                id: agnosticListIngester
-                children: launcher.inputList
+                id: listIngester
+                children: launcher.content
                 implicitWidth: launcher.content.implicitWidth
                 implicitHeight: launcher.content.implicitHeight
+                // This ensures that if the ingested list changes,
+                // it fills the available layout space
+                // onChildrenChanged: {
+                //     if (children[0]) {
+                //         children[0].anchors.fill = agnosticListIngester;
+                //     }
+                // }
             }
         }
     }

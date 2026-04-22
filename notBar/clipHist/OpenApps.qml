@@ -1,3 +1,0 @@
-Rofi {
-    inputList: LauncherListView {}
-}

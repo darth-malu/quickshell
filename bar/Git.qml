@@ -8,8 +8,6 @@ import qs.themes
 BarBlock {
     id: gitButton
 
-    // visible: isDirty
-
     property var gitLoc: {
         const home = "/home/malu";
         const configDir = ["doom", "quickshell"].map(conf => `${home}/.config/${conf}`);

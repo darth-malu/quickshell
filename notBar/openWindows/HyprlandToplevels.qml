@@ -139,7 +139,7 @@ PanelWindow {
                     // }
                 }
 
-                delegate: LauncherEntry {
+                delegate: LauncherDelegate {
                     id: currentItem
                     required property var modelData
                     iconUrl: Quickshell.iconPath(modelData?.wayland.appId, "image-missing")
@@ -147,7 +147,7 @@ PanelWindow {
                     // onClicked: focusTopLevel() //modelData.execute()
                     app: Text {
                         id: modelText
-                        text: modelData.wayland.title
+                        text: modelData.wayland ? modelData.wayland.title : modelData.title
                         color: Qt.rgba(196 / 255, 203 / 255, 212 / 255, 1)
                         font {
                             pointSize: 11

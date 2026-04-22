@@ -18,14 +18,11 @@ ListView {
 
     required property var model
 
-    required property var inputText
+    property var inputText
 
-    model: {
-        if (root.inputText.text === "")
-            return Hyprland.toplevels;
-        const searchLower = root.inputText.text.toLowerCase();
-        return Hyprland.toplevels.values.filter(window => window.wayland.title.toLowerCase().includes(searchLower));
-    }
+    // property alias modelIngest: root.model
+
+    model: Hyprland.topLevels
 
     highlight: Item {
         ClippingRectangle {
@@ -41,7 +38,6 @@ ListView {
                 }
                 width: 2
                 color: root.accentColor
-                radius: 5
             }
             Rectangle {
                 anchors {
@@ -51,19 +47,18 @@ ListView {
                 }
                 width: 2
                 color: root.accentColor
-                radius: 5
             }
         }
     }
 
-    delegate: LauncherEntry {
-        width: root.width
-        readonly property var entry: modelData
+    delegate: LauncherDelegate {
+        // width: root.width
 
+        required property var modelData
         iconUrl: Quickshell.iconPath(modelData?.wayland.appId, "image-missing")
 
         app: Text {
-            text: entry.wayland ? entry.wayland.title : entry.title
+            text: modelData.wayland ? modelData.wayland.title : modelData.title
             color: "#C4CBD4"
             font {
                 pointSize: 11
@@ -73,6 +68,6 @@ ListView {
 
         // onClicked: root.accepted(entry)
         // TODO make this wayland.activate
-        onClicked: entry.wayland.activate()
+        onClicked: modelData.wayland.activate()
     }
 }
