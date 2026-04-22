@@ -39,6 +39,9 @@ Item {
             const player = MprisState.player;
             if (player && player.canRaise)
                 player.raise();
+            else
+                pass;
+        // TODO: forucs based on title of toplevel and qe
         }
 
         function toggleMpris(): void {

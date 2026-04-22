@@ -310,6 +310,7 @@ RowLayout {
         "": "extra-wozzap2",
         "O": "org.openrgb.OpenRGB",
         "F": "foot",
+        "": "com.stremio.Stremio",
         "M": "chrome-ikigfogfljecogfmdkeiipdcamdbibjl-Default",
         "o": "com.obsproject.Studio",
         "💬": "cinny",

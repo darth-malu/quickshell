@@ -74,13 +74,15 @@ PanelWindow {
                             event.accepted = true;
                         } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
                             if (actualList.currentItem) {
-                                actualList.currentItem.modelData.wayland.activate();
+                                // actualList.currentItem.modelData.wayland.activate();
                                 event.accepted = true;
                                 Qt.quit();
                             }
                             event.accepted = true;
-                        } else if (event.key === Qt.Escape)
+                        } else if (event.key === Qt.Escape) {
+                            event.accepted = true;
                             Qt.quit();
+                        }
                     }
                 }
             }
@@ -92,15 +94,33 @@ PanelWindow {
                 clip: true
                 // boundsBehavior: Flickable.StopAtBounds // Optional: cleaner scrolling feel
                 model: {
-                    if (search.text === "")
-                        return Hyprland.toplevels;
-                    const searchLower = search.text.toLowerCase();
-                    return Hyprland.toplevels.values.filter(window => window.wayland.title.toLowerCase().includes(searchLower));
+                    // if (search.text === "")
+                        // pass;
+                    // TODO...use Cliphist
+                    // model: cliphist list
+                    // action: cliphist decode > wl-copy
                 }
 
                 readonly property color markerColor: Qt.rgba(63 / 255, 167 / 255, 197 / 255, 0.82)
 
                 // snapMode: ListView.SnapToItem
+
+                delegate: LauncherEntry {
+                    id: currentItem
+                    required property var modelData
+                    iconUrl: Quickshell.iconPath(modelData?.wayland.appId, "image-missing")
+                    // windowTitle: modelData.wayland.activate()
+                    // onClicked: focusTopLevel() //modelData.execute()
+                    app: Text {
+                        id: modelText
+                        text: modelData.wayland.title
+                        color: Qt.rgba(196 / 255, 203 / 255, 212 / 255, 1)
+                        font {
+                            pointSize: 11
+                            family: "Mononoki Nerd Font"
+                        }
+                    }
+                }
 
                 highlight: Item {
                     // z: 8
@@ -127,29 +147,6 @@ PanelWindow {
                             width: 2
                             radius: 5
                             color: actualList.markerColor
-                        }
-                    }
-                    // Behavior on y {
-                    //     SpringAnimation {
-                    //         spring: 3
-                    //         damping: 0.2
-                    //     }
-                    // }
-                }
-
-                delegate: CurrentItem {
-                    id: currentItem
-                    required property var modelData
-                    iconUrl: Quickshell.iconPath(modelData?.wayland.appId, "image-missing")
-                    // windowTitle: modelData.wayland.activate()
-                    // onClicked: focusTopLevel() //modelData.execute()
-                    app: Text {
-                        id: modelText
-                        text: modelData.wayland.title
-                        color: Qt.rgba(196 / 255, 203 / 255, 212 / 255, 1)
-                        font {
-                            pointSize: 11
-                            family: "Mononoki Nerd Font"
                         }
                     }
                 }
