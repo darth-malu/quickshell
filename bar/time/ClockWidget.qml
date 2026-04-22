@@ -9,10 +9,9 @@ import Quickshell
 BarBlock {
     id: root
     required property var host
-    property bool showPopup: false
-    readonly property string date: Time.date
-    readonly property string time: Time.time
-    readonly property string dateTime: Time.dateTime
+    readonly property string date: TimeService.date
+    readonly property string time: TimeService.time
+    readonly property string dateTime: TimeService.dateTime
     hoveredBg: false
     // color: 'red'
 
@@ -32,16 +31,15 @@ BarBlock {
         } else if (mouse.button === Qt.RightButton)
             NetworkState.netspeedVisible = !NetworkState.netspeedVisible;
         else if (mouse.button === Qt.MiddleButton)
-            showPopup = !showPopup;
+            MiscState.showPopup = !MiscState.showPopup;
     }
 
     content: BarText {
+        id: timeItself
         symbolText: root.time
         paddingg: 0
-        // bottomPadding: 2
-        // verticalAlignment: Text.AlignVCenter
-        font: Themes.monofur
         bottomPadding: 2
+        font: Themes.monofur
         baseColor: Themes.clockColor
     }
 
@@ -57,7 +55,42 @@ BarBlock {
         }
     }
 
-    ClockPopup {
-        hostt: root
+    LazyLoader {
+        id: lazyClock
+        loading: true
+
+        PopupWindow {
+            id: popup
+            visible: MiscState.showPopup
+            color: 'transparent'
+            // closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+
+            anchor.window: root.host
+            // anchor.rect.x: root.host.x - popup.width / 2 // TODO make this bound to clock only
+            // anchor.rect.x: root.host.x
+            anchor.rect.x: {
+                let globalPos = root.mapToGlobal(0, 0);
+                // Global X + half clock width - half popup width
+                return globalPos.x + (root.width / 2) - (width / 2);
+            }
+
+            anchor.rect.y: 33
+
+            implicitWidth: 280
+            implicitHeight: 220
+
+            Rectangle {
+                radius: 6
+                color: Qt.rgba(0.1, 0.04, 0.18, 0.7)
+                anchors.fill: parent
+                border.width: 1
+                border.color: '#A020F0'
+
+                ClockPopup {
+                    anchors.fill: parent
+                    anchors.margins: 8
+                }
+            }
+        }
     }
 }

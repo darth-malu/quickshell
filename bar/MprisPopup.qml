@@ -5,9 +5,14 @@ import qs.themes
 import Quickshell.Services.Mpris
 import Quickshell
 
+// start loading immediately
 ColumnLayout {
     id: playersContainer
     anchors.fill: parent
+
+    function focusTopLevel(window) {
+        Quickshell.execDetached(["hyprctl", "dispatch", "--", "focuswindow", "title:", `${window}`]);
+    }
 
     Repeater {
         id: playerRepeater
@@ -22,12 +27,11 @@ ColumnLayout {
             onPressed: () => {
                 let isMpd = modelData.identity === "Music Player Daemon";
 
-                if (isMpd) {
+                if (isMpd)
                     Quickshell.execDetached(["hyprctl", "dispatch", "togglespecialworkspace", "nc"]);
-                } else {
+
+                if (modelData.canRaise)
                     modelData.raise();
-                    // Qt.quit(); // Close only popup
-                }
             }
             RowLayout {
                 id: innerRow

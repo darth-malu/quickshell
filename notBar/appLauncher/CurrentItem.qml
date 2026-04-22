@@ -14,17 +14,24 @@ Rectangle {
 
     required property string iconUrl
 
+    property string command
+
     property bool isCurrentItem: (parent.currentItem == 0)
 
     property Item mouseArea: MouseArea
 
-    // signal clicked
+    property string windowTitle
 
-    property string command
+    signal clicked
 
     function launch_app2unit() {
-        Quickshell.execDetached(["hyprctl", "dispatch", "--", "exec", `[workspace emptym] app2unit -s a ${command}`]);
+        Quickshell.execDetached(["hyprctl", "dispatch", "--", "exec", "[workspace emptym] app2unit -s a " + command]);
         Qt.quit();
+    }
+
+    function focusTopLevel() {
+        let title = root.windowTitle;
+        Quickshell.execDetached(["hyprctl", "dispatch", "--", "focuswindow", "title:", `${windowTitle}`]);
     }
 
     MouseArea {

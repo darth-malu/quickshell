@@ -6,4 +6,8 @@ Singleton {
 
     property bool activateLinux: false
     property bool toggleSysTray: false
+
+    property date currentDate: new Date()
+
+    property bool showPopup: false
 }

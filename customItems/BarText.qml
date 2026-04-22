@@ -34,8 +34,8 @@ Text {
         color: parent.color
         font: parent.font
         // padding: parent.padding
-        leftPadding: root.paddingg
-        rightPadding: root.paddingg
+        leftPadding: root.leftPadding
+        rightPadding: root.rightPadding
     }
 
     DropShadow {

@@ -35,6 +35,8 @@ Scope {
 
     LazyLoader {
         active: root.shouldShowOsd
+        // loading: true
+
         // PanelWindow.visible could be set instead of using a loader, but using a loader will reduce the memory overhead when the window isn't open.
         PanelWindow {
             // Since the panel's screen is unset, it will be picked by the compositor when the window is created. Most compositors pick the current active monitor.

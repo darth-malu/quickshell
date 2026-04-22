@@ -1,78 +1,78 @@
-import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import qs.themes
+import qs.services
+import qs.customItems
 
-PopupWindow {
-    id: popup
-    required property var hostt
-    visible: hostt.showPopup
-    color: 'transparent'
-    anchor {
-        window: host
-        rect {
-            y: 33
-            x: parent.x - 105
+ColumnLayout {
+    spacing: 3
+
+    BarText {
+        font: Themes.quicksand
+        color: Themes.calendarHeader
+        Layout.alignment: Qt.AlignHCenter
+        text: Qt.formatDateTime(TimeService.currentDate, "MMMM yyyy")
+    }
+
+    DayOfWeekRow {
+        Layout.fillWidth: true
+        font: Themes.quicksand
+        delegate: Text {
+            horizontalAlignment: Text.AlignHCenter
+            color: Themes.calendarDayRow
+            text: model.shortName
+            textFormat: Text.RichText
+            renderType: Text.NativeRendering
+            font: Themes.quicksand
         }
     }
-    implicitWidth: 250
-    implicitHeight: 180
 
-    property date currentDate: new Date()
+    MonthGrid {
+        id: grid
+        Layout.fillWidth: true
+        Layout.fillHeight: true
+        month: TimeService.currentDate.getMonth()
+        year: TimeService.currentDate.getFullYear()
 
-    Timer {
-        interval: 60000 // Check every minute
-        running: true
-        repeat: true
-        onTriggered: popup.currentDate = new Date()
-    }
+        delegate: Item {
+            implicitWidth: childrenRect.width
+            implicitHeight: childrenRect.height
+            // The Purple Circle
+            Rectangle {
+                id: todayCircle
+                anchors.centerIn: parent
+                width: 24  // Adjust size to fit your grid
+                height: 24
+                radius: width / 2 // Makes it a perfect circle
 
-    Rectangle {
-        radius: 6
-        color: Qt.rgba(0.1, 0.04, 0.18, 0.7)
-        anchors.fill: parent
-        border.width: 1
-        border.color: '#A020F0'
-    }
+                // Only show if it's today
+                visible: model.today
 
-    ColumnLayout {
-        anchors.fill: parent
-        anchors.margins: 5
-        spacing: 3
+                // Purple color - using a slightly transparent version of your border color
+                color: "black"
+                opacity: 0.4  // Makes it a soft glow/background
 
-        Text {
-            font: Themes.quicksand
-            color: Themes.calendarHeader
-            Layout.alignment: Qt.AlignHCenter
-            text: Qt.formatDateTime(popup.currentDate, "MMMM yyyy")
-        }
-
-        DayOfWeekRow {
-            Layout.fillWidth: parent
-            // required property string shortName
-
-            font: Themes.quicksand
-            delegate: Text {
-                horizontalAlignment: Text.AlignHCenter
-                color: Themes.calendarDayRow
-                text: model.shortName
+                // Optional: Add a solid border to the circle
+                border.width: 1
+                border.color: 'fuchsia'
             }
-        }
 
-        MonthGrid {
-            id: grid
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            month: popup.currentDate.getMonth()
-            year: popup.currentDate.getFullYear()
-
-            delegate: Text {
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
+            Text {
+                anchors.centerIn: parent
+                // horizontalAlignment: Text.AlignHCenter
+                // verticalAlignment: Text.AlignVCenter
                 text: model.day
                 font: Themes.quicksand
-                color: model.today ? Themes.calendarToday : (model.month === grid.month ? Themes.calendarActiveMonth : Themes.calendarInactiveMonth)
+                // Logic for text color
+                color: {
+                    if (model.today)
+                        return Themes.calendarDayRow;
+
+                    if (model.month === grid.month)
+                        return "#b19cd9";
+                    return "#4a3f5d";
+                }
             }
         }
     }

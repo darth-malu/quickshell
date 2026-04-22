@@ -88,6 +88,7 @@ Loader {
                 // font.pixelSize: 11
                 // font.family: 'ZedMono Nerd Font'
                 color: "#57C4E5"
+                paddingg: 0
             }
             BarText {
                 textFormat: Text.RichText

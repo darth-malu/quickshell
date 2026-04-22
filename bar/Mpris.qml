@@ -33,34 +33,33 @@ Loader {
 
         property bool showPopup: false
 
-        PopupWindow {
-            id: popup
-            anchor {
-                window: mprisLoader.host
-                rect {
-                    x: host.width / 2 - width / 2
-                    y: 35
+        LazyLoader {
+            loading: true
+
+            PopupWindow {
+                id: popup
+
+                anchor.window: mprisLoader.host
+                anchor.rect.x: mprisLoader.host.width / 2 - width / 2
+                anchor.rect.y: 35
+                visible: mprisRoot.showPopup
+                color: 'transparent'
+                implicitWidth: Math.min(600, mprisPopupRectangle.implicitWidth + 10)
+                implicitHeight: mprisPopupRectangle.implicitHeight + 20
+
+                WrapperRectangle {
+                    id: mprisPopupRectangle
+                    radius: 6
+                    anchors.fill: parent
+                    // implicitWidth: playersContainer.implicitWidth
+                    // implicitWidth: 150
+
+                    color: Qt.rgba(0.1, 0.04, 0.18, 0.7) // The "Glass" Color - Dark with a purple tint and transparency
+                    border.width: 1
+                    border.color: '#A020F0'
+
+                    MprisPopup {}
                 }
-            }
-            visible: mprisRoot.showPopup
-            color: 'transparent'
-            implicitWidth: Math.min(600, mprisPopupRectangle.implicitWidth + 10)
-            implicitHeight: mprisPopupRectangle.implicitHeight + 20
-
-            WrapperRectangle {
-                id: mprisPopupRectangle
-                radius: 6
-                anchors.fill: parent
-                // implicitWidth: playersContainer.implicitWidth
-                // implicitWidth: 150
-
-                color: Qt.rgba(0.1, 0.04, 0.18, 0.7) // The "Glass" Color - Dark with a purple tint and transparency
-                border {
-                    width: 1
-                    color: "#A020F0" // Qt.rgba(0.63, 0.13, 0.94, 0.3)
-                }
-
-                MprisPopup {}
             }
         }
 

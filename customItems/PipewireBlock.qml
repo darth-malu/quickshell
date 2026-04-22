@@ -30,6 +30,7 @@ BarBlock {
             color: root.volumeColor
             renderNative: true
             font: Themes.zedMono
+            leftPadding: 0
             MouseArea {
                 anchors.fill: parent
                 acceptedButtons: Qt.LeftButton | Qt.RightButton | PointerDevice.Mouse | PointerDevice.TouchPad

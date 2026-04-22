@@ -4,7 +4,8 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick
 
-import Quickshell.Wayland
+// import Quickshell.Wayland
+// TODO: make this launch only once per invocation
 
 PanelWindow {
     id: launcher
@@ -14,8 +15,8 @@ PanelWindow {
     focusable: true
     exclusionMode: ExclusionMode.Ignore
 
-    WlrLayershell.keyboardFocus: WlrLayerShell.OnDemand
-    WlrLayershell.layer: WlrLayer.Overlay
+    // WlrLayershell.keyboardFocus: WlrLayerShell.OnDemand
+    // WlrLayershell.layer: WlrLayer.Overlay
 
     onVisibleChanged: {
         if (visible) {
@@ -23,22 +24,6 @@ PanelWindow {
         }
     }
 
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        hoverEnabled: true
-        acceptedButtons: Qt.LeftButton | PointerDevice.Mouse | PointerDevice.TouchPad
-        onExited: {
-            if (!containsMouse)
-                Qt.quit();
-        }
-        propagateComposedEvents: true
-        // z: 1
-        // onContainsMouseChanged: {
-        //     if (!containsMouse && !search.hovered)
-        //         Qt.quit();
-        // }
-    }
     Rectangle {
         id: wrap
         color: Qt.rgba(12 / 255, 44 / 255, 44 / 255, 0.9) // "#282a36" //"#1e1e2e"
@@ -48,10 +33,8 @@ PanelWindow {
             color: Qt.rgba(63 / 255, 167 / 255, 197 / 255, 0.42)
             width: 1
         }
-        // TODO async load of apps etc
 
         Keys.onEscapePressed: Qt.quit()
-
         ColumnLayout {
             anchors.fill: parent
             anchors.margins: 10
@@ -59,23 +42,23 @@ PanelWindow {
 
             RowLayout {
                 spacing: 20
-
-                IconImage {
-                    Layout.preferredWidth: 15
-                    Layout.leftMargin: 10
-                    source: Quickshell.iconPath("system-search-symbolic", "🔍")
-                    implicitWidth: 18
-                    implicitHeight: 18
+                Text {
+                    text: "  "
+                    color: Qt.rgba(63 / 255, 167 / 255, 197 / 255, 0.82)
+                    horizontalAlignment: Qt.AlignRight
                 }
 
                 TextField {
                     id: search
                     Layout.fillWidth: true
                     Layout.bottomMargin: 2
-                    enabled: true
-                    hoverEnabled: true
+                    // enabled: true
+                    // hoverEnabled: true // whether this TF accepts hover events
                     maximumLength: 10
                     color: search.enabled ? Qt.rgba(171 / 255, 141 / 255, 237 / 255, 1) : 'red'
+                    // implicitBackgroundHeight: 10
+                    // implicitBackgroundWidth: 10
+                    rightInset: 20
                     background: Rectangle {
                         color: 'transparent'
                     }
@@ -103,6 +86,22 @@ PanelWindow {
                 Layout.fillHeight: true
                 // clip: true
                 // boundsBehavior: Flickable.StopAtBounds // Optional: cleaner scrolling feel
+                MouseArea {
+                    id: mouseArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    acceptedButtons: Qt.LeftButton | PointerDevice.Mouse | PointerDevice.TouchPad
+                    onExited: {
+                        if (!containsMouse)
+                            Qt.quit();
+                    }
+                    propagateComposedEvents: true
+                    // z: 1
+                    // onContainsMouseChanged: {
+                    //     if (!containsMouse && !search.hovered)
+                    //         Qt.quit();
+                    // }
+                }
                 model: {
                     if (search.text === "")
                         return DesktopEntries.applications.values;
