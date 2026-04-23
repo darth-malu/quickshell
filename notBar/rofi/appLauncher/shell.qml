@@ -153,7 +153,6 @@ PanelWindow {
                 }
 
                 delegate: LauncherEntry {
-                    id: currentItem
                     required property DesktopEntry modelData
                     command: modelData.command.join(' ')
                     iconUrl: Quickshell.iconPath(modelData.icon, "image-missing")

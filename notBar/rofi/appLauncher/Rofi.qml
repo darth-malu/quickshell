@@ -4,9 +4,6 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick
 
-// import Quickshell.Wayland
-// import Quickshell.Hyprland
-
 PanelWindow {
     id: launcher
     implicitWidth: 580          // TODO...clamp max min
@@ -19,6 +16,8 @@ PanelWindow {
 
     // WlrLayershell.keyboardFocus: WlrLayerShell.OnDemand
     // WlrLayershell.layer: WlrLayer.Overlay
+    required property var modelIngest
+    required property Component delegateIngest
 
     onVisibleChanged: {
         if (visible) {
@@ -89,18 +88,28 @@ PanelWindow {
                 }
             }
 
-            Item {
-                id: listIngester
-                children: launcher.content
-                implicitWidth: launcher.content.implicitWidth
-                implicitHeight: launcher.content.implicitHeight
-                // This ensures that if the ingested list changes,
-                // it fills the available layout space
-                // onChildrenChanged: {
-                //     if (children[0]) {
-                //         children[0].anchors.fill = agnosticListIngester;
-                //     }
-                // }
+            ListView {
+                id: itemLauncher
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                clip: true
+                // highlightMoveDuration: 150
+
+                signal accepted(var item)
+
+                // required property var model
+
+                property var inputText
+
+                // property alias modelIngest: root.model
+
+                // TODO outsrc this
+                model: launcher.modelIngest
+
+                highlight: HighlightItem {}
+
+                // TODO outsrc this
+                delegate: launcher.delegateIngest
             }
         }
     }

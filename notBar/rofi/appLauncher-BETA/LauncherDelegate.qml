@@ -10,11 +10,13 @@ Rectangle {
     color: "transparent"
 
     // default property alias content: appName.data // data is the contents of an instance children list
-    default property Item app
+    default required property Item app
 
     required property string iconUrl
 
     property var command
+
+    property var delegateMD
 
     property bool isCurrentItem: (parent.currentItem == 0)
 
@@ -35,6 +37,15 @@ Rectangle {
         Quickshell.execDetached(["hyprctl", "dispatch", "--", "focuswindow", "title:", `${windowTitle}`]);
     }
 
+    function execute() {
+        // if (delegateMD && delegateMD.exec) {
+        // Use the 'exec' property from your model data
+        // Quickshell.execDetached(["hyprctl", "dispatch", "exec", `[workspace emptym] app2unit -s a "${delegateMD.exec}"`]);
+        Quickshell.execDetached(["notify-send", "works"]);
+
+    // Qt.quit();
+    // }
+    }
     MouseArea {
         id: mouseArea
         anchors.fill: root

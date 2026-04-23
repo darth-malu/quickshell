@@ -104,56 +104,13 @@ PanelWindow {
 
                 // snapMode: ListView.SnapToItem
 
-                highlight: Item {
-                    // z: 8
-                    ClippingRectangle {
-                        id: currentItemBg
-                        anchors.fill: parent
-                        color: Qt.rgba(72 / 255, 191 / 255, 227 / 255, 0.2)
-                        radius: 2
-                        Rectangle {
-                            id: markerLeft
-                            anchors.left: parent.left
-                            anchors.top: parent.top
-                            anchors.bottom: parent.bottom
-                            width: 2
-                            color: actualList.markerColor
-                            radius: 5
-                        }
-
-                        Rectangle {
-                            id: markerRight
-                            anchors.right: parent.right
-                            anchors.top: parent.top
-                            anchors.bottom: parent.bottom
-                            width: 2
-                            radius: 5
-                            color: actualList.markerColor
-                        }
-                    }
-                    // Behavior on y {
-                    //     SpringAnimation {
-                    //         spring: 3
-                    //         damping: 0.2
-                    //     }
-                    // }
-                }
+                highlight: HighlightItem {}
 
                 delegate: LauncherDelegate {
                     id: currentItem
                     required property var modelData
                     iconUrl: Quickshell.iconPath(modelData?.wayland.appId, "image-missing")
-                    // windowTitle: modelData.wayland.activate()
-                    // onClicked: focusTopLevel() //modelData.execute()
-                    app: Text {
-                        id: modelText
-                        text: modelData.wayland ? modelData.wayland.title : modelData.title
-                        color: Qt.rgba(196 / 255, 203 / 255, 212 / 255, 1)
-                        font {
-                            pointSize: 11
-                            family: "Mononoki Nerd Font"
-                        }
-                    }
+                    app: TopLevelText {}
                 }
             }
         }

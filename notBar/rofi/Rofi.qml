@@ -4,9 +4,6 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick
 
-// import Quickshell.Wayland
-import Quickshell.Hyprland
-
 PanelWindow {
     id: launcher
     implicitWidth: 580          // TODO...clamp max min
@@ -15,8 +12,12 @@ PanelWindow {
     focusable: true
     exclusionMode: ExclusionMode.Ignore
 
+    default property Item content     // TODO see if ListView type works directly...inherits from flickable
+
     // WlrLayershell.keyboardFocus: WlrLayerShell.OnDemand
     // WlrLayershell.layer: WlrLayer.Overlay
+    required property var modelIngest
+    required property Component delegateIngest
 
     onVisibleChanged: {
         if (visible) {
@@ -67,14 +68,14 @@ PanelWindow {
                     }
                     Keys.onPressed: event => {
                         if (event.key === Qt.Key_Up || (event.key === Qt.Key_K && event.modifiers & Qt.ControlModifier)) {
-                            actualList.decrementCurrentIndex();
+                            itemLauncher.decrementCurrentIndex();
                             event.accepted = true;
                         } else if (event.key === Qt.Key_Down || (event.key === Qt.Key_J && event.modifiers & Qt.ControlModifier)) {
-                            actualList.incrementCurrentIndex();
+                            itemLauncher.incrementCurrentIndex();
                             event.accepted = true;
                         } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                            if (actualList.currentItem) {
-                                // actualList.currentItem.modelData.wayland.activate();
+                            if (itemLauncher.currentItem) {
+                                itemLauncher.currentItem.modelData.wayland.activate();
                                 event.accepted = true;
                                 Qt.quit();
                             }
@@ -88,68 +89,27 @@ PanelWindow {
             }
 
             ListView {
-                id: actualList
+                id: itemLauncher
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 clip: true
-                // boundsBehavior: Flickable.StopAtBounds // Optional: cleaner scrolling feel
-                model: {
-                    // if (search.text === "")
-                        // pass;
-                    // TODO...use Cliphist
-                    // model: cliphist list
-                    // action: cliphist decode > wl-copy
-                }
+                // highlightMoveDuration: 150
 
-                readonly property color markerColor: Qt.rgba(63 / 255, 167 / 255, 197 / 255, 0.82)
+                signal accepted(var item)
 
-                // snapMode: ListView.SnapToItem
+                // required property var model
 
-                delegate: LauncherEntry {
-                    id: currentItem
-                    required property var modelData
-                    iconUrl: Quickshell.iconPath(modelData?.wayland.appId, "image-missing")
-                    // windowTitle: modelData.wayland.activate()
-                    // onClicked: focusTopLevel() //modelData.execute()
-                    app: Text {
-                        id: modelText
-                        text: modelData.wayland.title
-                        color: Qt.rgba(196 / 255, 203 / 255, 212 / 255, 1)
-                        font {
-                            pointSize: 11
-                            family: "Mononoki Nerd Font"
-                        }
-                    }
-                }
+                property var inputText
 
-                highlight: Item {
-                    // z: 8
-                    ClippingRectangle {
-                        id: currentItemBg
-                        anchors.fill: parent
-                        color: Qt.rgba(72 / 255, 191 / 255, 227 / 255, 0.2)
-                        radius: 2
-                        Rectangle {
-                            id: markerLeft
-                            anchors.left: parent.left
-                            anchors.top: parent.top
-                            anchors.bottom: parent.bottom
-                            width: 2
-                            color: actualList.markerColor
-                            radius: 5
-                        }
+                // property alias modelIngest: root.model
 
-                        Rectangle {
-                            id: markerRight
-                            anchors.right: parent.right
-                            anchors.top: parent.top
-                            anchors.bottom: parent.bottom
-                            width: 2
-                            radius: 5
-                            color: actualList.markerColor
-                        }
-                    }
-                }
+                // TODO outsrc this
+                model: launcher.modelIngest
+
+                highlight: HighlightItem {}
+
+                // TODO outsrc this
+                delegate: launcher.delegateIngest
             }
         }
     }
