@@ -23,7 +23,7 @@ PanelWindow {
     focusable: true
     exclusionMode: ExclusionMode.Ignore
 
-    default property Item content
+    property Item content
 
     // WlrLayershell.keyboardFocus: WlrLayerShell.OnDemand
     // WlrLayershell.layer: WlrLayer.Overlay

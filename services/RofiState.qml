@@ -1,8 +1,10 @@
 pragma Singleton
 import Quickshell
+import Quickshell.Io
 import Quickshell.Hyprland
 
 Singleton {
+    id: rofiMaster
     // OPENWINDOWS
     readonly property var topLevels: Hyprland.toplevels.values
 
@@ -37,11 +39,17 @@ Singleton {
     }
 
     function toggler() {
+        // Quickshell.execDetached(["notify-send", `${clipHist}`]);
         if (toggleClipHist)
             toggleClipHist = !toggleClipHist;
         else if (toggleAppLauncher)
             toggleAppLauncher = !toggleAppLauncher;
-        else if (toggleOpenWindows)
+        else if (toggleOpenWindows) {
+            // Quickshell.execDetached(["notify-send", "This works"]);
             toggleOpenWindows = !toggleOpenWindows;
+        } else if (toggleClipHist) {
+            // Quickshell.execDetached(["notify-send", "This works"]);
+            toggleClipHist = !toggleClipHist;
+        }
     }
 }

@@ -122,6 +122,13 @@ Item {
     }
 
     IpcHandler {
+        target: 'clipHist'
+        function toggle(): void {
+            RofiState.toggleClipHist = !RofiState.toggleClipHist;
+        }
+    }
+
+    IpcHandler {
         target: 'SysTray'
         function toggle(): void {
             MiscState.toggleSysTray = !MiscState.toggleSysTray;
