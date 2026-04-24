@@ -11,6 +11,6 @@ Rofi {
     delegateIngest: LauncherDelegate {
         required property var modelData
         iconUrl: Quickshell.iconPath(modelData.icon, "image-missing")
-        app: TextAppLauncherDelegate {}
+        app: TextLauncherDelegate {}
     }
 }
