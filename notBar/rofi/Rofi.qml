@@ -3,21 +3,34 @@ import Quickshell.Widgets
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick
+import qs.services
+
+/* what this is?
++ This is a panel window with a list view inside it
++ it ingests:
+  + model
+  + delegate
+  + ingests
+  + iconUrl
+  +app
+*/
 
 PanelWindow {
     id: launcher
-    implicitWidth: 580          // TODO...clamp max min
-    implicitHeight: 250
+    implicitWidth: RofiState.width
+    implicitHeight: RofiState.height
     color: "transparent"
     focusable: true
     exclusionMode: ExclusionMode.Ignore
 
-    default property Item content     // TODO see if ListView type works directly...inherits from flickable
+    default property Item content
 
     // WlrLayershell.keyboardFocus: WlrLayerShell.OnDemand
     // WlrLayershell.layer: WlrLayer.Overlay
     required property var modelIngest
     required property Component delegateIngest
+
+    property alias searchField: search.text
 
     onVisibleChanged: {
         if (visible) {
@@ -34,8 +47,6 @@ PanelWindow {
             color: Qt.rgba(63 / 255, 167 / 255, 197 / 255, 0.42)
             width: 1
         }
-
-        Keys.onEscapePressed: Qt.quit()
 
         child: ColumnLayout {
             anchors.fill: parent
@@ -75,14 +86,19 @@ PanelWindow {
                             event.accepted = true;
                         } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
                             if (itemLauncher.currentItem) {
-                                itemLauncher.currentItem.modelData.wayland.activate();
+                                if (RofiState.toggleOpenWindows)
+                                    // Current Item is a Window(toplevel)
+                                    itemLauncher.currentItem.modelData.wayland.activate();
+                                else if (RofiState.toggleAppLauncher)
+                                    // Current Items is a DesktopEntry.
+                                    itemLauncher.currentItem.modelData.execute();
+                                RofiState.toggler();
                                 event.accepted = true;
-                                Qt.quit();
                             }
                             event.accepted = true;
-                        } else if (event.key === Qt.Escape) {
+                        } else if (event.key === Qt.Key_Escape) {
+                            RofiState.toggler();
                             event.accepted = true;
-                            Qt.quit();
                         }
                     }
                 }
@@ -108,7 +124,6 @@ PanelWindow {
 
                 highlight: HighlightItem {}
 
-                // TODO outsrc this
                 delegate: launcher.delegateIngest
             }
         }

@@ -1,13 +1,14 @@
 import QtQuick
-import Quickshell.Hyprland
 import Quickshell
+import qs.services
+import qs.notBar.rofi
 
 Rofi {
-    content: LauncherListView {}
-    modelIngest: Hyprland.toplevels
+    visible: RofiState.toggleOpenWindows
+    modelIngest: RofiState.filterWindows(searchField)
     delegateIngest: LauncherDelegate {
         required property var modelData
         iconUrl: Quickshell.iconPath(modelData?.wayland.appId, "image-missing")
-        app: TopLevelText {}
+        app: DelegateText {}
     }
 }

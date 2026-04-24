@@ -45,7 +45,7 @@ PanelWindow {
             width: 1
         }
 
-        Keys.onEscapePressed: Qt.quit()
+        Keys.onEscapePressed: MiscState.toggleAppLauncher = !MiscState.toggleAppLauncher
 
         child: ColumnLayout {
             anchors.fill: parent
@@ -89,7 +89,7 @@ PanelWindow {
                         if (itemLauncher.currentItem) {
                             itemLauncher.currentItem.modelData.execute();
                             Quickshell.execDetached(["notify-send", `${itemLauncher.currentItem.modelData.execute}`]);
-                            Qt.quit();
+                            MiscState.toggleAppLauncher = !MiscState.toggleAppLauncher;
                         }
                     }
                 }

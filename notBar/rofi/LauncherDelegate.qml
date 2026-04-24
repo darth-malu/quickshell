@@ -3,7 +3,6 @@ import QtQuick.Layouts
 import Quickshell.Widgets
 import Quickshell
 
-// NOTE This is the delegate for the listview
 Rectangle {
     id: root
     width: parent.width
@@ -17,32 +16,22 @@ Rectangle {
 
     property var command
 
+    property Component delegateMD
+
     property bool isCurrentItem: (parent.currentItem == 0)
 
-    property Item mouseArea: MouseArea
+    property MouseArea mouseArea: mouseArea
 
     property string windowTitle
 
     signal clicked
 
-    function launch_app2unit() {
-        // Ensure the command after 'exec' is a single string
-        Quickshell.execDetached(["notify-send", `your cmd: "${command}"`]);
-        Quickshell.execDetached(["hyprctl", "dispatch", "exec", `[workspace emptym] app2unit -s a "${command}"`]);
-    }
-
-    function focustoplevel() {
-        let title = root.windowTitle;
-    // Quickshell.execDetached(["hyprctl", "dispatch", "--", "focuswindow", "title:", `${windowTitle}`]);
-    // TODO: use wayland activate
-    // Activate per top level
-    }
-
     MouseArea {
         id: mouseArea
+        enabled: false
         anchors.fill: root
         hoverEnabled: true
-        onClicked: root.launch_app2unit()
+        // onClicked: root.launch_app2unit()
         acceptedButtons: Qt.LeftButton | PointerDevice.Mouse | PointerDevice.TouchPad
     }
 

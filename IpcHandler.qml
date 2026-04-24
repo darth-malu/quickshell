@@ -1,7 +1,7 @@
 import qs.services
 import QtQuick
 import Quickshell.Io
-import Quickshell
+import qs.notBar.rofi.openWindows
 
 Item {
     id: root
@@ -101,9 +101,23 @@ Item {
     }
 
     IpcHandler {
+        target: 'appLauncher'
+        function toggle(): void {
+            RofiState.toggleAppLauncher = !RofiState.toggleAppLauncher;
+        }
+    }
+
+    IpcHandler {
         target: 'activate'
         function toggle(): void {
             MiscState.activateLinux = !MiscState.activateLinux;
+        }
+    }
+
+    IpcHandler {
+        target: 'openWindows'
+        function toggle(): void {
+            RofiState.toggleOpenWindows = !RofiState.toggleOpenWindows;
         }
     }
 

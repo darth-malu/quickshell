@@ -43,7 +43,6 @@ Rectangle {
         // Quickshell.execDetached(["hyprctl", "dispatch", "exec", `[workspace emptym] app2unit -s a "${delegateMD.exec}"`]);
         Quickshell.execDetached(["notify-send", "works"]);
 
-    // Qt.quit();
     // }
     }
     MouseArea {
