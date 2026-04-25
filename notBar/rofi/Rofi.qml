@@ -85,23 +85,33 @@ PanelWindow {
                             itemLauncher.incrementCurrentIndex();
                             event.accepted = true;
                         } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                            if (itemLauncher.currentItem) {
+                            let current = itemLauncher.currentItem;
+                            if (current) {
                                 if (RofiState.toggleOpenWindows)
                                     // Current Item is a Window(toplevel)
-                                    itemLauncher.currentItem.modelData.wayland.activate();
+                                    current.modelData.wayland.activate();
                                 else if (RofiState.toggleAppLauncher)
                                     // Current Items is a DesktopEntry.
-                                    itemLauncher.currentItem.modelData.execute();
+                                    current.modelData.execute();
+                                else if (RofiState.toggleClipHist) {
+                                    // Current Items is a String of Number\tString.
+                                    Quickshell.execDetached(["bash", "-c", "cliphist decode <<EOF | wl-copy\n" + current.modelData + "\nEOF"]);
+                                }
                                 RofiState.toggler();
+                                search.text = "";
                                 event.accepted = true;
                             }
                             event.accepted = true;
                         } else if (event.key === Qt.Key_Escape) {
                             RofiState.toggler();
+                            search.text = "";
                             event.accepted = true;
                         }
                     }
                 }
+            }
+
+            function copier() {
             }
 
             ListView {

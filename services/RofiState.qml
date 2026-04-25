@@ -41,15 +41,15 @@ Singleton {
     function toggler() {
         // Quickshell.execDetached(["notify-send", `${clipHist}`]);
         if (toggleClipHist)
+            // Quickshell.execDetached(["notify-send", "This works"]);
+            // TODO: -> cliphist decode
+            // -> wl-copy
             toggleClipHist = !toggleClipHist;
         else if (toggleAppLauncher)
             toggleAppLauncher = !toggleAppLauncher;
         else if (toggleOpenWindows) {
             // Quickshell.execDetached(["notify-send", "This works"]);
             toggleOpenWindows = !toggleOpenWindows;
-        } else if (toggleClipHist) {
-            // Quickshell.execDetached(["notify-send", "This works"]);
-            toggleClipHist = !toggleClipHist;
         }
     }
 }
