@@ -8,26 +8,20 @@ Rofi {
     id: root
     visible: RofiState.toggleClipHist
 
-    modelIngest: clipHist
+    modelIngest: jsonData
 
-    property var clipHist: []
+    property var clipHist
 
-    Process {
-        id: grabber
-        command: ["cliphist", "list"]
-        running: true
-        stdout: SplitParser {
-            onRead: data => {
-                root.clipHist = [...root.clipHist, data];
-            }
-        }
-        // Reset the list when the process starts so you don't get duplicates
-        onStarted: root.clipHist = []
+    FileView {
+        id: clipmanJson
+        path: "file:///home/malu/.local/share/clipman.json"
+
+        watchChanges: true      // when changes are made on disk reload the file's content
+        onFileChanged: reload()
+        // onLoaded: root.processJson()
     }
-    // onClipHistChanged: {
-    //     root.clipHist.map(x => console.log(x));
-    // }
-    // LIST -> select item -> decode -> wl-copy
+
+    readonly property var jsonData: JSON.parse(clipmanJson.text())
 
     delegateIngest: LauncherDelegate {
         required property var modelData

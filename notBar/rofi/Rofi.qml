@@ -84,6 +84,8 @@ PanelWindow {
                         } else if (event.key === Qt.Key_Down || (event.key === Qt.Key_J && event.modifiers & Qt.ControlModifier)) {
                             itemLauncher.incrementCurrentIndex();
                             event.accepted = true;
+                        } else if (event.key == Qt.ControlModifier && Qt.Key_Return) {
+                            //DELETE STUFF HERE
                         } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
                             let current = itemLauncher.currentItem;
                             if (current) {
@@ -95,7 +97,9 @@ PanelWindow {
                                     current.modelData.execute();
                                 else if (RofiState.toggleClipHist) {
                                     // Current Items is a String of Number\tString.
+                                    // Quickshell.clipboardText = current.modelData;
                                     Quickshell.execDetached(["bash", "-c", "cliphist decode <<EOF | wl-copy\n" + current.modelData + "\nEOF"]);
+                                    // Quickshell.execDetached(["notify-send", `${Quickshell.clipboardText}`]);
                                 }
                                 RofiState.toggler();
                                 search.text = "";
