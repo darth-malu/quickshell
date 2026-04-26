@@ -97,8 +97,8 @@ PanelWindow {
                                     current.modelData.execute();
                                 else if (RofiState.toggleClipHist) {
                                     // Current Items is a String of Number\tString.
-                                    // Quickshell.clipboardText = current.modelData;
-                                    Quickshell.execDetached(["bash", "-c", "cliphist decode <<EOF | wl-copy\n" + current.modelData + "\nEOF"]);
+                                    Quickshell.clipboardText = current.modelData;
+                                    // Quickshell.execDetached(["bash", "-c", "cliphist decode <<EOF | wl-copy\n" + current.modelData + "\nEOF"]);
                                     // Quickshell.execDetached(["notify-send", `${Quickshell.clipboardText}`]);
                                 }
                                 RofiState.toggler();
