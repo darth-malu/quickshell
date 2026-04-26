@@ -106,6 +106,8 @@ PanelWindow {
                             RofiState.toggler();
                             search.text = "";
                             event.accepted = true;
+                            // itemLauncher.positionViewAtBeginning();
+                            itemLauncher.currentIndex = 0;
                         }
                     }
                 }
@@ -119,7 +121,9 @@ PanelWindow {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 clip: true
-                // highlightMoveDuration: 150
+                highlightMoveDuration: 150
+                // highlightRangeMode: ListView.StrictlyEnforceRange
+                keyNavigationWraps: true
 
                 signal accepted(var item)
 

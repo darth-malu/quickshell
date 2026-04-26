@@ -8,8 +8,9 @@ Rofi {
     id: root
     visible: RofiState.toggleClipHist
 
-    property var clipHist: []
     modelIngest: clipHist
+
+    property var clipHist: []
 
     Process {
         id: grabber
@@ -21,9 +22,8 @@ Rofi {
             }
         }
         // Reset the list when the process starts so you don't get duplicates
-        // onStarted: root.clipHist = []
+        onStarted: root.clipHist = []
     }
-
     // onClipHistChanged: {
     //     root.clipHist.map(x => console.log(x));
     // }
